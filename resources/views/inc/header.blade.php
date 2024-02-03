@@ -60,6 +60,10 @@
     .page-logo-text {
         flex: .5 0 auto !important;
     }
+
+    .modal {
+        top: 20%;
+    }
 </style>
 @yield('extended-css')
 

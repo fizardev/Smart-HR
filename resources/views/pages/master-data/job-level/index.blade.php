@@ -88,7 +88,6 @@
         /* demo scripts for change table color */
         /* change background */
         $(document).ready(function() {
-
             $('.btn-edit').click(function(e) {
                 e.preventDefault();
                 let button = $(this);
@@ -120,8 +119,9 @@
                         data: formData,
                         beforeSend: function() {
                             $('#update-form').find('.ikon-edit').hide();
-                            $('#update-form').find('.spinner-text').removeClass(
-                                'd-none');
+                            $('#update-form').find('.spinner-text')
+                                .removeClass(
+                                    'd-none');
                         },
                         success: function(response) {
                             $('#ubah-data').modal('hide');

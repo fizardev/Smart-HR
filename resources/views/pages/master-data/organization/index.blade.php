@@ -192,7 +192,7 @@
             });
 
             $('#dt-basic-example').dataTable({
-                responsive: true
+                responsive: true,
             });
 
             $('.js-thead-colors a').on('click', function() {

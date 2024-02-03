@@ -1,4 +1,4 @@
-<div class="modal fade font-weight-bold" id="tambah-data" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade font-weight-bold p-0" id="tambah-data" tabindex="-2" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <form autocomplete="off" novalidate method="post" id="store-form">

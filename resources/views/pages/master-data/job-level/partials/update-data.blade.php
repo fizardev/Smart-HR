@@ -1,4 +1,4 @@
-<div class="modal fade font-weight-bold" id="ubah-data" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade font-weight-bold p-0" id="ubah-data" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <form autocomplete="off" action="#" novalidate method="post" id="update-form">
