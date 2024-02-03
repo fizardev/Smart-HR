@@ -50,13 +50,15 @@
                     <span class="nav-link-text" data-i18n="nav.application_user">Users</span>
                 </a>
             </li>
-            <li class="{{ set_active_mainmenu(['dashboard/company', 'dashboard/organizations']) }}">
+            <li
+                class="{{ set_active_mainmenu(['dashboard/company', 'dashboard/organizations', 'dashboard/job-level', 'dashboard/job-position']) }}">
                 <a href="#" title="Settings" data-filter-tags="application user">
                     <i class='bx bx-cube'></i>
                     <span class="nav-link-text" data-i18n="nav.application_user">Master Data</span>
                 </a>
                 <ul>
-                    <li class="{{ set_active_mainmenu(['dashboard/company', 'dashboard/organizations']) }}">
+                    <li
+                        class="{{ set_active_mainmenu(['dashboard/company', 'dashboard/organizations', 'dashboard/job-level', 'dashboard/job-position']) }}">
                         <a href="#" title="Application Intel" data-filter-tags="application intel">
                             <i class="fas fa-building"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Perusahaan</span>
@@ -75,16 +77,16 @@
                                         data-i18n="nav.application_organization">Organisasi</span>
                                 </a>
                             </li>
-                            <li class="{{ set_active('dashboard/company') }}">
+                            <li class="{{ set_active('dashboard/job-level') }}">
                                 <a href="{{ route('job-level') }}" title="Organisasi Perusahaan"
                                     data-filter-tags="dashboard settings  company perusahaan job level">
                                     <span class="nav-link-text" data-i18n="nav.application_company">Job Level</span>
                                 </a>
                             </li>
-                            <li class="{{ set_active('dashboard/company') }}">
-                                <a href="/dashboard/company" title="Organisasi Perusahaan"
-                                    data-filter-tags="dashboard settings  company perusahaan job position">
-                                    <span class="nav-link-text" data-i18n="nav.application_company">Job
+                            <li class="{{ set_active('dashboard/job-position') }}">
+                                <a href="/dashboard/job-position" title="Organisasi Perusahaan"
+                                    data-filter-tags="dashboard settings  perusahaan job position">
+                                    <span class="nav-link-text" data-i18n="nav.application_job-position">Job
                                         Position</span>
                                 </a>
                             </li>

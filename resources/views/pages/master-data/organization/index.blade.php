@@ -124,7 +124,6 @@
                                 'd-none');
                         },
                         success: function(response) {
-
                             $('#ubah-data').modal('hide');
                             showSuccessAlert(response.message)
                             setTimeout(function() {
@@ -151,6 +150,8 @@
                             'd-none');
                     },
                     success: function(response) {
+                        $('#store-form').find('.ikon-edit').show();
+                        $('#store-form').find('.spinner-text').addClass('d-none');
                         $('#tambah-data').modal('hide');
                         showSuccessAlert(response.message)
                         setTimeout(function() {
@@ -177,6 +178,8 @@
                             'd-none');
                     },
                     success: function(response) {
+                        button.find('.ikon-edit').show();
+                        button.find('.spinner-text').addClass('d-none');
                         showSuccessAlert(response.message)
                         setTimeout(function() {
                             location.reload();

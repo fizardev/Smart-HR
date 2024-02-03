@@ -98,7 +98,7 @@
 
                 $.ajax({
                     type: "GET", // Method pengiriman data bisa dengan GET atau POST
-                    url: `/api/dashboard/organization/get/${id}`, // Isi dengan url/path file php yang dituju
+                    url: `/api/dashboard/job-level/get/${id}`, // Isi dengan url/path file php yang dituju
                     dataType: "json",
                     success: function(data) {
                         button.find('.ikon-edit').show();
@@ -116,7 +116,7 @@
                     let formData = $(this).serialize();
                     $.ajax({
                         type: "POST",
-                        url: '/api/dashboard/organization/update/' + id,
+                        url: '/api/dashboard/job-level/update/' + id,
                         data: formData,
                         beforeSend: function() {
                             $('#update-form').find('.ikon-edit').hide();
@@ -124,7 +124,6 @@
                                 'd-none');
                         },
                         success: function(response) {
-
                             $('#ubah-data').modal('hide');
                             showSuccessAlert(response.message)
                             setTimeout(function() {
@@ -143,7 +142,7 @@
                 let formData = $(this).serialize();
                 $.ajax({
                     type: "POST",
-                    url: '/api/dashboard/organization/store/',
+                    url: '/api/dashboard/job-level/store/',
                     data: formData,
                     beforeSend: function() {
                         $('#store-form').find('.ikon-tambah').hide();
@@ -151,6 +150,8 @@
                             'd-none');
                     },
                     success: function(response) {
+                        $('#store-form').find('.ikon-edit').show();
+                        $('#store-form').find('.spinner-text').addClass('d-none');
                         $('#tambah-data').modal('hide');
                         showSuccessAlert(response.message)
                         setTimeout(function() {
@@ -170,13 +171,15 @@
                 let id = button.attr('data-id');
                 $.ajax({
                     type: "GET",
-                    url: '/api/dashboard/organization/delete/' + id,
+                    url: '/api/dashboard/job-level/delete/' + id,
                     beforeSend: function() {
                         button.find('.ikon-hapus').hide();
                         button.find('.spinner-text').removeClass(
                             'd-none');
                     },
                     success: function(response) {
+                        button.find('.ikon-edit').show();
+                        button.find('.spinner-text').addClass('d-none');
                         showSuccessAlert(response.message)
                         setTimeout(function() {
                             location.reload();

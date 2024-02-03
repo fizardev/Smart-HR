@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\CompanyController;
 use App\Http\Controllers\API\GetDataByIdController;
+use App\Http\Controllers\API\JobLevelController;
 use App\Http\Controllers\API\OrganizationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,8 +25,16 @@ Route::prefix('dashboard')->group(function () {
     //company
     Route::post('/company/{id}', [CompanyController::class, 'update']);
     //organization
-    Route::post('/organization/store/', [OrganizationController::class, 'store']);
-    Route::put('/organization/update/{id}', [OrganizationController::class, 'update']);
-    Route::get('/organization/get/{id}', [OrganizationController::class, 'getOrganization']);
-    Route::get('/organization/delete/{id}', [OrganizationController::class, 'destroy']);
+    Route::prefix('organization')->group(function () {
+        Route::post('/store', [OrganizationController::class, 'store']);
+        Route::put('/update/{id}', [OrganizationController::class, 'update']);
+        Route::get('/get/{id}', [OrganizationController::class, 'getOrganization']);
+        Route::get('/delete/{id}', [OrganizationController::class, 'destroy']);
+    });
+    Route::prefix('job-level')->group(function () {
+        Route::post('/store', [JobLevelController::class, 'store']);
+        Route::put('/update/{id}', [JobLevelController::class, 'update']);
+        Route::get('/get/{id}', [JobLevelController::class, 'getJobLevel']);
+        Route::get('/delete/{id}', [JobLevelController::class, 'destroy']);
+    });
 });
