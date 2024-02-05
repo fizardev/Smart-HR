@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
 use App\Models\JobLevel;
+use App\Models\JobPosition;
 use App\Models\Organization;
 use Illuminate\Http\Request;
 
@@ -26,6 +27,13 @@ class DashboardController extends Controller
     {
         return view('pages.master-data.job-level.index', [
             'jobLevel' => JobLevel::all(),
+        ]);
+    }
+
+    public function getDataJobPosition()
+    {
+        return view('pages.master-data.job-position.index', [
+            'jobPosition' => JobPosition::all(),
         ]);
     }
 }

@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
         Route::get("/company", [CompanyController::class, 'index'])->name("company");
         Route::get("/organizations", [DashboardController::class, 'getDataOrganization'])->name("organization");
         Route::get("/job-level", [DashboardController::class, 'getDataJobLevel'])->name("job-level");
+        Route::get("/job-position", [DashboardController::class, 'getDataJobPosition'])->name("job-position");
     });
 });
 

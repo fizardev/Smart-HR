@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\CompanyController;
 use App\Http\Controllers\API\GetDataByIdController;
 use App\Http\Controllers\API\JobLevelController;
+use App\Http\Controllers\API\JobPositionController;
 use App\Http\Controllers\API\OrganizationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,5 +37,11 @@ Route::prefix('dashboard')->group(function () {
         Route::put('/update/{id}', [JobLevelController::class, 'update']);
         Route::get('/get/{id}', [JobLevelController::class, 'getJobLevel']);
         Route::get('/delete/{id}', [JobLevelController::class, 'destroy']);
+    });
+    Route::prefix('job-position')->group(function () {
+        Route::post('/store', [JobPositionController::class, 'store']);
+        Route::put('/update/{id}', [JobPositionController::class, 'update']);
+        Route::get('/get/{id}', [JobPositionController::class, 'getJobPosition']);
+        Route::get('/delete/{id}', [JobPositionController::class, 'destroy']);
     });
 });

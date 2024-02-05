@@ -5,17 +5,17 @@
                 @method('put')
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title">Ubah Organisasi</h5>
+                    <h5 class="modal-title">Ubah Job Level</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><i class="fal fa-times"></i></span>
                     </button>
                 </div>
                 <div class="modal-body py-0">
                     <div class="form-group">
-                        <label for="name">Organisasi</label>
+                        <label for="name">Job Level</label>
                         <input type="text" value="{{ old('name') }}"
                             class="form-control @error('name') is-invalid @enderror" id="name" name="name"
-                            placeholder="Nama User">
+                            placeholder="Masukan Job Level">
                         @error('name')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

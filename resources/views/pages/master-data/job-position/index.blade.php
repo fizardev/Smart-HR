@@ -1,5 +1,5 @@
 @extends('inc.layout')
-@section('title', 'Organisasi')
+@section('title', 'Job Position')
 @section('content')
     <main id="js-page-content" role="main" class="page-content">
         <div class="row mb-5">
@@ -7,7 +7,7 @@
                 <button type="button" id="btn-tambah" class="btn btn-primary waves-effect waves-themed" data-backdrop="static"
                     data-keyboard="false" data-toggle="modal" data-target="#tambah-data" title="Tambah Job Level">
                     <span class="fal fa-plus-circle mr-1"></span>
-                    Tambah Job Level
+                    Tambah Job Position
                 </button>
             </div>
         </div>
@@ -17,7 +17,7 @@
                 <div id="panel-1" class="panel">
                     <div class="panel-hdr">
                         <h2>
-                            Tabel Job Level
+                            Tabel Job Position
                         </h2>
                     </div>
                     <div class="panel-container show">
@@ -28,12 +28,12 @@
                                     <tr>
                                         {{-- <th style="white-space: nowrap">Foto</th> --}}
                                         <th style="white-space: nowrap">No</th>
-                                        <th style="white-space: nowrap">Job Level</th>
+                                        <th style="white-space: nowrap">Job Position</th>
                                         <th style="white-space: nowrap">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($jobLevel as $row)
+                                    @foreach ($jobPosition as $row)
                                         <tr>
                                             {{-- <td style="white-space: nowrap">{{ $user->template_user->foto }}</td> --}}
                                             <td style="white-space: nowrap">{{ $loop->iteration }}</td>
@@ -77,8 +77,8 @@
                 </div>
             </div>
         </div>
-        @include('pages.master-data.job-level.partials.create-data')
-        @include('pages.master-data.job-level.partials.update-data')
+        @include('pages.master-data.job-position.partials.create-data')
+        @include('pages.master-data.job-position.partials.update-data')
     </main>
 @endsection
 @section('plugin')
@@ -97,7 +97,7 @@
 
             $.ajax({
                 type: "GET", // Method pengiriman data bisa dengan GET atau POST
-                url: `/api/dashboard/job-level/get/${id}`, // Isi dengan url/path file php yang dituju
+                url: `/api/dashboard/job-position/get/${id}`, // Isi dengan url/path file php yang dituju
                 dataType: "json",
                 success: function(data) {
                     button.find('.ikon-edit').show();
@@ -115,7 +115,7 @@
                 let formData = $(this).serialize();
                 $.ajax({
                     type: "POST",
-                    url: '/api/dashboard/job-level/update/' + id,
+                    url: '/api/dashboard/job-position/update/' + id,
                     data: formData,
                     beforeSend: function() {
                         $('#update-form').find('.ikon-edit').hide();
@@ -143,7 +143,7 @@
                 let formData = $(this).serialize();
                 $.ajax({
                     type: "POST",
-                    url: '/api/dashboard/job-level/store/',
+                    url: '/api/dashboard/job-position/store/',
                     data: formData,
                     beforeSend: function() {
                         $('#store-form').find('.ikon-tambah').hide();
@@ -172,7 +172,7 @@
                 let id = button.attr('data-id');
                 $.ajax({
                     type: "GET",
-                    url: '/api/dashboard/job-level/delete/' + id,
+                    url: '/api/dashboard/job-position/delete/' + id,
                     beforeSend: function() {
                         button.find('.ikon-hapus').hide();
                         button.find('.spinner-text').removeClass(
