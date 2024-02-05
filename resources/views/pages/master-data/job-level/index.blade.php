@@ -87,56 +87,57 @@
     <script>
         /* demo scripts for change table color */
         /* change background */
-        $(document).ready(function() {
-            $('.btn-edit').click(function(e) {
-                e.preventDefault();
-                let button = $(this);
-                let id = button.attr('data-id');
-                button.find('.ikon-edit').hide();
-                button.find('.spinner-text').removeClass('d-none');
+        $('.btn-edit').click(function(e) {
+            e.preventDefault();
+            let button = $(this);
+            console.log('clicked');
+            let id = button.attr('data-id');
+            button.find('.ikon-edit').hide();
+            button.find('.spinner-text').removeClass('d-none');
 
+            $.ajax({
+                type: "GET", // Method pengiriman data bisa dengan GET atau POST
+                url: `/api/dashboard/job-level/get/${id}`, // Isi dengan url/path file php yang dituju
+                dataType: "json",
+                success: function(data) {
+                    button.find('.ikon-edit').show();
+                    button.find('.spinner-text').addClass('d-none');
+                    $('#ubah-data').modal('show');
+                    $('#ubah-data #name').val(data.name)
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+
+            $('#update-form').on('submit', function(e) {
+                e.preventDefault();
+                let formData = $(this).serialize();
                 $.ajax({
-                    type: "GET", // Method pengiriman data bisa dengan GET atau POST
-                    url: `/api/dashboard/job-level/get/${id}`, // Isi dengan url/path file php yang dituju
-                    dataType: "json",
-                    success: function(data) {
-                        button.find('.ikon-edit').show();
-                        button.find('.spinner-text').addClass('d-none');
-                        $('#ubah-data').modal('show');
-                        $('#ubah-data #name').val(data.name)
+                    type: "POST",
+                    url: '/api/dashboard/job-level/update/' + id,
+                    data: formData,
+                    beforeSend: function() {
+                        $('#update-form').find('.ikon-edit').hide();
+                        $('#update-form').find('.spinner-text')
+                            .removeClass(
+                                'd-none');
+                    },
+                    success: function(response) {
+                        $('#ubah-data').modal('hide');
+                        showSuccessAlert(response.message)
+                        setTimeout(function() {
+                            location.reload();
+                        }, 500);
                     },
                     error: function(xhr) {
                         console.log(xhr.responseText);
                     }
                 });
-
-                $('#update-form').on('submit', function(e) {
-                    e.preventDefault();
-                    let formData = $(this).serialize();
-                    $.ajax({
-                        type: "POST",
-                        url: '/api/dashboard/job-level/update/' + id,
-                        data: formData,
-                        beforeSend: function() {
-                            $('#update-form').find('.ikon-edit').hide();
-                            $('#update-form').find('.spinner-text')
-                                .removeClass(
-                                    'd-none');
-                        },
-                        success: function(response) {
-                            $('#ubah-data').modal('hide');
-                            showSuccessAlert(response.message)
-                            setTimeout(function() {
-                                location.reload();
-                            }, 500);
-                        },
-                        error: function(xhr) {
-                            console.log(xhr.responseText);
-                        }
-                    });
-                });
             });
-
+        });
+        $(document).ready(function() {
+            console.log($('.btn-edit'))
             $('#store-form').on('submit', function(e) {
                 e.preventDefault();
                 let formData = $(this).serialize();
