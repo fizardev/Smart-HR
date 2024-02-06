@@ -64,6 +64,39 @@
     .modal {
         top: 20%;
     }
+
+    span.garis {
+        display: inline-block;
+        width: 30px;
+        border: 1px solid #8f8f8f
+    }
+
+    .step-round {
+        width: calc(2.5rem + 2px) !important;
+        line-height: 2.5rem !important;
+        font-size: 14px;
+    }
+
+    .step-text {
+        position: absolute;
+        color: black;
+        bottom: -30px;
+        left: -1px;
+        font-size: 12px;
+        line-height: 12px;
+    }
+
+    .form-heading {
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    .hidden-content {
+        position: absolute !important;
+        top: -9999px !important;
+        left: -9999px !important;
+        visibility: hidden !important;
+    }
 </style>
 @yield('extended-css')
 

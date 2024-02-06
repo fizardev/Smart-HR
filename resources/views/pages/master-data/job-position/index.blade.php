@@ -41,7 +41,7 @@
                                             <td style="white-space: nowrap">
                                                 <button type="button" data-backdrop="static" data-keyboard="false"
                                                     class="badge mx-1 btn-edit badge-primary p-2 border-0 text-white"
-                                                    data-id="{{ $row->id }}" title="Ubah">
+                                                    data-id="{{ $row->id }}" title="Ubah" onclick="btnEdit(event)">
                                                     <span class="fal fa-pencil ikon-edit"></span>
                                                     <div class="span spinner-text d-none">
                                                         <span class="spinner-border spinner-border-sm" role="status"
@@ -51,7 +51,7 @@
                                                 </button>
                                                 <button type="button" data-backdrop="static" data-keyboard="false"
                                                     class="badge mx-1 badge-success p-2 border-0 text-white btn-hapus"
-                                                    data-id="{{ $row->id }}" title="Hapus">
+                                                    data-id="{{ $row->id }}" title="Hapus" onclick="btnDelete(event)">
                                                     <span class="fal fa-trash ikon-hapus"></span>
                                                     <div class="span spinner-text d-none">
                                                         <span class="spinner-border spinner-border-sm" role="status"
@@ -87,21 +87,23 @@
     <script>
         /* demo scripts for change table color */
         /* change background */
-        $('.btn-edit').click(function(e) {
-            e.preventDefault();
-            let button = $(this);
-            console.log('clicked');
-            let id = button.attr('data-id');
-            button.find('.ikon-edit').hide();
-            button.find('.spinner-text').removeClass('d-none');
+        function btnEdit(event) {
+            event.preventDefault();
+            let button = event.currentTarget;
+            let id = button.getAttribute('data-id');
+            let ikonEdit = button.querySelector('.ikon-edit');
+            let spinnerText = button.querySelector('.spinner-text');
+            ikonEdit.classList.add('d-none');
+            spinnerText.classList.remove('d-none');
 
             $.ajax({
                 type: "GET", // Method pengiriman data bisa dengan GET atau POST
                 url: `/api/dashboard/job-position/get/${id}`, // Isi dengan url/path file php yang dituju
                 dataType: "json",
                 success: function(data) {
-                    button.find('.ikon-edit').show();
-                    button.find('.spinner-text').addClass('d-none');
+                    ikonEdit.classList.remove('d-none');
+                    ikonEdit.classList.add('d-block');
+                    spinnerText.classList.add('d-none');
                     $('#ubah-data').modal('show');
                     $('#ubah-data #name').val(data.name)
                 },
@@ -135,7 +137,38 @@
                     }
                 });
             });
-        });
+        }
+
+        function btnDelete(event) {
+            event.preventDefault();
+            let button = event.currentTarget;
+            alert('Yakin ingin menghapus ini ?');
+            let id = button.getAttribute('data-id');
+            let ikonHapus = button.querySelector('.ikon-hapus');
+            let spinnerText = button.querySelector('.spinner-text');
+
+            $.ajax({
+                type: "GET",
+                url: '/api/dashboard/job-position/delete/' + id,
+                beforeSend: function() {
+                    ikonHapus.classList.add('d-none');
+                    spinnerText.classList.remove('d-none');
+                },
+                success: function(response) {
+                    ikonHapus.classList.remove('d-none');
+                    ikonHapus.classList.add('d-block');
+                    spinnerText.classList.add('d-none');
+                    showSuccessAlert(response.message)
+                    setTimeout(function() {
+                        location.reload();
+                    }, 500);
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+
         $(document).ready(function() {
             console.log($('.btn-edit'))
             $('#store-form').on('submit', function(e) {
@@ -154,33 +187,6 @@
                         $('#store-form').find('.ikon-edit').show();
                         $('#store-form').find('.spinner-text').addClass('d-none');
                         $('#tambah-data').modal('hide');
-                        showSuccessAlert(response.message)
-                        setTimeout(function() {
-                            location.reload();
-                        }, 500);
-                    },
-                    error: function(xhr) {
-                        console.log(xhr.responseText);
-                    }
-                });
-            });
-
-            $('.btn-hapus').click(function(e) {
-                e.preventDefault();
-                let button = $(this);
-                alert('Yakin ingin menghapus ini ?');
-                let id = button.attr('data-id');
-                $.ajax({
-                    type: "GET",
-                    url: '/api/dashboard/job-position/delete/' + id,
-                    beforeSend: function() {
-                        button.find('.ikon-hapus').hide();
-                        button.find('.spinner-text').removeClass(
-                            'd-none');
-                    },
-                    success: function(response) {
-                        button.find('.ikon-edit').show();
-                        button.find('.spinner-text').addClass('d-none');
                         showSuccessAlert(response.message)
                         setTimeout(function() {
                             location.reload();
