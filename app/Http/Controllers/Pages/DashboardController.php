@@ -15,7 +15,7 @@ class DashboardController extends Controller
         return view('dashboard');
     }
 
-    public function  getDataOrganization()
+    public function  getDataOrganizations()
     {
         $organizations = Organization::all();
         return view('pages.master-data.organization.index', [
@@ -23,16 +23,22 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function getDataJobLevel()
+    public function getDataJobLevels()
     {
         return view('pages.master-data.job-level.index', [
             'jobLevel' => JobLevel::all(),
         ]);
     }
 
-    public function getDataJobPosition()
+    public function getDataJobPositions()
     {
         return view('pages.master-data.job-position.index', [
+            'jobPosition' => JobPosition::all(),
+        ]);
+    }
+    public function getDataEmployees()
+    {
+        return view('pages.pegawai.daftar-pegawai.index', [
             'jobPosition' => JobPosition::all(),
         ]);
     }

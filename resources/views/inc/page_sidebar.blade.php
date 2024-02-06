@@ -51,6 +51,36 @@
                 </a>
             </li>
             <li
+                class="{{ set_active_mainmenu(['dashboard/employees', 'dashboard/organizations', 'dashboard/job-level', 'dashboard/job-position']) }}">
+                <a href="#" title="Settings" data-filter-tags="application user">
+                    <i class='bx bxs-user-detail'></i>
+                    <span class="nav-link-text" data-i18n="nav.application_user">Pegawai</span>
+                </a>
+                <ul>
+                    <li
+                        class="{{ set_active_mainmenu(['dashboard/company', 'dashboard/organizations', 'dashboard/job-level', 'dashboard/job-position']) }}">
+                        <a href="/dashboard/company" title="Analytics settings"
+                            data-filter-tags="dashboard settings company perusahaan profile">
+                            <span class="nav-link-text" data-i18n="nav.application_company">Daftar Pegawai</span>
+                        </a>
+                    </li>
+                    <li
+                        class="{{ set_active_mainmenu(['dashboard/company', 'dashboard/organizations', 'dashboard/job-level', 'dashboard/job-position']) }}">
+                        <a href="/dashboard/company" title="Analytics settings"
+                            data-filter-tags="dashboard settings company perusahaan profile">
+                            <span class="nav-link-text" data-i18n="nav.application_company">Kehadiran</span>
+                        </a>
+                    </li>
+                    <li
+                        class="{{ set_active_mainmenu(['dashboard/company', 'dashboard/organizations', 'dashboard/job-level', 'dashboard/job-position']) }}">
+                        <a href="/dashboard/company" title="Analytics settings"
+                            data-filter-tags="dashboard settings company perusahaan profile">
+                            <span class="nav-link-text" data-i18n="nav.application_company">Gaji Pegawai</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li
                 class="{{ set_active_mainmenu(['dashboard/company', 'dashboard/organizations', 'dashboard/job-level', 'dashboard/job-position']) }}">
                 <a href="#" title="Settings" data-filter-tags="application user">
                     <i class='bx bx-cube'></i>

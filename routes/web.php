@@ -40,9 +40,10 @@ Route::middleware('auth')->group(function () {
         Route::put('/user/{user:id}/update-password', [UserController::class, 'updatePassword'])->name('user.update.password');
 
         Route::get("/company", [CompanyController::class, 'index'])->name("company");
-        Route::get("/organizations", [DashboardController::class, 'getDataOrganization'])->name("organization");
-        Route::get("/job-level", [DashboardController::class, 'getDataJobLevel'])->name("job-level");
-        Route::get("/job-position", [DashboardController::class, 'getDataJobPosition'])->name("job-position");
+        Route::get("/organizations", [DashboardController::class, 'getDataOrganizations'])->name("organization");
+        Route::get("/job-level", [DashboardController::class, 'getDataJobLevels'])->name("job-level");
+        Route::get("/job-position", [DashboardController::class, 'getDataJobPositions'])->name("job-position");
+        Route::get("/employees", [DashboardController::class, 'getDataEmployees'])->name("employees");
     });
 });
 
