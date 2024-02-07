@@ -92,10 +92,38 @@
     }
 
     .hidden-content {
+        /* opacity: 0; */
+        visibility: hidden !important;
         position: absolute !important;
         top: -9999px !important;
         left: -9999px !important;
-        visibility: hidden !important;
+    }
+
+    .show-content {
+        visibility: visible !important;
+        position: relative !important;
+    }
+
+    @keyframes fadeIn {
+        0% {
+            bottom: -9999px !important;
+            opacity: 0;
+        }
+
+        100% {
+            bottom: 0px;
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+
+        to {
+            opacity: 0;
+        }
     }
 </style>
 @yield('extended-css')
