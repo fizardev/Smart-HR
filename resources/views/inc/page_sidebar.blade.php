@@ -58,10 +58,10 @@
                 </a>
                 <ul>
                     <li
-                        class="{{ set_active_mainmenu(['dashboard/company', 'dashboard/organizations', 'dashboard/job-level', 'dashboard/job-position']) }}">
-                        <a href="/dashboard/company" title="Analytics settings"
-                            data-filter-tags="dashboard settings company perusahaan profile">
-                            <span class="nav-link-text" data-i18n="nav.application_company">Daftar Pegawai</span>
+                        class="{{ set_active_mainmenu(['dashboard/employees', 'dashboard/organizations', 'dashboard/job-level', 'dashboard/job-position']) }}">
+                        <a href="/dashboard/employees" title="Analytics settings"
+                            data-filter-tags="dashboard settings employees pegawai perusahaan profile">
+                            <span class="nav-link-text" data-i18n="nav.application_employees">Daftar Pegawai</span>
                         </a>
                     </li>
                     <li

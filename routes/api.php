@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\CompanyController;
+use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\API\GetDataByIdController;
 use App\Http\Controllers\API\JobLevelController;
 use App\Http\Controllers\API\JobPositionController;
@@ -43,5 +44,11 @@ Route::prefix('dashboard')->group(function () {
         Route::put('/update/{id}', [JobPositionController::class, 'update']);
         Route::get('/get/{id}', [JobPositionController::class, 'getJobPosition']);
         Route::get('/delete/{id}', [JobPositionController::class, 'destroy']);
+    });
+    Route::prefix('employee')->group(function () {
+        Route::post('/store', [EmployeeController::class, 'store']);
+        Route::put('/update/{id}', [EmployeeController::class, 'update']);
+        Route::get('/get/{id}', [EmployeeController::class, 'getJobPosition']);
+        Route::get('/delete/{id}', [EmployeeController::class, 'destroy']);
     });
 });

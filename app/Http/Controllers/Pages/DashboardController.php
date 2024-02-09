@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
 use App\Models\JobLevel;
 use App\Models\JobPosition;
 use App\Models\Organization;
@@ -40,6 +41,9 @@ class DashboardController extends Controller
     {
         return view('pages.pegawai.daftar-pegawai.index', [
             'jobPosition' => JobPosition::all(),
+            'organization' => Organization::all(),
+            'jobLevel' => JobLevel::all(),
+            'employees' => Employee::all(),
         ]);
     }
 }
