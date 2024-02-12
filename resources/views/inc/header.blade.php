@@ -71,6 +71,12 @@
         border: 1px solid #8f8f8f
     }
 
+    @media only screen and (max-width: 400px) {
+        span.garis {
+            width: 15px;
+        }
+    }
+
     .step-round {
         width: calc(2.5rem + 2px) !important;
         line-height: 2.5rem !important;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
+use App\Models\Holiday;
 use App\Models\JobLevel;
 use App\Models\JobPosition;
 use App\Models\Organization;
@@ -44,6 +45,12 @@ class DashboardController extends Controller
             'organization' => Organization::all(),
             'jobLevel' => JobLevel::all(),
             'employees' => Employee::all(),
+        ]);
+    }
+    public function getDataHolidays()
+    {
+        return view('pages.master-data.holidays.index', [
+            'holidays' => Holiday::all()
         ]);
     }
 }

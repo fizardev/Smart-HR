@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
         Route::get("/job-level", [DashboardController::class, 'getDataJobLevels'])->name("job-level");
         Route::get("/job-position", [DashboardController::class, 'getDataJobPositions'])->name("job-position");
         Route::get("/employees", [DashboardController::class, 'getDataEmployees'])->name("employees");
+        Route::get("/day-off", [DashboardController::class, 'getDataHolidays'])->name("day-off");
     });
 });
 

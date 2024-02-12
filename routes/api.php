@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\CompanyController;
+use App\Http\Controllers\API\DayOffController;
 use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\API\GetDataByIdController;
 use App\Http\Controllers\API\JobLevelController;
@@ -50,5 +51,11 @@ Route::prefix('dashboard')->group(function () {
         Route::put('/update/{id}', [EmployeeController::class, 'update']);
         Route::get('/get/{id}', [EmployeeController::class, 'getJobPosition']);
         Route::get('/delete/{id}', [EmployeeController::class, 'destroy']);
+    });
+    Route::prefix('day-off')->group(function () {
+        Route::post('/store', [DayOffController::class, 'store']);
+        Route::put('/update/{id}', [DayOffController::class, 'update']);
+        Route::get('/get/{id}', [DayOffController::class, 'getHoliday']);
+        Route::get('/delete/{id}', [DayOffController::class, 'destroy']);
     });
 });
