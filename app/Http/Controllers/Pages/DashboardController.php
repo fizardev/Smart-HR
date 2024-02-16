@@ -9,6 +9,7 @@ use App\Models\Holiday;
 use App\Models\JobLevel;
 use App\Models\JobPosition;
 use App\Models\Organization;
+use App\Models\Shift;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -58,6 +59,12 @@ class DashboardController extends Controller
     {
         return view('pages.master-data.attendance-code.index', [
             'attendance_code' => AttendanceCode::all()
+        ]);
+    }
+    public function getDataShifts()
+    {
+        return view('pages.master-data.shift.index', [
+            'shifts' => Shift::all()
         ]);
     }
 }

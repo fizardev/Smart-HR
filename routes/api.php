@@ -8,6 +8,7 @@ use App\Http\Controllers\API\GetDataByIdController;
 use App\Http\Controllers\API\JobLevelController;
 use App\Http\Controllers\API\JobPositionController;
 use App\Http\Controllers\API\OrganizationController;
+use App\Http\Controllers\API\ShiftController;
 use App\Models\AttendanceCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -65,5 +66,11 @@ Route::prefix('dashboard')->group(function () {
         Route::put('/update/{id}', [AttendanceCodeController::class, 'update']);
         Route::get('/get/{id}', [AttendanceCodeController::class, 'getAttendanceCode']);
         Route::get('/delete/{id}', [AttendanceCodeController::class, 'destroy']);
+    });
+    Route::prefix('shifts')->group(function () {
+        Route::post('/store', [ShiftController::class, 'store']);
+        Route::put('/update/{id}', [ShiftController::class, 'update']);
+        Route::get('/get/{id}', [ShiftController::class, 'getShift']);
+        Route::get('/delete/{id}', [ShiftController::class, 'destroy']);
     });
 });
