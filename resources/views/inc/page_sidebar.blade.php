@@ -50,29 +50,25 @@
                     <span class="nav-link-text" data-i18n="nav.application_user">Users</span>
                 </a>
             </li> --}}
-            <li
-                class="{{ set_active_mainmenu(['dashboard/employees', 'dashboard/organizations', 'dashboard/job-level', 'dashboard/job-position']) }}">
+            <li class="{{ set_active_mainmenu(['dashboard/employees']) }}">
                 <a href="#" title="Settings" data-filter-tags="application user">
                     <i class='bx bxs-user-detail'></i>
                     <span class="nav-link-text" data-i18n="nav.application_user">Pegawai</span>
                 </a>
                 <ul>
-                    <li
-                        class="{{ set_active(['dashboard/employees', 'dashboard/organizations', 'dashboard/job-level', 'dashboard/job-position']) }}">
+                    <li class="{{ set_active(['dashboard/employees']) }}">
                         <a href="/dashboard/employees" title="Analytics settings"
                             data-filter-tags="dashboard settings employees pegawai perusahaan profile">
                             <span class="nav-link-text" data-i18n="nav.application_employees">Daftar Pegawai</span>
                         </a>
                     </li>
-                    <li
-                        class="{{ set_active(['dashboard/company', 'dashboard/organizations', 'dashboard/job-level', 'dashboard/job-position']) }}">
+                    <li class="{{ set_active(['dashboard/attendance']) }}">
                         <a href="/dashboard/company" title="Analytics settings"
                             data-filter-tags="dashboard settings company perusahaan profile">
                             <span class="nav-link-text" data-i18n="nav.application_company">Kehadiran</span>
                         </a>
                     </li>
-                    <li
-                        class="{{ set_active(['dashboard/company', 'dashboard/organizations', 'dashboard/job-level', 'dashboard/job-position']) }}">
+                    <li class="{{ set_active(['dashboard/payroll']) }}">
                         <a href="/dashboard/company" title="Analytics settings"
                             data-filter-tags="dashboard settings company perusahaan profile">
                             <span class="nav-link-text" data-i18n="nav.application_company">Gaji Pegawai</span>
@@ -147,6 +143,27 @@
                                     data-filter-tags="dashboard settings  shift waktu">
                                     <span class="nav-link-text" data-i18n="nav.application_company">Manajemen
                                         Shift</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="{{ set_active_mainmenu(['dashboard/banks']) }}">
+                        <a href="#" title="Application Intel" data-filter-tags="application intel">
+                            <i class="fas fa-money-bill-alt"></i>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Master Bank</span>
+                        </a>
+                        <ul>
+                            <li class="{{ set_active('dashboard/banks') }}">
+                                <a href="/dashboard/banks" title="Analytics settings"
+                                    data-filter-tags="dashboard settings bank master data">
+                                    <span class="nav-link-text" data-i18n="nav.application_company">Daftar Bank</span>
+                                </a>
+                            </li>
+                            <li class="{{ set_active('dashboard/banks') }}">
+                                <a href="/dashboard/banks" title="Analytics settings"
+                                    data-filter-tags="dashboard settings bank master data">
+                                    <span class="nav-link-text" data-i18n="nav.application_company">Bank
+                                        Pegawai</span>
                                 </a>
                             </li>
                         </ul>
