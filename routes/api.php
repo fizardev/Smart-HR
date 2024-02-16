@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AttendanceCodeController;
 use App\Http\Controllers\API\CompanyController;
 use App\Http\Controllers\API\DayOffController;
 use App\Http\Controllers\API\EmployeeController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\API\GetDataByIdController;
 use App\Http\Controllers\API\JobLevelController;
 use App\Http\Controllers\API\JobPositionController;
 use App\Http\Controllers\API\OrganizationController;
+use App\Models\AttendanceCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -57,5 +59,11 @@ Route::prefix('dashboard')->group(function () {
         Route::put('/update/{id}', [DayOffController::class, 'update']);
         Route::get('/get/{id}', [DayOffController::class, 'getHoliday']);
         Route::get('/delete/{id}', [DayOffController::class, 'destroy']);
+    });
+    Route::prefix('attendance-codes')->group(function () {
+        Route::post('/store', [AttendanceCodeController::class, 'store']);
+        Route::put('/update/{id}', [AttendanceCodeController::class, 'update']);
+        Route::get('/get/{id}', [AttendanceCodeController::class, 'getAttendanceCode']);
+        Route::get('/delete/{id}', [AttendanceCodeController::class, 'destroy']);
     });
 });

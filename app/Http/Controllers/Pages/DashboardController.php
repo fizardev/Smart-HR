@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
+use App\Models\AttendanceCode;
 use App\Models\Employee;
 use App\Models\Holiday;
 use App\Models\JobLevel;
@@ -51,6 +52,12 @@ class DashboardController extends Controller
     {
         return view('pages.master-data.holidays.index', [
             'holidays' => Holiday::all()
+        ]);
+    }
+    public function getDataAttendanceCodes()
+    {
+        return view('pages.master-data.attendance-code.index', [
+            'attendance_code' => AttendanceCode::all()
         ]);
     }
 }
