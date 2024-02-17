@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Bank;
+use App\Models\BankEmployee;
 use Illuminate\Http\Request;
 
-class BankController extends Controller
+class BankEmployeeController extends Controller
 {
-    public function getBank($id)
+    public function getBankEmployee($id)
     {
         try {
-            $bank = Bank::findOrFail($id);
+            $bank = BankEmployee::findOrFail($id);
             return response()->json($bank, 200);
         } catch (\Exception $e) {
             return response()->json([
@@ -23,16 +23,17 @@ class BankController extends Controller
     {
         try {
             $validator = \Validator::make(request()->all(), [
-                'name' => 'required',
+                'employee_id' => 'required',
+                'bank_id' => 'required',
+                'account_number' => 'required',
+                'account_holder_name' => 'required',
             ]);
 
             if ($validator->fails()) {
                 return response()->json($validator->errors(), 422);
             }
 
-            Bank::create([
-                'name' => request()->name,
-            ]);
+            BankEmployee::create(request()->all());
             //return response
             return response()->json(['message' => 'Bank Berhasil di Tambahkan!']);
         } catch (\Exception $e) {
@@ -46,11 +47,14 @@ class BankController extends Controller
         try {
             //define validation rules
             $validator = request()->validate([
-                'name' => 'required',
+                'employee_id' => 'required',
+                'bank_id' => 'required',
+                'account_number' => 'required',
+                'account_holder_name' => 'required',
             ]);
 
             //find company by ID
-            $bank = Bank::find($id);
+            $bank = BankEmployee::find($id);
             $bank->update($validator);
             //return response
             return response()->json(['message' => 'Bank Berhasil di Update!']);
@@ -63,7 +67,7 @@ class BankController extends Controller
     public function destroy($id)
     {
         try {
-            $bank = Bank::find($id);
+            $bank = BankEmployee::find($id);
             $bank->delete();
             //return response
             return response()->json(['message' => 'Bank Berhasil di Hapus!']);

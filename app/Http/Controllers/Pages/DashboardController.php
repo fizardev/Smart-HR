@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
 use App\Models\AttendanceCode;
+use App\Models\Bank;
+use App\Models\BankEmployee;
 use App\Models\Employee;
 use App\Models\Holiday;
 use App\Models\JobLevel;
 use App\Models\JobPosition;
 use App\Models\Organization;
 use App\Models\Shift;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -65,6 +68,20 @@ class DashboardController extends Controller
     {
         return view('pages.master-data.shift.index', [
             'shifts' => Shift::all()
+        ]);
+    }
+    public function getDataBanks()
+    {
+        return view('pages.master-data.banks.index', [
+            'banks' => Bank::all()
+        ]);
+    }
+    public function getDataBankEmployees()
+    {
+        return view('pages.master-data.bank-employees.index', [
+            // 'bank_employees' => BankEmployee::all(),
+            'employees' => Employee::all(),
+            'banks' => Bank::all()
         ]);
     }
 }

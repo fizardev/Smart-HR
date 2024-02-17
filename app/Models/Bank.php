@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Bank extends Model
 {
     use HasFactory;
+    protected $fillable = ['name'];
+
+    public function bank_employee()
+    {
+        return $this->hasOne(BankEmployee::class);
+    }
 }

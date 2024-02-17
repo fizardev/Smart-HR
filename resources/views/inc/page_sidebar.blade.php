@@ -77,7 +77,7 @@
                 </ul>
             </li>
             <li
-                class="{{ set_active_mainmenu(['dashboard/company', 'dashboard/day-off', 'dashboard/organizations', 'dashboard/job-level', 'dashboard/job-position']) }}">
+                class="{{ set_active_mainmenu(['dashboard/company', 'dashboard/banks', 'dashboard/bank-employees', 'dashboard/day-off', 'dashboard/organizations', 'dashboard/job-level', 'dashboard/job-position']) }}">
                 <a href="#" title="Settings" data-filter-tags="application user">
                     <i class='bx bx-cube'></i>
                     <span class="nav-link-text" data-i18n="nav.application_user">Master Data</span>
@@ -159,8 +159,8 @@
                                     <span class="nav-link-text" data-i18n="nav.application_company">Daftar Bank</span>
                                 </a>
                             </li>
-                            <li class="{{ set_active('dashboard/banks') }}">
-                                <a href="/dashboard/banks" title="Analytics settings"
+                            <li class="{{ set_active('dashboard/bank-employees') }}">
+                                <a href="/dashboard/bank-employees" title="Analytics settings"
                                     data-filter-tags="dashboard settings bank master data">
                                     <span class="nav-link-text" data-i18n="nav.application_company">Bank
                                         Pegawai</span>

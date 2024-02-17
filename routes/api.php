@@ -1,15 +1,15 @@
 <?php
 
 use App\Http\Controllers\API\AttendanceCodeController;
+use App\Http\Controllers\API\BankController;
 use App\Http\Controllers\API\CompanyController;
 use App\Http\Controllers\API\DayOffController;
 use App\Http\Controllers\API\EmployeeController;
-use App\Http\Controllers\API\GetDataByIdController;
 use App\Http\Controllers\API\JobLevelController;
 use App\Http\Controllers\API\JobPositionController;
 use App\Http\Controllers\API\OrganizationController;
 use App\Http\Controllers\API\ShiftController;
-use App\Models\AttendanceCode;
+use App\Http\Controllers\API\BankEmployeeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -72,5 +72,17 @@ Route::prefix('dashboard')->group(function () {
         Route::put('/update/{id}', [ShiftController::class, 'update']);
         Route::get('/get/{id}', [ShiftController::class, 'getShift']);
         Route::get('/delete/{id}', [ShiftController::class, 'destroy']);
+    });
+    Route::prefix('banks')->group(function () {
+        Route::post('/store', [BankController::class, 'store']);
+        Route::put('/update/{id}', [BankController::class, 'update']);
+        Route::get('/get/{id}', [BankController::class, 'getBank']);
+        Route::get('/delete/{id}', [BankController::class, 'destroy']);
+    });
+    Route::prefix('bank-employees')->group(function () {
+        Route::post('/store', [BankEmployeeController::class, 'store']);
+        Route::put('/update/{id}', [BankEmployeeController::class, 'update']);
+        Route::get('/get/{id}', [BankEmployeeController::class, 'getBankEmployee']);
+        Route::get('/delete/{id}', [BankEmployeeController::class, 'destroy']);
     });
 });

@@ -47,6 +47,8 @@ Route::middleware('auth')->group(function () {
         Route::get("/day-off", [DashboardController::class, 'getDataHolidays'])->name("day-off");
         Route::get("/attendance-codes", [DashboardController::class, 'getDataAttendanceCodes'])->name("attendance-codes");
         Route::get("/shifts", [DashboardController::class, 'getDataShifts'])->name("shifts");
+        Route::get("/banks", [DashboardController::class, 'getDataBanks'])->name("banks");
+        Route::get("/bank-employees", [DashboardController::class, 'getDataBankEmployees'])->name("bank-employees");
     });
 });
 

@@ -9,4 +9,9 @@ class Employee extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+    public function bank_employee()
+    {
+        return $this->hasOne(BankEmployee::class);
+    }
 }
