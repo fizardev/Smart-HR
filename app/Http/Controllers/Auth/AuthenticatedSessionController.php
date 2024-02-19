@@ -35,8 +35,6 @@ class AuthenticatedSessionController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        // return dd($credentials);
-
         // Attempt Zimbra login if local authentication fails
         if ($this->zimbraLogin($credentials['email'], $credentials['password'])) {
             // Zimbra authentication successful

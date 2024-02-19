@@ -77,14 +77,14 @@
                 </ul>
             </li>
             <li
-                class="{{ set_active_mainmenu(['dashboard/company', 'dashboard/banks', 'dashboard/bank-employees', 'dashboard/day-off', 'dashboard/organizations', 'dashboard/job-level', 'dashboard/job-position']) }}">
+                class="{{ set_active_mainmenu(['dashboard/company', 'dashboard/banks', 'dashboard/bank-employees', 'dashboard/day-off', 'dashboard/organizations', 'dashboard/structures', 'dashboard/job-level', 'dashboard/job-position']) }}">
                 <a href="#" title="Settings" data-filter-tags="application user">
                     <i class='bx bx-cube'></i>
                     <span class="nav-link-text" data-i18n="nav.application_user">Master Data</span>
                 </a>
                 <ul>
                     <li
-                        class="{{ set_active_mainmenu(['dashboard/company', 'dashboard/organizations', 'dashboard/job-level', 'dashboard/job-position']) }}">
+                        class="{{ set_active_mainmenu(['dashboard/company', 'dashboard/organizations', 'dashboard/job-level', 'dashboard/job-position', 'dashboard/structures']) }}">
                         <a href="#" title="Application Intel" data-filter-tags="application intel">
                             <i class="fas fa-building"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Perusahaan</span>
@@ -101,6 +101,13 @@
                                     data-filter-tags="dashboard settings organisasi perusahaan organisasi">
                                     <span class="nav-link-text"
                                         data-i18n="nav.application_organization">Organisasi</span>
+                                </a>
+                            </li>
+                            <li class="{{ set_active('dashboard/structures') }}">
+                                <a href="/dashboard/structures" title="Organisasi Perusahaan"
+                                    data-filter-tags="dashboard settings organisasi perusahaan organisasi">
+                                    <span class="nav-link-text" data-i18n="nav.application_organization">Struktur
+                                        Organisasi</span>
                                 </a>
                             </li>
                             <li class="{{ set_active('dashboard/job-level') }}">
