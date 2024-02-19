@@ -33,13 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get("/dashboard", [DashboardController::class, 'index'])->name("dashboard");
 
     Route::prefix('dashboard')->group(function () {
-        // Users
-        Route::get("/users", [UserController::class, 'index'])->name("user.index");
-        Route::post("/users", [UserController::class, 'store'])->name("user.store");
-        Route::put("/users/{users:id}", [UserController::class, 'update'])->name("user.update");
-        Route::put('/user/{user:id}/akses', [UserController::class, 'akses'])->name('user.update.role');
-        Route::put('/user/{user:id}/update-password', [UserController::class, 'updatePassword'])->name('user.update.password');
-
+        Route::get("/users", [DashboardController::class, 'getDataUsers'])->name("user");
         Route::get("/company", [CompanyController::class, 'index'])->name("company");
         Route::get("/organizations", [DashboardController::class, 'getDataOrganizations'])->name("organization");
         Route::get("/job-level", [DashboardController::class, 'getDataJobLevels'])->name("job-level");
