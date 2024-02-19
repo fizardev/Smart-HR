@@ -49,7 +49,7 @@ Route::prefix('dashboard')->group(function () {
     Route::prefix('user')->group(function () {
         Route::post('/store', [UserController::class, 'store']);
         Route::put('/update/{id}', [UserController::class, 'update']);
-        Route::put('/update-akses/{id}', [UserController::class, 'updateRole']);
+        Route::put('/update-akses/{user:id}', [UserController::class, 'updateRole']);
         Route::get('/get/{id}', [UserController::class, 'getUser']);
         Route::get('/delete/{id}', [UserController::class, 'destroy']);
     });

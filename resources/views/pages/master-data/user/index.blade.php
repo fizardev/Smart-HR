@@ -26,7 +26,7 @@
                             <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
                                 <thead>
                                     <tr>
-                                        {{-- <th style="white-space: nowrap">Foto</th> --}}
+                                        <th style="white-space: nowrap">No</th>
                                         <th style="white-space: nowrap">Nama User</th>
                                         {{-- <th style="white-space: nowrap">Username</th> --}}
                                         <th style="white-space: nowrap">Email</th>
@@ -37,7 +37,7 @@
                                 <tbody>
                                     @foreach ($users as $user)
                                         <tr>
-                                            {{-- <td style="white-space: nowrap">{{ $user->template_user->foto }}</td> --}}
+                                            <td style="white-space: nowrap">{{ $loop->iteration }}</td>
                                             <td style="white-space: nowrap">{{ $user->name }}</td>
                                             {{-- <td style="white-space: nowrap">{{ $user->username }}</td> --}}
                                             <td style="white-space: nowrap">{{ $user->email }}</td>
@@ -68,7 +68,8 @@
                                                 </button>
                                                 <button type="button" data-backdrop="static" data-keyboard="false"
                                                     class="badge mx-1 badge-secondary p-2 border-0 text-white btn-akses"
-                                                    data-id="{{ $user->roles->first()->id }}" title="Akses">
+                                                    data-role-id="{{ $user->roles->first()->id }}"
+                                                    data-user-id="{{ $user->id }}" title="Akses">
                                                     <span class="fal fa-user-secret ikon-akses"></span>
                                                     <div class="span spinner-text d-none">
                                                         <span class="spinner-border spinner-border-sm" role="status"
@@ -85,7 +86,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        {{-- <th style="white-space: nowrap">Foto</th> --}}
+                                        <th style="white-space: nowrap">No</th>
                                         <th style="white-space: nowrap">Nama User</th>
                                         {{-- <th style="white-space: nowrap">Username</th> --}}
                                         <th style="white-space: nowrap">Email</th>
@@ -164,14 +165,14 @@
             $('.btn-akses').click(function(e) {
                 e.preventDefault();
                 let button = $(this);
-                console.log('clicked');
-                let id = button.attr('data-id');
+                let roleId = button.attr('data-role-id');
+                let userId = button.attr('data-user-id');
                 button.find('.ikon-akses').hide();
                 button.find('.spinner-text').removeClass('d-none');
 
                 $.ajax({
                     type: "GET", // Method pengiriman data bisa dengan GET atau POST
-                    url: `/api/dashboard/role/get/${id}`, // Isi dengan url/path file php yang dituju
+                    url: `/api/dashboard/role/get/${roleId}`, // Isi dengan url/path file php yang dituju
                     dataType: "json",
                     success: function(data) {
                         button.find('.ikon-akses').show();
@@ -191,7 +192,7 @@
                     let formData = $(this).serialize();
                     $.ajax({
                         type: "POST",
-                        url: '/api/dashboard/user/update-akses/' + id,
+                        url: '/api/dashboard/user/update-akses/' + userId,
                         data: formData,
                         beforeSend: function() {
                             $('#update-form').find('.ikon-edit').hide();

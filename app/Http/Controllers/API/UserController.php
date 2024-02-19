@@ -72,12 +72,13 @@ class UserController extends Controller
         }
     }
 
-    public function updateRole($id)
+    public function updateRole($userId)
     {
         try {
-            $role = Role::findOrFail(request()->role);
+            $user = User::findOrFail($userId);
+            $id = request()->role;
 
-            $user = User::find($id);
+            $role = Role::findOrFail($id);
 
             // Hapus semua peran yang ditetapkan sebelumnya
             $user->roles()->detach();
