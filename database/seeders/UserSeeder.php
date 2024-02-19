@@ -13,33 +13,39 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = [
-            [
-                'name' => "Dimas Candra Pebriyanto",
-                'email' => "dimascndraa18@gmail.com",
-                'email_verified_at' => now(),
-                'username' => 'd.candra',
-                'password' => bcrypt('password'),
-                'role' => 'superadmin',
-            ], [
-                'name' => "Admin",
-                'email' => "admin@dummy.com",
-                'email_verified_at' => now(),
-                'username' => 'admin',
-                'password' => bcrypt('admin'),
-                'role' => 'admin',
-            ], [
-                'name' => "User",
-                'email' => "user@dummy.com",
-                'email_verified_at' => now(),
-                'username' => 'user',
-                'password' => bcrypt('user'),
-                'role' => 'user',
-            ]
-        ];
+        $admin = User::create([
+            'name' => 'Admin',
+            'email' => 'admin@livasya.com',
+        ]);
 
-        foreach ($users as $user) {
-            User::create($user);
-        }
+        $admin->assignRole('admin');
+
+        $hr = User::create([
+            'name' => 'HR Livasya',
+            'email' => 'hr@livasya.com',
+        ]);
+
+        $hr->assignRole('hr');
+
+        $manager = User::create([
+            'name' => 'Manager Livasya',
+            'email' => 'manager@livasya.com',
+        ]);
+
+        $manager->assignRole('manager');
+
+        $fizar = User::create([
+            'name' => 'Fizar Rama Waluyo, S. Kom.',
+            'email' => 'fizar@livasya.id',
+        ]);
+
+        $fizar->assignRole('employee');
+
+        $dimas = User::create([
+            'name' => 'Dimas Chandra',
+            'email' => 'dimas@livasya.id',
+        ]);
+
+        $dimas->assignRole('employee');
     }
 }

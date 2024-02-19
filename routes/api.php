@@ -10,6 +10,7 @@ use App\Http\Controllers\API\JobPositionController;
 use App\Http\Controllers\API\OrganizationController;
 use App\Http\Controllers\API\ShiftController;
 use App\Http\Controllers\API\BankEmployeeController;
+use App\Http\Controllers\API\StructureController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -84,5 +85,11 @@ Route::prefix('dashboard')->group(function () {
         Route::put('/update/{id}', [BankEmployeeController::class, 'update']);
         Route::get('/get/{id}', [BankEmployeeController::class, 'getBankEmployee']);
         Route::get('/delete/{id}', [BankEmployeeController::class, 'destroy']);
+    });
+    Route::prefix('structures')->group(function () {
+        Route::post('/store', [StructureController::class, 'store']);
+        Route::put('/update/{id}', [StructureController::class, 'update']);
+        Route::get('/get/{id}', [StructureController::class, 'getStructure']);
+        Route::get('/delete/{id}', [StructureController::class, 'destroy']);
     });
 });
