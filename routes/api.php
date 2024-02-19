@@ -11,6 +11,8 @@ use App\Http\Controllers\API\OrganizationController;
 use App\Http\Controllers\API\ShiftController;
 use App\Http\Controllers\API\BankEmployeeController;
 use App\Http\Controllers\API\StructureController;
+use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\RoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +39,19 @@ Route::prefix('dashboard')->group(function () {
         Route::put('/update/{id}', [OrganizationController::class, 'update']);
         Route::get('/get/{id}', [OrganizationController::class, 'getOrganization']);
         Route::get('/delete/{id}', [OrganizationController::class, 'destroy']);
+    });
+    Route::prefix('role')->group(function () {
+        Route::get('/get/{id}', [RoleController::class, 'getRole']);
+        Route::post('/store', [RoleController::class, 'store']);
+        Route::put('/update/{id}', [RoleController::class, 'update']);
+        Route::get('/delete/{id}', [RoleController::class, 'destroy']);
+    });
+    Route::prefix('user')->group(function () {
+        Route::post('/store', [UserController::class, 'store']);
+        Route::put('/update/{id}', [UserController::class, 'update']);
+        Route::put('/update-akses/{id}', [UserController::class, 'updateRole']);
+        Route::get('/get/{id}', [UserController::class, 'getUser']);
+        Route::get('/delete/{id}', [UserController::class, 'destroy']);
     });
     Route::prefix('job-level')->group(function () {
         Route::post('/store', [JobLevelController::class, 'store']);

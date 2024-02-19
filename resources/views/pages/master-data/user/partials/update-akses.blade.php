@@ -1,7 +1,7 @@
-<div class="modal fade" id="ubah-akses{{ $user->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="ubah-akses" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <form autocomplete="off" novalidate action="/user/{{ $user->id }}/akses" method="post"
+            <form autocomplete="off" novalidate action="javascript:void(0)" id="akses-form" method="post"
                 enctype="multipart/form-data">
                 @method('put')
                 @csrf
@@ -12,18 +12,17 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <select class="form-control w-100 @error('role') is-invalid @enderror"
-                        id="aksesUser{{ $user->id }}" name="role">
-                        <optgroup label="User Akses">
-                            <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>
-                                Administrator</option>
-                            <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>
-                                User</option>
-                        </optgroup>
-                    </select>
-                    @error('role')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                    <div class="form-group">
+                        <label for="Pegawai">Pegawai</label>
+                        <select class="select2 form-control w-100 " id="role" name="role">
+                            <option value=""></option>
+                            @foreach ($roles as $role)
+                                <option value="{{ $role->id }}">
+                                    {{ strlen($role->name) < 3 ? strtoupper($role->name) : ucfirst($role->name) }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -15,6 +15,7 @@ use App\Models\Shift;
 use App\Models\Structure;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class DashboardController extends Controller
 {
@@ -23,35 +24,38 @@ class DashboardController extends Controller
         return view('dashboard');
     }
 
+    public function  getDataUsers()
+    {
+        $users = User::all();
+        $roles = Role::all();
+        return view('pages.master-data.user.index', compact('users', 'roles'));
+    }
+
     public function  getDataOrganizations()
     {
         $organizations = Organization::all();
-        return view('pages.master-data.organization.index', [
-            'organizations' => $organizations,
-        ]);
+        return view('pages.master-data.organization.index', compact('organizations'));
     }
 
     public function getDataJobLevels()
     {
-        return view('pages.master-data.job-level.index', [
-            'jobLevel' => JobLevel::all(),
-        ]);
+        $jobLevel = JobLevel::all();
+        return view('pages.master-data.job-level.index', compact('jobLevel'));
     }
 
     public function getDataJobPositions()
     {
-        return view('pages.master-data.job-position.index', [
-            'jobPosition' => JobPosition::all(),
-        ]);
+        $jobPosition = JobPosition::all();
+        return view('pages.master-data.job-position.index', compact('jobPosition'));
     }
     public function getDataEmployees()
     {
-        return view('pages.pegawai.daftar-pegawai.index', [
-            'jobPosition' => JobPosition::all(),
-            'organization' => Organization::all(),
-            'jobLevel' => JobLevel::all(),
-            'employees' => Employee::all(),
-        ]);
+        $employees = Employee::all();
+        $jobLevel = JobLevel::all();
+        $organizations = Organization::all();
+        $jobPosition = JobPosition::all();
+
+        return view('pages.pegawai.daftar-pegawai.index', compact('employees', 'jobLevel', 'organizations', 'jobPosition'));
     }
     public function getDataHolidays()
     {

@@ -1,7 +1,8 @@
 <div class="modal fade" id="tambah-user" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <form autocomplete="off" novalidate action="/users" method="post" enctype="multipart/form-data">
+            <form autocomplete="off" novalidate action="javascript:void(0)" id="store-form" method="post"
+                enctype="multipart/form-data">
                 @method('post')
                 @csrf
                 <div class="modal-header">
@@ -21,29 +22,11 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" value="{{ old('username') }}"
-                            class="form-control @error('username') is-invalid @enderror" id="username" name="username"
-                            placeholder="Username">
-                        @error('username')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="text" value="{{ old('email') }}"
+                        <input type="email" value="{{ old('email') }}"
                             class="form-control @error('email') is-invalid @enderror" id="email" name="email"
-                            placeholder="Username">
+                            placeholder="Email">
                         @error('email')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" value="{{ old('password') }}"
-                            class="form-control @error('password') is-invalid @enderror" id="password" name="password"
-                            placeholder="Password">
-                        @error('password')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
