@@ -13,8 +13,9 @@
                 <div class="modal-body py-0 mt-2">
                     <div class="form-group">
                         <label for="child_organization">Nama Organisasi</label>
-                        <select class="select2 form-control w-100  @error('child_organization') is-invalid @enderror"
-                            id="child_organization" name="child_organization">
+                        <select
+                            class="select2 form-control tambah w-100  @error('child_organization') is-invalid @enderror"
+                            id="child_organization1" name="child_organization">
                             @foreach ($organizations as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
@@ -27,8 +28,9 @@
                 <div class="modal-body py-0 mt-2">
                     <div class="form-group">
                         <label for="parent_organization">Parent Organisasi</label>
-                        <select class="select2 form-control w-100  @error('parent_organization') is-invalid @enderror"
-                            id="parent_organization" name="parent_organization">
+                        <select
+                            class="select2 tambah form-control w-100  @error('parent_organization') is-invalid @enderror"
+                            id="parent_organization1" name="parent_organization">
                             <option value=""></option>
                             @foreach ($organizations as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>

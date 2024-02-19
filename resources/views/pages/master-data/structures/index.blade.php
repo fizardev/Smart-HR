@@ -1,5 +1,12 @@
 @extends('inc.layout')
 @section('title', 'Struktur')
+@section('extended-css')
+    <style>
+        .select2-dropdown.select2-dropdown--below {
+            z-index: 2500 !important;
+        }
+    </style>
+@endsection
 @section('content')
     <main id="js-page-content" role="main" class="page-content">
         <div class="row mb-5">
@@ -7,7 +14,7 @@
                 <button type="button" id="btn-tambah" class="btn btn-primary waves-effect waves-themed" data-backdrop="static"
                     data-keyboard="false" data-toggle="modal" data-target="#tambah-data" title="Tambah Job Level">
                     <span class="fal fa-plus-circle mr-1"></span>
-                    Tambah Structure
+                    Tambah Struktur
                 </button>
             </div>
         </div>
@@ -17,7 +24,7 @@
                 <div id="panel-1" class="panel">
                     <div class="panel-hdr">
                         <h2>
-                            Tabel Structure
+                            Tabel Struktur
                         </h2>
                     </div>
                     <div class="panel-container show">
@@ -102,16 +109,28 @@
             ikonEdit.classList.add('d-none');
             spinnerText.classList.remove('d-none');
 
+
             $.ajax({
                 type: "GET", // Method pengiriman data bisa dengan GET atau POST
                 url: `/api/dashboard/structures/get/${id}`, // Isi dengan url/path file php yang dituju
                 dataType: "json",
+                beforeSend: function() {
+                    $('#child_organization').select2({
+                        placeholder: 'Pilih Data Berikut',
+                        dropdownParent: $('#ubah-data')
+                    });
+                    $('#parent_organization').select2({
+                        placeholder: 'Pilih Data Berikut',
+                        dropdownParent: $('#ubah-data')
+                    });
+                },
                 success: function(data) {
                     ikonEdit.classList.remove('d-none');
                     ikonEdit.classList.add('d-block');
                     spinnerText.classList.add('d-none');
                     $('#ubah-data').modal('show');
-                    $('#ubah-data #name').val(data.name)
+                    $('#ubah-data #child_organization').val(data.child_organization).select2();
+                    $('#ubah-data #parent_organization').val(data.parent_organization).select2();
                 },
                 error: function(xhr) {
                     console.log(xhr.responseText);
@@ -177,7 +196,11 @@
 
         $(document).ready(function() {
             $(function() {
-                $('.select2').select2({
+                $('#child_organization1').select2({
+                    placeholder: 'Pilih Data Berikut',
+                    dropdownParent: $('#tambah-data')
+                });
+                $('#parent_organization1').select2({
                     placeholder: 'Pilih Data Berikut',
                     dropdownParent: $('#tambah-data')
                 });
