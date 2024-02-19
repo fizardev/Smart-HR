@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [AuthenticatedSessionController::class, 'create'])
     ->middleware('guest')
     ->name('login');
+// Route::post('/', [AuthenticatedSessionController::class, 'store']);
 Route::post('/', [AuthenticatedSessionController::class, 'store']);
 
 Route::middleware('auth')->group(function () {
