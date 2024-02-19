@@ -11,4 +11,9 @@ class Organization extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function child_structures()
+    {
+        return $this->hasMany(Structure::class);
+    }
 }

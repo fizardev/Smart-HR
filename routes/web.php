@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
         Route::get("/shifts", [DashboardController::class, 'getDataShifts'])->name("shifts");
         Route::get("/banks", [DashboardController::class, 'getDataBanks'])->name("banks");
         Route::get("/bank-employees", [DashboardController::class, 'getDataBankEmployees'])->name("bank-employees");
+        Route::get("/structures", [DashboardController::class, 'getDataStructures'])->name("structures");
     });
 });
 

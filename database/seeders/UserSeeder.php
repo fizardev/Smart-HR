@@ -13,33 +13,49 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = [
-            [
-                'name' => "Dimas Candra Pebriyanto",
-                'email' => "dimascndraa18@gmail.com",
-                'email_verified_at' => now(),
-                'username' => 'd.candra',
-                'password' => bcrypt('password'),
-                'role' => 'superadmin',
-            ], [
-                'name' => "Admin",
-                'email' => "admin@dummy.com",
-                'email_verified_at' => now(),
-                'username' => 'admin',
-                'password' => bcrypt('admin'),
-                'role' => 'admin',
-            ], [
-                'name' => "User",
-                'email' => "user@dummy.com",
-                'email_verified_at' => now(),
-                'username' => 'user',
-                'password' => bcrypt('user'),
-                'role' => 'user',
-            ]
-        ];
+        $admin = User::create([
+            'name' => 'Admin',
+            'username' => 'admin',
+            'email' => 'admin@livasya.com',
+            'password' => bcrypt('adminlivasya'),
+        ]);
 
-        foreach ($users as $user) {
-            User::create($user);
-        }
+        $admin->assignRole('admin');
+
+        $hr = User::create([
+            'name' => 'HR Livasya',
+            'username' => 'hrlivasya',
+            'email' => 'hr@livasya.com',
+            'password' => bcrypt('hrlivasya'),
+        ]);
+
+        $hr->assignRole('hr');
+
+        $manager = User::create([
+            'name' => 'Manager Livasya',
+            'username' => 'managerlivasya',
+            'email' => 'manager@livasya.com',
+            'password' => bcrypt('managerlivasya'),
+        ]);
+
+        $manager->assignRole('manager');
+
+        $fizar = User::create([
+            'name' => 'Fizar Rama Waluyo, S. Kom.',
+            'username' => 'fizar',
+            'email' => 'fizar@livasya.com',
+            'password' => bcrypt('employeelivasya'),
+        ]);
+
+        $fizar->assignRole('employee');
+
+        $dimas = User::create([
+            'name' => 'Dimas Chandra',
+            'username' => 'dimas',
+            'email' => 'dimas@livasya.com',
+            'password' => bcrypt('employeelivasya'),
+        ]);
+
+        $dimas->assignRole('employee');
     }
 }

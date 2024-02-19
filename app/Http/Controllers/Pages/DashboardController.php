@@ -12,6 +12,7 @@ use App\Models\JobLevel;
 use App\Models\JobPosition;
 use App\Models\Organization;
 use App\Models\Shift;
+use App\Models\Structure;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -82,6 +83,13 @@ class DashboardController extends Controller
             // 'bank_employees' => BankEmployee::all(),
             'employees' => Employee::all(),
             'banks' => Bank::all()
+        ]);
+    }
+    public function getDataStructures()
+    {
+        return view('pages.master-data.structures.index', [
+            'organizations' => Organization::all(),
+            'structures' => Structure::all()
         ]);
     }
 }
