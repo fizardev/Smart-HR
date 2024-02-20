@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
+use App\Models\Attendance;
 use App\Models\AttendanceCode;
 use App\Models\Bank;
 use App\Models\BankEmployee;
@@ -22,10 +23,12 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // $user = auth()->user();
-        // return $user->employee->organization;
-
-        return view('dashboard');
+        $attendances = Attendance::orderBy('id', 'desc')->limit(3)->get();
+        $lastAttendance = Attendance::latest()->first();
+        return view('dashboard', [
+            'attendances' => $attendances,
+            'lastAttendance' => $lastAttendance
+        ]);
     }
 
     public function  getDataUsers()
