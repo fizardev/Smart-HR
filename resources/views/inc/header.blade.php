@@ -110,6 +110,10 @@
         position: relative !important;
     }
 
+    #waktu-realtime {
+        font-size: 2.5em;
+    }
+
     @keyframes fadeIn {
         0% {
             bottom: -9999px !important;
