@@ -22,8 +22,10 @@ class DashboardController extends Controller
     public function index()
     {
         $attendances = Attendance::orderBy('id', 'desc')->limit(3)->get();
+        $lastAttendance = Attendance::latest()->first();
         return view('dashboard', [
             'attendances' => $attendances,
+            'lastAttendance' => $lastAttendance
         ]);
     }
 

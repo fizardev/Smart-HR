@@ -55,19 +55,46 @@ class AttendanceController extends Controller
                 }
 
                 $request['clock_in'] = Carbon::now();
-                $waktu_absen = Carbon::createFromFormat('H:i', '14:35');
+                $waktu_absen = Carbon::createFromFormat('H:i', '08:00');
                 $perbedaanMenit = $request->clock_in->greaterThan($waktu_absen) ? $request->clock_in->diffInMinutes($waktu_absen) : null;
                 $request['late_clock_in'] = $perbedaanMenit;
-
-
                 Attendance::create($request->all());
+
+                return response()->json(['message' => 'Berhasil Clock In!']);
             } else {
-                return response()->json(['message' => 'Lokasi Absen Terlalu Jauh']);
+                return response()->json(['error' => 'Lokasi tidak terdeteksi!'], 422);
             }
         } catch (\Exception $e) {
             return response()->json([
                 'error' => 'No result',
                 'errorLaravel' => $e->getMessage()
+            ], 404);
+        }
+    }
+    public function clock_out()
+    {
+        try {
+            //define validation rules
+            $validator = request()->validate([
+                'latitude' => 'required',
+                'longitude' => 'required',
+            ]);
+
+            $waktu_sekarang = now()->format('Y-m-d');
+            $attendance = Attendance::where('date', $waktu_sekarang)->first();
+            if ($attendance) {
+                $attendance->update([
+                    'clock_out' => Carbon::now(),
+                ]);
+                return response()->json(['message' => 'Berhasil Clock Out!']);
+            } else {
+                return response()->json(['error' => 'Anda belum clock in!'], 422);
+            }
+            //return response
+        } catch (\Exception $e) {
+            return response()->json([
+                'errors' => 'No result',
+                'error' => $e->getMessage()
             ], 404);
         }
     }
