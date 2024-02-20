@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AttendanceCodeController;
+use App\Http\Controllers\API\AttendanceController;
 use App\Http\Controllers\API\BankController;
 use App\Http\Controllers\API\CompanyController;
 use App\Http\Controllers\API\DayOffController;
@@ -31,6 +32,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::prefix('dashboard')->group(function () {
+    Route::post('/clock-in', [AttendanceController::class, 'clock_in']);
+    Route::put('/clock-out', [AttendanceController::class, 'clock_out']);
     //company
     Route::post('/company/{id}', [CompanyController::class, 'update']);
     //organization
