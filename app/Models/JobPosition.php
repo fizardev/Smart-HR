@@ -11,4 +11,9 @@ class JobPosition extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function employee()
+    {
+        return $this->hasMany(Employee::class);
+    }
 }

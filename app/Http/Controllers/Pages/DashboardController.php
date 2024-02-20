@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AttendanceCode;
 use App\Models\Bank;
 use App\Models\BankEmployee;
+use App\Models\Company;
 use App\Models\Employee;
 use App\Models\Holiday;
 use App\Models\JobLevel;
@@ -38,10 +39,11 @@ class DashboardController extends Controller
     {
         $userId = auth()->user()->id;
         $user = User::where('id', $userId)->first();
-        $pegawai = $user->employee;
+        $employee = $user->employee;
+        $company = Company::first();
 
         $roles = Role::all();
-        return view('pages.pegawai.profil-pegawai.index', compact('user', 'roles'));
+        return view('pages.pegawai.profil-pegawai.index', compact('user', 'roles', 'employee', 'company'));
     }
 
     public function  getDataOrganizations()

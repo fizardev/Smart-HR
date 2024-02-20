@@ -16,4 +16,8 @@ class Organization extends Model
     {
         return $this->hasMany(Structure::class);
     }
+    public function user()
+    {
+        return $this->hasMany(Employee::class);
+    }
 }

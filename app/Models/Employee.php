@@ -19,4 +19,19 @@ class Employee extends Model
     {
         return $this->hasOne(User::class);
     }
+
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class);
+    }
+
+    public function jobPosition()
+    {
+        return $this->belongsTo(JobPosition::class);
+    }
+
+    public function jobLevel()
+    {
+        return $this->belongsTo(JobLevel::class);
+    }
 }
