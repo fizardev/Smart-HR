@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get("/dashboard", [DashboardController::class, 'index'])->name("dashboard");
 
     Route::prefix('dashboard')->group(function () {
+        Route::get("/profile", [DashboardController::class, 'getDataUser'])->name("profile");
         Route::get("/users", [DashboardController::class, 'getDataUsers'])->name("user");
         Route::get("/company", [CompanyController::class, 'index'])->name("company");
         Route::get("/organizations", [DashboardController::class, 'getDataOrganizations'])->name("organization");

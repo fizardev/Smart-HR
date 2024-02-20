@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -72,13 +71,12 @@ class UserController extends Controller
         }
     }
 
-    public function updateRole($userId)
+    public function updateRole($id)
     {
         try {
-            $user = User::findOrFail($userId);
-            $id = request()->role;
+            $role = Role::findOrFail(request()->role);
 
-            $role = Role::findOrFail($id);
+            $user = User::find($id);
 
             // Hapus semua peran yang ditetapkan sebelumnya
             $user->roles()->detach();
