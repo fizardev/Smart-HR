@@ -21,6 +21,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        // $user = auth()->user();
+        // return $user->employee->organization;
+
         return view('dashboard');
     }
 
@@ -29,6 +32,16 @@ class DashboardController extends Controller
         $users = User::all();
         $roles = Role::all();
         return view('pages.master-data.user.index', compact('users', 'roles'));
+    }
+
+    public function  getDataUser()
+    {
+        $userId = auth()->user()->id;
+        $user = User::where('id', $userId)->first();
+        $pegawai = $user->employee;
+
+        $roles = Role::all();
+        return view('pages.pegawai.profil-pegawai.index', compact('user', 'roles'));
     }
 
     public function  getDataOrganizations()

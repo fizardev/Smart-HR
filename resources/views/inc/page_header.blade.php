@@ -687,6 +687,9 @@
                         </div>
                     </div>
                 </div>
+                <a href="{{ route('profile') }}" class="dropdown-item">
+                    <span>Profile</span>
+                </a>
                 <div class="dropdown-divider m-0"></div>
                 <a href="#" class="dropdown-item" data-action="app-reset">
                     <span data-i18n="drpdwn.reset_layout">Reset Layout</span>

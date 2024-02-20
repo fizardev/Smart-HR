@@ -27,7 +27,7 @@
                 <div class="page-content-overlay" data-action="toggle" data-class="mobile-nav-on"></div>
                 <!-- END Page Content -->
                 <!-- BEGIN Page Footer -->
-                @include('inc.footer')
+                {{-- @include('inc.footer') --}}
                 <!-- END Page Footer -->
                 <!-- BEGIN Shortcuts -->
                 <!-- modal shortcut -->

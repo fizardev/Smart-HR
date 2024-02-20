@@ -34,9 +34,9 @@ return new class extends Migration
             $table->string('end_status_date')->nullable();
             $table->string('resign_date')->nullable();
             $table->unsignedBigInteger('organization_id')->nullable();
+            $table->unsignedBigInteger('shift_id')->nullable();
             $table->unsignedBigInteger('job_position_id')->nullable();
             $table->unsignedBigInteger('job_level_id')->nullable();
-            $table->string('schedule')->nullable();
             $table->unsignedBigInteger('approval_line')->nullable();
             $table->unsignedBigInteger('approval_line_parent')->nullable();
             $table->string('basic_salary')->nullable();
@@ -44,9 +44,6 @@ return new class extends Migration
             $table->string('payment_schedule')->nullable();
             $table->string('protate_setting')->nullable();
             $table->boolean('allowed_for_overtime')->nullable();
-            $table->string('bank_name')->nullable();
-            $table->string('account_number')->nullable();
-            $table->string('account_holder_name')->nullable();
             $table->string('npwp')->nullable();
             $table->string('ptkp_status')->nullable();
             $table->string('tax_methode')->nullable();
@@ -72,6 +69,7 @@ return new class extends Migration
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('set null');
             $table->foreign('job_position_id')->references('id')->on('job_positions')->onDelete('set null');
             $table->foreign('job_level_id')->references('id')->on('job_levels')->onDelete('set null');
+            $table->foreign('shift_id')->references('id')->on('shifts')->onDelete('set null');
         });
     }
 

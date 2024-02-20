@@ -331,9 +331,9 @@
                                                                     <select class="select2 form-control w-100"
                                                                         id="employment_status" name="employment_status">
                                                                         <option value=""></option>
-                                                                        <option value="Laki-laki">Permanen</option>
-                                                                        <option value="Perempuan">Kontrak</option>
-                                                                        <option value="Perempuan">Percobaan</option>
+                                                                        <option value="Permanen">Permanen</option>
+                                                                        <option value="Kontrak">Kontrak</option>
+                                                                        <option value="Percobaan">Percobaan</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-md-6 mb-3">
@@ -451,7 +451,8 @@
                                                                             <input type="radio"
                                                                                 class="custom-control-input"
                                                                                 id="defaultInline1Radio"
-                                                                                name="salary_type" checked="">
+                                                                                name="salary_type" value="bulanan"
+                                                                                checked="">
                                                                             <label class="custom-control-label"
                                                                                 for="defaultInline1Radio">Bulanan</label>
                                                                         </div>
@@ -460,7 +461,7 @@
                                                                             <input type="radio"
                                                                                 class="custom-control-input"
                                                                                 id="defaultInline2Radio"
-                                                                                name="salary_type">
+                                                                                name="salary_type" value="harian">
                                                                             <label class="custom-control-label"
                                                                                 for="defaultInline2Radio">Harian</label>
                                                                         </div>
@@ -474,7 +475,7 @@
                                                                             <input type="radio"
                                                                                 class="custom-control-input"
                                                                                 id="prorate_setting1"
-                                                                                name="allowed_for_overtime"
+                                                                                name="allowed_for_overtime" value="iya"
                                                                                 checked="">
                                                                             <label class="custom-control-label"
                                                                                 for="prorate_setting1">Iya</label>
@@ -484,7 +485,7 @@
                                                                             <input type="radio"
                                                                                 class="custom-control-input"
                                                                                 id="prorate_setting2"
-                                                                                name="allowed_for_overtime">
+                                                                                name="allowed_for_overtime" value="tidak">
                                                                             <label class="custom-control-label"
                                                                                 for="prorate_setting2">Tidak</label>
                                                                         </div>

@@ -14,4 +14,9 @@ class Employee extends Model
     {
         return $this->hasOne(BankEmployee::class);
     }
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
 }
