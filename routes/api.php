@@ -70,8 +70,9 @@ Route::prefix('dashboard')->group(function () {
     });
     Route::prefix('employee')->group(function () {
         Route::post('/store', [EmployeeController::class, 'store']);
-        Route::put('/update/{id}', [EmployeeController::class, 'update']);
-        Route::get('/get/{id}', [EmployeeController::class, 'getJobPosition']);
+        Route::put('/update-personal/{id}', [EmployeeController::class, 'updatePersonal']);
+        Route::put('/update-identitas/{id}', [EmployeeController::class, 'updateIdentitas']);
+        Route::get('/get/{id}', [EmployeeController::class, 'edit']);
         Route::get('/delete/{id}', [EmployeeController::class, 'destroy']);
     });
     Route::prefix('day-off')->group(function () {

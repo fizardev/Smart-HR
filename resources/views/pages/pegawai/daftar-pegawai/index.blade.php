@@ -171,11 +171,11 @@
                                                                         placeholder="Majalengka">
                                                                 </div>
                                                                 <div class="col-md-6 mb-3">
-                                                                    <label>Tanggal Lahir*</label>
+                                                                    <label>Tanggal Lahir</label>
                                                                     <div class="input-group">
                                                                         <input type="text" name="birthdate"
                                                                             class="form-control "
-                                                                            placeholder="Tanggal Lahir" id="datepicker-3">
+                                                                            placeholder="Tanggal Lahir" id="birthdate">
                                                                         <div class="input-group-append">
                                                                             <span class="input-group-text fs-xl">
                                                                                 <i class="fal fa-calendar-alt"></i>
@@ -355,7 +355,7 @@
                                                                     <select class="select2 form-control w-100"
                                                                         id="organization" name="organization">
                                                                         <option value=""></option>
-                                                                        @foreach ($organization as $row)
+                                                                        @foreach ($organizations as $row)
                                                                             <option value="{{ $row->id }}">
                                                                                 {{ $row->name }}
                                                                             </option>
@@ -485,7 +485,8 @@
                                                                             <input type="radio"
                                                                                 class="custom-control-input"
                                                                                 id="prorate_setting2"
-                                                                                name="allowed_for_overtime" value="tidak">
+                                                                                name="allowed_for_overtime"
+                                                                                value="tidak">
                                                                             <label class="custom-control-label"
                                                                                 for="prorate_setting2">Tidak</label>
                                                                         </div>
@@ -872,16 +873,19 @@
                 todayBtn: "linked",
                 clearBtn: true,
                 todayHighlight: true,
+                format: "yyyy-mm-dd"
             });
             $('#identity_expire_date').datepicker({
                 todayBtn: "linked",
                 clearBtn: true,
                 todayHighlight: true,
+                format: "yyyy-mm-dd"
             });
             $('#join_date').datepicker({
                 todayBtn: "linked",
                 clearBtn: true,
                 todayHighlight: true,
+                format: "yyyy-mm-dd"
             });
         });
     </script>
