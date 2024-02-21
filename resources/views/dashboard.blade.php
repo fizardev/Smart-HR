@@ -102,6 +102,7 @@
                         longitude: longitude,
                         clock_in: null,
                         clock_out: null,
+                        employee_id: "{{ Auth::user()->employee->id }}"
                     };
                     $.ajax({
                         type: "POST",
@@ -120,7 +121,10 @@
                                 alert(errors.error);
                             } else {
                                 // Tangani kesalahan lainnya
-                                console.error('Kesalahan lainnya: ' + xhr.statusText);
+                                var errors = xhr.responseJSON;
+                                console.error('Kesalahan lainnya: ' + errors
+                                    .errorLaravel);
+                                console.log(errors)
                             }
                         }
                     });

@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
 {
     public function clock_in(Request $request)
     {
-
         try {
             // koordinat perusahaan
             $perusahaanLatitude = -6.764979921860473;
@@ -39,7 +39,7 @@ class AttendanceController extends Controller
 
             // Validasi apakah pengguna berada dalam radius perusahaan
             if ($jarak <= $radiusPerusahaan) {
-                $request['employee_id'] = 1;
+                $request['employee_id'] = $request->employee_id;
                 $request['date'] = now()->format('Y-m-d');
                 $request['location'] = $request->latitude . "," . $request->longitude;
                 // $request['early_clock_out'] = null;

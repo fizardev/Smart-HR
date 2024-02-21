@@ -143,7 +143,7 @@
                                     </a>
                                 </li>
                                 <li class="{{ set_active('dashboard/shifts') }}">
-                                    <a href="#" title="Organisasi Perusahaan"
+                                    <a href="/dashboard/shifts" title="Organisasi Perusahaan"
                                         data-filter-tags="dashboard settings  shift waktu">
                                         <span class="nav-link-text" data-i18n="nav.application_company">Manajemen
                                             Shift</span>

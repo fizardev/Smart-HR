@@ -17,13 +17,19 @@ use App\Models\Shift;
 use App\Models\Structure;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $attendances = Attendance::orderBy('id', 'desc')->limit(3)->get();
+        $employeeID = Auth::user()->employee->id;
+        $attendances = Attendance::where('employee_id', $employeeID)
+            ->orderBy('id', 'desc')
+            ->limit(3)
+            ->get();
+
         $lastAttendance = Attendance::latest()->first();
         return view('dashboard', [
             'attendances' => $attendances,
