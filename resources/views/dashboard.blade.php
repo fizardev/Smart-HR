@@ -77,7 +77,7 @@
 
                     let mapProp = {
                         center: location,
-                        zoom: 15,
+                        zoom: 13.7,
                     };
 
                     let map = new google.maps.Map(document.getElementById("map"), mapProp);
@@ -102,7 +102,8 @@
                         longitude: longitude,
                         clock_in: null,
                         clock_out: null,
-                        employee_id: "{{ Auth::user()->employee->id }}"
+                        employee_id: "{{ Auth::user()->employee->id }}",
+                        time_in: "{{ Auth::user()->employee->shift->time_in }}"
                     };
                     $.ajax({
                         type: "POST",
@@ -140,6 +141,8 @@
                         latitude: latitude,
                         longitude: longitude,
                         clock_out: null,
+                        employee_id: "{{ Auth::user()->employee->id }}",
+                        time_out: "{{ Auth::user()->employee->shift->time_out }}"
                     };
                     $.ajax({
                         type: "PUT",

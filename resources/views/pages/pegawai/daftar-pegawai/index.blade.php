@@ -355,7 +355,7 @@
                                                                     <select class="select2 form-control w-100"
                                                                         id="organization" name="organization">
                                                                         <option value=""></option>
-                                                                        @foreach ($organization as $row)
+                                                                        @foreach ($organizations as $row)
                                                                             <option value="{{ $row->id }}">
                                                                                 {{ $row->name }}
                                                                             </option>
@@ -485,7 +485,8 @@
                                                                             <input type="radio"
                                                                                 class="custom-control-input"
                                                                                 id="prorate_setting2"
-                                                                                name="allowed_for_overtime" value="tidak">
+                                                                                name="allowed_for_overtime"
+                                                                                value="tidak">
                                                                             <label class="custom-control-label"
                                                                                 for="prorate_setting2">Tidak</label>
                                                                         </div>

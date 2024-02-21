@@ -9,4 +9,9 @@ class Shift extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'time_in', 'time_out', 'status'];
+
+    public function employee()
+    {
+        return $this->hasOne(Employee::class);
+    }
 }
