@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('structures', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('child_organization');
-            $table->unsignedBigInteger('parent_organization');
+            $table->unsignedBigInteger('parent_organization')->nullable();
             $table->timestamps();
 
             $table->foreign('child_organization')->references('id')->on('organizations')->onDelete('cascade');

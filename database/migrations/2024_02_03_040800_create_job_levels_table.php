@@ -23,6 +23,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints(); // Menonaktifkan foreign key constraints
+
         Schema::dropIfExists('job_levels');
+
+        Schema::enableForeignKeyConstraints();
     }
 };

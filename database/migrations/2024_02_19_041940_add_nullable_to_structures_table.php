@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('structures', function (Blueprint $table) {
-            $table->unsignedBigInteger('parent_organization')->change();
+            $table->unsignedBigInteger('parent_organization')->nullable()->change();
         });
     }
 };

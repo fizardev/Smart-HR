@@ -37,20 +37,22 @@
                 <div class="col-xl-12">
                     <div id="panel-1" class="panel">
                         <div class="panel-container show">
-                            <div class="panel-content">
+                            <div class="panel-content row d-flex justify-content-center">
                                 @foreach ($attendances as $item)
-                                    <div class="list-attendance p-2" style="color: #666666 !important;">
-                                        <div class="attendance-date-list d-flex justify-content-center py-1"
-                                            style="border-top: 1px solid #666666;">
-                                            <span class="d-block font-weight-bold"
-                                                style="font-size: 1.2em">{{ \Carbon\Carbon::parse($item->date)->translatedFormat('j F Y') }}</span>
-                                        </div>
-                                        <div class="d-flex justify-content-center pb-1"
-                                            style="border-bottom: 1px solid #666666;">
-                                            <span class="d-block mr-2">Clock in :
-                                                {{ \Carbon\Carbon::parse($item->clock_in)->translatedFormat('H:i') }}</span>
-                                            <span class="d-block">Clock out :
-                                                {{ $item->clock_out == null ? '-' : \Carbon\Carbon::parse($item->clock_out)->translatedFormat('H:i') }}</span>
+                                    <div class="col-md-4">
+                                        <div class="list-attendance p-2" style="color: #666666 !important;">
+                                            <div class="attendance-date-list d-flex justify-content-center py-1">
+                                                <span class="d-block font-weight-bold"
+                                                    style="font-size: 1.2em">{{ \Carbon\Carbon::parse($item->date)->translatedFormat('j F Y') }}</span>
+                                            </div>
+                                            <div class="d-flex justify-content-center p-1">
+                                                <span class="d-block mr-2 badge badge-info badge-pill px-2"
+                                                    style="font-size: 1.03em !important">Clock in :
+                                                    {{ \Carbon\Carbon::parse($item->clock_in)->translatedFormat('H:i') }}</span>
+                                                <span class="d-block badge badge-success badge-pill px-2"
+                                                    style="font-size: 1.03em !important">Clock out :
+                                                    {{ $item->clock_out == null ? '-' : \Carbon\Carbon::parse($item->clock_out)->translatedFormat('H:i') }}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 @endforeach
