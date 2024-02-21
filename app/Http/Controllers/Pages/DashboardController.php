@@ -120,4 +120,8 @@ class DashboardController extends Controller
             'structures' => Structure::all()
         ]);
     }
+    public function getManagementShift()
+    {
+        return view('pages.pegawai.manajemen-shift.index');
+    }
 }

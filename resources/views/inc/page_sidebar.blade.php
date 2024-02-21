@@ -45,7 +45,7 @@
                 </a>
             </li>
             @role(['admin', 'manager', 'hr'])
-                <li class="{{ set_active_mainmenu(['dashboard/employees']) }}">
+                <li class="{{ set_active_mainmenu(['dashboard/employees', 'dashboard/management-shift']) }}">
                     <a href="#" title="Settings" data-filter-tags="application user">
                         <i class='bx bxs-user-detail'></i>
                         <span class="nav-link-text" data-i18n="nav.application_user">Pegawai</span>
@@ -67,6 +67,12 @@
                             <a href="/dashboard/company" title="Analytics settings"
                                 data-filter-tags="dashboard settings company perusahaan profile">
                                 <span class="nav-link-text" data-i18n="nav.application_company">Gaji Pegawai</span>
+                            </a>
+                        </li>
+                        <li class="{{ set_active(['dashboard/management-shift']) }}">
+                            <a href="/dashboard/management-shift" title="Analytics settings"
+                                data-filter-tags="dashboard settings management manajemen shift ">
+                                <span class="nav-link-text" data-i18n="nav.application_company">Manajemen Shift</span>
                             </a>
                         </li>
                     </ul>

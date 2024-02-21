@@ -103,7 +103,7 @@
                         clock_in: null,
                         clock_out: null,
                         employee_id: "{{ Auth::user()->employee->id }}",
-                        time_in: "{{ Auth::user()->employee->shift->time_in }}"
+                        time_in: null
                     };
                     $.ajax({
                         type: "POST",
@@ -142,7 +142,7 @@
                         longitude: longitude,
                         clock_out: null,
                         employee_id: "{{ Auth::user()->employee->id }}",
-                        time_out: "{{ Auth::user()->employee->shift->time_out }}"
+                        time_out: null
                     };
                     $.ajax({
                         type: "PUT",

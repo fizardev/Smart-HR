@@ -143,4 +143,8 @@ class AttendanceController extends Controller
             ], 404);
         }
     }
+
+    public function attendanceStore()
+    {
+    }
 }

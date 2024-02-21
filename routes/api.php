@@ -34,6 +34,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('dashboard')->group(function () {
     Route::post('/clock-in', [AttendanceController::class, 'clock_in']);
     Route::put('/clock-out', [AttendanceController::class, 'clock_out']);
+    Route::post('/management-shift/store', [AttendanceController::class, 'attendanceStore']);
     //company
     Route::post('/company/{id}', [CompanyController::class, 'update']);
     //organization
