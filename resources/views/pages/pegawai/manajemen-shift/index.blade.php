@@ -27,7 +27,7 @@
         .button {
             margin-top: 10px;
             display: inline-block;
-            padding: 8px 15px;
+            padding: 6px 15px;
             background-color: #fd1381;
             color: #fff;
             border: none;
@@ -65,8 +65,7 @@
                                             <i class="fas fa-file-excel"></i>
                                         </div>
                                         <div class="upload-text">
-                                            <p>Drag & Drop Excel files here</p>
-                                            <p>or</p>
+                                            <p>Klik tombol dibawah ini untuk upload file</p>
                                             <label class="button" for="fileElem">Browse Files</label>
                                             <input type="file" id="fileElem" multiple accept=".xls, .xlsx"
                                                 style="display: none;" name="attendance_shift">
@@ -88,58 +87,6 @@
     <script src="/js/formplugins/select2/select2.bundle.js"></script>
     <script>
         $(document).ready(function() {
-            $('#store-form').submit(function(event) {
-                event.preventDefault();
-
-                var formData = new FormData($(this)[0]);
-
-                $.ajax({
-                    url: 'your-api-endpoint', // Ganti dengan endpoint API Anda
-                    type: 'POST',
-                    data: formData,
-                    async: true, // Set async menjadi true untuk melakukan operasi secara asynchronous
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-                        console.log('Data berhasil disimpan:', response);
-                        // Lakukan tindakan setelah data disimpan, misalnya menampilkan pesan sukses
-                    },
-                    error: function(xhr, textStatus, errorThrown) {
-                        console.error('Gagal menyimpan data:', errorThrown);
-                        // Tampilkan pesan error kepada pengguna
-                    }
-                });
-            });
-            // Drag enter
-            $("#drop-area").on("dragenter", function(event) {
-                event.preventDefault();
-                event.stopPropagation();
-                $(this).addClass("drag-over");
-            });
-
-            // Drag leave
-            $("#drop-area").on("dragleave", function(event) {
-                event.preventDefault();
-                event.stopPropagation();
-                $(this).removeClass("drag-over");
-            });
-
-            // Drag over
-            $("#drop-area").on("dragover", function(event) {
-                event.preventDefault();
-                event.stopPropagation();
-            });
-
-            // Drop
-            $("#drop-area").on("drop", function(event) {
-                event.preventDefault();
-                event.stopPropagation();
-                $(this).removeClass("drag-over");
-
-                var files = event.originalEvent.dataTransfer.files;
-                handleFiles(files);
-            });
 
             // Input change
             $("#fileElem").on("change", function() {
@@ -148,6 +95,7 @@
             });
 
             function handleFiles(files) {
+                console.log(files);
                 var allowedExtensions = /(\.xls|\.xlsx)$/i;
                 var fileList = $("#fileList");
                 fileList.empty();
@@ -167,6 +115,31 @@
                     console.log("File uploaded:", file.name);
                 }
             }
+        });
+        $('#store-form').submit(function(event) {
+            event.preventDefault();
+
+            var formData = new FormData($(this)[0]);
+
+            $.ajax({
+                url: '/api/dashboard/management-shift/store', // Ganti dengan endpoint API Anda
+                type: 'POST',
+                data: formData,
+                async: true, // Set async menjadi true untuk melakukan operasi secara asynchronous
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    showSuccessAlert(response.message)
+                    setTimeout(function() {
+                        location.reload();
+                    }, 500);
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    console.error('Gagal menyimpan data:', errorThrown);
+                    // Tampilkan pesan error kepada pengguna
+                }
+            });
         });
     </script>
 @endsection

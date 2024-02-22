@@ -230,6 +230,12 @@ class ShiftSeeder extends Seeder
                 'time_out' => '22:00',
                 'status' => 'on'
             ],
+            [
+                'name' => 'National Holiday',
+                'time_in' => '00:00',
+                'time_out' => '00:00',
+                'status' => 'on'
+            ],
         ];
 
         foreach ($shifts as $data) {

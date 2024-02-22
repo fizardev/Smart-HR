@@ -16,6 +16,7 @@ use App\Models\Organization;
 use App\Models\Shift;
 use App\Models\Structure;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
@@ -25,15 +26,15 @@ class DashboardController extends Controller
     public function index()
     {
         $employeeID = Auth::user()->employee->id;
+        // Mengambil tiga entri terakhir untuk seorang karyawan berdasarkan employee_id dan tanggal
         $attendances = Attendance::where('employee_id', $employeeID)
-            ->orderBy('id', 'desc')
-            ->limit(3)
+            ->whereDate('date', '<=', Carbon::now()) // Tanggal harus lebih besar dari atau sama dengan tanggal kemarin
+            ->orderBy('date', 'desc') // Urutkan berdasarkan tanggal secara menurun
+            ->limit(3) // Batasi hasil menjadi tiga entri
             ->get();
 
-        $lastAttendance = Attendance::latest()->first();
         return view('dashboard', [
             'attendances' => $attendances,
-            'lastAttendance' => $lastAttendance
         ]);
     }
 

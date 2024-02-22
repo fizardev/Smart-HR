@@ -8,20 +8,27 @@
                     <div class="panel-container show">
                         <div class="panel-content">
                             <div id="map" style="width:100%;height:200px;"></div>
-                            <div class="time-attendance row justify-content-center mb-4" style="color: #666666 !important;">
+                            <div class="time-attendance row justify-content-center mb-2" style="color: #666666 !important;">
                                 <span class="mt-4 col-md-12 text-center"
                                     style="font-size:1.2em">{{ \Carbon\Carbon::now()->translatedFormat('l, j F Y') }}</span>
                                 <h2 class="col-md-12 mt-2 text-center" id="waktu-realtime">
                                     {{ \Carbon\Carbon::now()->translatedFormat('H:i:s') }}</h2>
                                 <div class="attendance-btn mt-2">
-                                    @if ($lastAttendance)
+                                    @if ($attendances[0])
                                         <button
-                                            class="btn btn-primary btn-sm btn-clock-in mr-1 {{ $lastAttendance->date == \Carbon\Carbon::now()->format('Y-m-d') && $lastAttendance->clock_in ? 'd-none' : '' }}"
-                                            id="clock_in">Clock
-                                            In</button>
+                                            class="btn btn-primary btn-sm btn-clock-in mr-1 {{ $attendances[0]->date == \Carbon\Carbon::now()->format('Y-m-d') && $attendances[0]->clock_in ? 'd-none' : '' }}"
+                                            id="clock_in">
+                                            <span class="spinner-border spinner-text spinner-border-sm d-none"
+                                                role="status" aria-hidden="true"></span>
+                                            Clock In
+                                        </button>
                                         <button
-                                            class="btn btn-danger btn-sm btn-clock-in {{ $lastAttendance->date == \Carbon\Carbon::now()->format('Y-m-d') && $lastAttendance->clock_out ? 'd-none' : '' }}"
-                                            id="clock_out">Clock Out</button>
+                                            class="btn btn-danger btn-sm btn-clock-in {{ $attendances[0]->date == \Carbon\Carbon::now()->format('Y-m-d') && $attendances[0]->clock_out ? 'd-none' : '' }}"
+                                            id="clock_out">
+                                            <span class="spinner-border spinner-text spinner-border-sm d-none"
+                                                role="status" aria-hidden="true"></span>
+                                            Clock Out
+                                        </button>
                                     @else
                                         <button class="btn btn-primary btn-sm btn-clock-in mr-1" id="clock_in">Clock
                                             In</button>
@@ -48,7 +55,7 @@
                                             <div class="d-flex justify-content-center p-1">
                                                 <span class="d-block mr-2 badge badge-info badge-pill px-2"
                                                     style="font-size: 1.03em !important">Clock in :
-                                                    {{ \Carbon\Carbon::parse($item->clock_in)->translatedFormat('H:i') }}</span>
+                                                    {{ $item->clock_in == null ? '-' : \Carbon\Carbon::parse($item->clock_in)->translatedFormat('H:i') }}</span>
                                                 <span class="d-block badge badge-success badge-pill px-2"
                                                     style="font-size: 1.03em !important">Clock out :
                                                     {{ $item->clock_out == null ? '-' : \Carbon\Carbon::parse($item->clock_out)->translatedFormat('H:i') }}</span>
@@ -93,6 +100,8 @@
         }
         $(document).ready(function() {
             $('#clock_in').click(function() {
+
+                $('#clock_in').find('.spinner-text').removeClass('d-none');
                 navigator.geolocation.getCurrentPosition(function(position) {
                     let latitude = position.coords.latitude;
                     let longitude = position.coords.longitude;
@@ -106,11 +115,14 @@
                         time_in: null
                     };
                     $.ajax({
-                        type: "POST",
+                        type: "PUT",
                         url: "/api/dashboard/clock-in",
                         data: data_clock_in,
+                        async: true,
                         success: function(response) {
-                            alert(response.message);
+                            $('#clock_in').find('.spinner-text').addClass(
+                                'd-none');
+                            showSuccessAlert(response.message)
                             setTimeout(function() {
                                 location.reload();
                             }, 500);
@@ -133,6 +145,7 @@
 
             })
             $('#clock_out').click(function() {
+                $('#clock_out').find('.spinner-text').removeClass('d-none');
                 navigator.geolocation.getCurrentPosition(function(position) {
                     let latitude = position.coords.latitude;
                     let longitude = position.coords.longitude;
@@ -148,8 +161,11 @@
                         type: "PUT",
                         url: "/api/dashboard/clock-out",
                         data: data_clock_out,
+                        async: true,
                         success: function(response) {
-                            alert(response.message);
+                            $('#clock_out').find('.spinner-text').addClass(
+                                'd-none');
+                            showSuccessAlert(response.message)
                             setTimeout(function() {
                                 location.reload();
                             }, 500);

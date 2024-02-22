@@ -34,8 +34,8 @@ class Employee extends Model
     {
         return $this->belongsTo(JobLevel::class);
     }
-    public function shift()
+    public function attendance()
     {
-        return $this->belongsTo(Shift::class);
+        return $this->hasMany(Attendance::class);
     }
 }
