@@ -40,6 +40,7 @@ class DayOffController extends Controller
             ], 404);
         }
     }
+
     public function update($id)
     {
         try {
@@ -61,6 +62,7 @@ class DayOffController extends Controller
             ], 404);
         }
     }
+
     public function destroy($id)
     {
         try {
