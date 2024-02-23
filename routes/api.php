@@ -12,6 +12,7 @@ use App\Http\Controllers\API\JobPositionController;
 use App\Http\Controllers\API\OrganizationController;
 use App\Http\Controllers\API\ShiftController;
 use App\Http\Controllers\API\BankEmployeeController;
+use App\Http\Controllers\API\DayOffRequestController;
 use App\Http\Controllers\API\StructureController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\RoleController;
@@ -34,8 +35,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::prefix('dashboard')->group(function () {
-    Route::post('/clock-in', [AttendanceController::class, 'clock_in']);
+    Route::put('/clock-in', [AttendanceController::class, 'clock_in']);
     Route::put('/clock-out', [AttendanceController::class, 'clock_out']);
+    Route::post('/management-shift/store', [AttendanceController::class, 'import']);
     //company
     Route::post('/company/{id}', [CompanyController::class, 'update']);
     //organization
@@ -116,4 +118,8 @@ Route::prefix('dashboard')->group(function () {
     Route::prefix('attendance-request')->group(function () {
         Route::post('/store', [AttendanceRequestController::class, 'store']);
     });
+});
+
+Route::prefix('employee')->group(function () {
+    Route::prefix('request/day-off', [DayOffRequestController::class, 'store']);
 });

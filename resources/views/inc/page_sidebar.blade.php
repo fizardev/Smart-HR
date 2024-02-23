@@ -44,8 +44,38 @@
                     <span class="nav-link-text" data-i18n="nav.application_dashboard">Dashboard</span>
                 </a>
             </li>
+            <li
+                class="{{ set_active_mainmenu(['employee/attendances', 'employee/attendance-requests', 'employee/day-off-requests']) }}">
+                <a href="#" title="Settings" data-filter-tags="application user">
+                    <i class='bx bxs-user-pin'></i>
+                    <span class="nav-link-text" data-i18n="nav.application_user">Pengajuan</span>
+                </a>
+                <ul>
+                    <li class="{{ set_active(['employee/attendance-requests']) }}">
+                        <a href="/employee/attendance-requests" title="Analytics settings"
+                            data-filter-tags="employee settings attendance-requests pegawai perusahaan profile">
+                            <span class="nav-link-text" data-i18n="nav.application_attendance-requests">Pengajuan
+                                Absen</span>
+                        </a>
+                    </li>
+                    <li class="{{ set_active(['employee/day-off-requests']) }}">
+                        <a href="/employee/day-off-requests" title="Analytics settings"
+                            data-filter-tags="employee settings day-off-requests perusahaan profile">
+                            <span class="nav-link-text" data-i18n="nav.application_day-off-requests">Pengajuan
+                                Cuti</span>
+                        </a>
+                    </li>
+                    <li class="{{ set_active(['employee/day-off-requests']) }}">
+                        <a href="/employee/day-off-requests" title="Analytics settings"
+                            data-filter-tags="employee settings day-off-requests perusahaan profile">
+                            <span class="nav-link-text" data-i18n="nav.application_day-off-requests">Acc
+                                Pengajuan</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             @role(['admin', 'manager', 'hr'])
-                <li class="{{ set_active_mainmenu(['dashboard/employees']) }}">
+                <li class="{{ set_active_mainmenu(['dashboard/employees', 'dashboard/management-shift']) }}">
                     <a href="#" title="Settings" data-filter-tags="application user">
                         <i class='bx bxs-user-detail'></i>
                         <span class="nav-link-text" data-i18n="nav.application_user">Pegawai</span>
@@ -67,6 +97,12 @@
                             <a href="/dashboard/company" title="Analytics settings"
                                 data-filter-tags="dashboard settings company perusahaan profile">
                                 <span class="nav-link-text" data-i18n="nav.application_company">Gaji Pegawai</span>
+                            </a>
+                        </li>
+                        <li class="{{ set_active(['dashboard/management-shift']) }}">
+                            <a href="/dashboard/management-shift" title="Analytics settings"
+                                data-filter-tags="dashboard settings management manajemen shift ">
+                                <span class="nav-link-text" data-i18n="nav.application_company">Manajemen Shift</span>
                             </a>
                         </li>
                     </ul>
@@ -143,7 +179,7 @@
                                     </a>
                                 </li>
                                 <li class="{{ set_active('dashboard/shifts') }}">
-                                    <a href="#" title="Organisasi Perusahaan"
+                                    <a href="/dashboard/shifts" title="Organisasi Perusahaan"
                                         data-filter-tags="dashboard settings  shift waktu">
                                         <span class="nav-link-text" data-i18n="nav.application_company">Manajemen
                                             Shift</span>

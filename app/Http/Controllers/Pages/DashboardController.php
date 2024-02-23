@@ -9,6 +9,7 @@ use App\Models\AttendanceRequest;
 use App\Models\Bank;
 use App\Models\BankEmployee;
 use App\Models\Company;
+use App\Models\DayOffRequest;
 use App\Models\Employee;
 use App\Models\Holiday;
 use App\Models\JobLevel;
@@ -17,18 +18,25 @@ use App\Models\Organization;
 use App\Models\Shift;
 use App\Models\Structure;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $attendances = Attendance::orderBy('id', 'desc')->limit(3)->get();
-        $lastAttendance = Attendance::latest()->first();
+        $employeeID = Auth::user()->employee->id;
+        // Mengambil tiga entri terakhir untuk seorang karyawan berdasarkan employee_id dan tanggal
+        $attendances = Attendance::where('employee_id', $employeeID)
+            ->whereDate('date', '<=', Carbon::now()) // Tanggal harus lebih besar dari atau sama dengan tanggal kemarin
+            ->orderBy('date', 'desc') // Urutkan berdasarkan tanggal secara menurun
+            ->limit(3) // Batasi hasil menjadi tiga entri
+            ->get();
+
         return view('dashboard', [
             'attendances' => $attendances,
-            'lastAttendance' => $lastAttendance
         ]);
     }
 
@@ -123,5 +131,15 @@ class DashboardController extends Controller
             'organizations' => Organization::all(),
             'structures' => Structure::all()
         ]);
+    }
+    public function getManagementShift()
+    {
+        return view('pages.pegawai.manajemen-shift.index');
+    }
+    public function dayOffRequest()
+    {
+        $day_off_requests = DayOffRequest::all();
+        $attendance_code = AttendanceCode::all();
+        return view('pages.pengajuan.pengajuan-cuti.index', compact('day_off_requests', 'attendance_code'));
     }
 }
