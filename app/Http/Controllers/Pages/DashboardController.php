@@ -8,6 +8,7 @@ use App\Models\AttendanceCode;
 use App\Models\Bank;
 use App\Models\BankEmployee;
 use App\Models\Company;
+use App\Models\DayOffRequest;
 use App\Models\Employee;
 use App\Models\Holiday;
 use App\Models\JobLevel;
@@ -124,5 +125,11 @@ class DashboardController extends Controller
     public function getManagementShift()
     {
         return view('pages.pegawai.manajemen-shift.index');
+    }
+    public function dayOffRequest()
+    {
+        $day_off_requests = DayOffRequest::all();
+        $attendance_code = AttendanceCode::all();
+        return view('pages.pengajuan.pengajuan-cuti.index', compact('day_off_requests', 'attendance_code'));
     }
 }

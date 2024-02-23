@@ -50,6 +50,7 @@ class AttendanceController extends Controller
                 $request['clock_in'] = Carbon::now();
                 // $waktu_absen = Carbon::createFromFormat('H:i', '08:00');
                 $attendance = Attendance::where('employee_id', $employee_id)->where('date', $request->date)->first();
+
                 $waktu_absen = $attendance->shift->time_in;
                 $perbedaanMenit = $request->clock_in->greaterThan($waktu_absen) ? $request->clock_in->diffInMinutes($waktu_absen) : null;
                 $request['late_clock_in'] = $perbedaanMenit;
@@ -61,8 +62,7 @@ class AttendanceController extends Controller
             }
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'No result',
-                'errorLaravel' => $e->getMessage()
+                'error' => "Pegawai belum memiliki shift!"
             ], 404);
         }
     }
@@ -120,8 +120,7 @@ class AttendanceController extends Controller
             //return response
         } catch (\Exception $e) {
             return response()->json([
-                'errors' => 'No result',
-                'error' => $e->getMessage()
+                'error' => "Pegawai belum memiliki shift!"
             ], 404);
         }
     }

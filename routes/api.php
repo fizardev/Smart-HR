@@ -11,6 +11,7 @@ use App\Http\Controllers\API\JobPositionController;
 use App\Http\Controllers\API\OrganizationController;
 use App\Http\Controllers\API\ShiftController;
 use App\Http\Controllers\API\BankEmployeeController;
+use App\Http\Controllers\API\DayOffRequestController;
 use App\Http\Controllers\API\StructureController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\RoleController;
@@ -111,4 +112,8 @@ Route::prefix('dashboard')->group(function () {
         Route::get('/get/{id}', [StructureController::class, 'getStructure']);
         Route::get('/delete/{id}', [StructureController::class, 'destroy']);
     });
+});
+
+Route::prefix('employee')->group(function () {
+    Route::prefix('request/day-off', [DayOffRequestController::class, 'store']);
 });

@@ -135,10 +135,11 @@
                             } else {
                                 // Tangani kesalahan lainnya
                                 var errors = xhr.responseJSON;
-                                console.error('Kesalahan lainnya: ' + errors
-                                    .errorLaravel);
-                                console.log(errors)
+                                alert(errors.error);
                             }
+                            setTimeout(function() {
+                                location.reload();
+                            }, 500);
                         }
                     });
                 });
@@ -177,8 +178,12 @@
                                 alert(errors.error);
                             } else {
                                 // Tangani kesalahan lainnya
-                                console.error('Kesalahan lainnya: ' + xhr.statusText);
+                                var errors = xhr.responseJSON;
+                                alert(errors.error);
                             }
+                            setTimeout(function() {
+                                location.reload();
+                            }, 500);
                         }
                     });
                 });
