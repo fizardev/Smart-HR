@@ -1,4 +1,3 @@
-<div class="tab-content" id="v-pills-tabContent">
     <div class="tab-pane fade show active" id="v-pills-personal" role="tabpanel" aria-labelledby="v-pills-personal-tab">
         <div class="border px-3 pt-3 pb-0 rounded">
             <ul class="nav nav-pills" role="tablist">
@@ -220,7 +219,7 @@
         </div>
     </div>
     <div class="tab-pane fade" id="v-pills-pekerjaan" role="tabpanel" aria-labelledby="v-pills-pekerjaan-tab">
-        <div class="border px-3 pt-3 pb-0 mb-4 rounded">
+        <div class="border px-3 pt-3 pb-0 rounded">
             <ul class="nav nav-pills" role="tablist">
                 <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#pekerjaan">Info
                         Pekerjaan</a>
@@ -573,4 +572,3 @@
             </div>
         </div>
     </div>
-</div>

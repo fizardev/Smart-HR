@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AttendanceCodeController;
 use App\Http\Controllers\API\AttendanceController;
+use App\Http\Controllers\API\AttendanceRequestController;
 use App\Http\Controllers\API\BankController;
 use App\Http\Controllers\API\CompanyController;
 use App\Http\Controllers\API\DayOffController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\API\BankEmployeeController;
 use App\Http\Controllers\API\StructureController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\RoleController;
+use App\Models\AttendanceRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -110,5 +112,8 @@ Route::prefix('dashboard')->group(function () {
         Route::put('/update/{id}', [StructureController::class, 'update']);
         Route::get('/get/{id}', [StructureController::class, 'getStructure']);
         Route::get('/delete/{id}', [StructureController::class, 'destroy']);
+    });
+    Route::prefix('attendance-request')->group(function () {
+        Route::post('/store', [AttendanceRequestController::class, 'store']);
     });
 });

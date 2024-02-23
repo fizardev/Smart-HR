@@ -8,13 +8,16 @@
             <div class="panel-content">
                 <div class="row">
                     @include('pages.pegawai.profil-pegawai.partials.left-content')
-                    <div class="col-lg-9">
+                    <div class="col-lg-9 p-0">
                         <div class="card mb-g">
                             <div class="row mt-4">
                                 <div class="col-12 px-5">
                                     <div class="row row-grid no-gutters">
                                         <div class="col mb-4">
-                                            @include('pages.pegawai.profil-pegawai.partials.section.general-section')
+                                            <div class="tab-content" id="v-pills-tabContent">
+                                                @include('pages.pegawai.profil-pegawai.partials.section.general-section')
+                                                @include('pages.pegawai.profil-pegawai.partials.section.time-management-section')
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -26,6 +29,7 @@
 
             @include('pages.pegawai.profil-pegawai.partials.modal.edit-employee')
             @include('pages.pegawai.profil-pegawai.partials.modal.edit-identity')
+            @include('pages.pegawai.profil-pegawai.partials.modal.create-attendance-request')
 
     </main>
 @endsection
@@ -54,7 +58,6 @@
             $('.btn-ubah-personal').click(function(e) {
                 e.preventDefault();
                 let button = $(this);
-                // console.log('clicked');
                 let id = button.attr('data-id');
                 button.find('.ikon-edit').hide();
                 button.find('.spinner-text').removeClass('d-none');
@@ -64,7 +67,6 @@
                     url: `/api/dashboard/employee/get/${id}`, // Isi dengan url/path file php yang dituju
                     dataType: "json",
                     success: function(data) {
-                        console.log(data);
                         button.find('.ikon-edit').show();
                         button.find('.spinner-text').addClass('d-none');
                         $('#ubah-personal').modal('show');
@@ -120,6 +122,7 @@
                     });
                 });
             });
+
             $('.btn-ubah-identitas').click(function(e) {
                 e.preventDefault();
                 let button = $(this);
@@ -183,32 +186,55 @@
                 });
             });
 
-            $('#store-form').on('submit', function(e) {
-                e.preventDefault();
-                let formData = $(this).serialize();
-                $.ajax({
-                    type: "POST",
-                    url: '/api/dashboard/employee/store/',
-                    data: formData,
-                    beforeSend: function() {
-                        $('#store-form').find('.ikon-tambah').hide();
-                        $('#store-form').find('.spinner-text').removeClass(
-                            'd-none');
-                    },
-                    success: function(response) {
-                        $('#store-form').find('.ikon-edit').show();
-                        $('#store-form').find('.spinner-text').addClass('d-none');
-                        $('#tambah-data').modal('hide');
-                        showSuccessAlert(response.message)
-                        setTimeout(function() {
-                            location.reload();
-                        }, 500);
-                    },
-                    error: function(xhr) {
-                        console.log(xhr.responseText);
-                    }
+            $('.btn-ajukan').click(function(e) {
+                // Mendapatkan tanggal hari ini
+                var today = new Date();
+                // Mendapatkan tanggal satu hari sebelumnya
+                var yesterday = new Date(today);
+                yesterday.setDate(today.getDate() - 1);
+
+                $('#store-attendance-request #date').datepicker({
+                    todayBtn: "linked",
+                    clearBtn: false,
+                    todayHighlight: true,
+                    format: "yyyy-mm-dd",
+                    startDate: yesterday, // Mengatur tanggal mulai satu hari sebelumnya
+                    endDate: today // Mengatur tanggal akhir hari ini
+                });
+
+                $('#create-attendance-form').modal('show');
+
+                $('#store-attendance-request').on('submit', function(e) {
+                    e.preventDefault();
+                    let formData = $(this).serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: '/api/dashboard/attendance-request/store/',
+                        data: formData,
+                        beforeSend: function() {
+                            $('#store-attendance-request').find('.ikon-tambah').hide();
+                            $('#store-attendance-request').find('.spinner-text')
+                                .removeClass(
+                                    'd-none');
+                        },
+                        success: function(response) {
+                            $('#store-attendance-request').find('.ikon-edit').show();
+                            $('#store-attendance-request').find('.spinner-text')
+                                .addClass('d-none');
+                            $('#tambah-data').modal('hide');
+                            showSuccessAlert(response.message)
+                            setTimeout(function() {
+                                location.reload();
+                            }, 500);
+                        },
+                        error: function(xhr) {
+                            console.log(xhr.responseText);
+                        }
+                    });
                 });
             });
+
+
             $(function() {
                 $('.select2').select2({
                     placeholder: 'Pilih Data Berikut'
