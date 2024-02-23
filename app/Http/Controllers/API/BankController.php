@@ -19,6 +19,7 @@ class BankController extends Controller
             ], 404);
         }
     }
+
     public function store()
     {
         try {
@@ -41,6 +42,7 @@ class BankController extends Controller
             ], 404);
         }
     }
+
     public function update($id)
     {
         try {

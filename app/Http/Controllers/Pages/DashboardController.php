@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pages;
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\AttendanceCode;
+use App\Models\AttendanceRequest;
 use App\Models\Bank;
 use App\Models\BankEmployee;
 use App\Models\Company;
@@ -45,6 +46,8 @@ class DashboardController extends Controller
         $employee = $user->employee;
         $company = Company::first();
 
+        $attendances = AttendanceRequest::all();
+
         $roles = Role::all();
         return view('pages.pegawai.profil-pegawai.index', compact('user', 'roles', 'employee', 'company'));
     }
@@ -66,6 +69,7 @@ class DashboardController extends Controller
         $jobPosition = JobPosition::all();
         return view('pages.master-data.job-position.index', compact('jobPosition'));
     }
+
     public function getDataEmployees()
     {
         $employees = Employee::all();
@@ -75,30 +79,35 @@ class DashboardController extends Controller
 
         return view('pages.pegawai.daftar-pegawai.index', compact('employees', 'jobLevel', 'organizations', 'jobPosition'));
     }
+
     public function getDataHolidays()
     {
         return view('pages.master-data.holidays.index', [
             'holidays' => Holiday::all()
         ]);
     }
+
     public function getDataAttendanceCodes()
     {
         return view('pages.master-data.attendance-code.index', [
             'attendance_code' => AttendanceCode::all()
         ]);
     }
+
     public function getDataShifts()
     {
         return view('pages.master-data.shift.index', [
             'shifts' => Shift::all()
         ]);
     }
+
     public function getDataBanks()
     {
         return view('pages.master-data.banks.index', [
             'banks' => Bank::all()
         ]);
     }
+
     public function getDataBankEmployees()
     {
         return view('pages.master-data.bank-employees.index', [
@@ -107,6 +116,7 @@ class DashboardController extends Controller
             'banks' => Bank::all()
         ]);
     }
+
     public function getDataStructures()
     {
         return view('pages.master-data.structures.index', [
