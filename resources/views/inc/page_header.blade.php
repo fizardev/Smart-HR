@@ -666,7 +666,7 @@
         @endif
         <!-- app user menu -->
         <div>
-            <a href="#" data-toggle="dropdown" title="{{ auth()->user()->email }}"
+            <a href="javascript:void(0)" data-toggle="dropdown" title="{{ auth()->user()->email }}"
                 class="header-icon d-flex align-items-center justify-content-center ml-2">
                 <img src="/img/demo/avatars/avatar-admin.png" class="profile-image rounded-circle"
                     alt="{{ auth()->user()->name }}">
@@ -677,14 +677,20 @@
             <div class="dropdown-menu dropdown-menu-animated dropdown-lg">
                 <div class="dropdown-header bg-trans-gradient d-flex flex-row py-4 rounded-top">
                     <div class="d-flex flex-row align-items-center mt-1 mb-1 color-white">
-                        <span class="mr-2">
-                            <img src="/img/demo/avatars/avatar-admin.png" class="rounded-circle profile-image"
-                                alt="{{ auth()->user()->name }}">
-                        </span>
-                        <div class="info-card-text">
-                            <div class="fs-lg text-truncate text-truncate-lg">{{ auth()->user()->name }}</div>
-                            <span class="text-truncate text-truncate-md opacity-80">{{ auth()->user()->email }}</span>
-                        </div>
+                        <a href="{{ route('profile') }}">
+                            <span class="mr-2">
+                                <img src="/img/demo/avatars/avatar-admin.png" class="rounded-circle profile-image"
+                                    alt="{{ auth()->user()->name }}">
+                            </span>
+                        </a>
+                        <a href="{{ route('profile') }}">
+                            <div class="info-card-text">
+                                <div class="fs-lg text-truncate text-truncate-lg text-white">{{ auth()->user()->name }}
+                                </div>
+                                <span
+                                    class="text-truncate text-truncate-md opacity-80 text-white">{{ auth()->user()->email }}</span>
+                            </div>
+                        </a>
                     </div>
                 </div>
                 <a href="{{ route('profile') }}" class="dropdown-item">

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AttendanceCodeController;
 use App\Http\Controllers\API\AttendanceController;
+use App\Http\Controllers\API\AttendanceRequestController;
 use App\Http\Controllers\API\BankController;
 use App\Http\Controllers\API\CompanyController;
 use App\Http\Controllers\API\DayOffController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\API\BankEmployeeController;
 use App\Http\Controllers\API\StructureController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\RoleController;
+use App\Models\AttendanceRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -70,8 +72,9 @@ Route::prefix('dashboard')->group(function () {
     });
     Route::prefix('employee')->group(function () {
         Route::post('/store', [EmployeeController::class, 'store']);
-        Route::put('/update/{id}', [EmployeeController::class, 'update']);
-        Route::get('/get/{id}', [EmployeeController::class, 'getJobPosition']);
+        Route::put('/update-personal/{id}', [EmployeeController::class, 'updatePersonal']);
+        Route::put('/update-identitas/{id}', [EmployeeController::class, 'updateIdentitas']);
+        Route::get('/get/{id}', [EmployeeController::class, 'edit']);
         Route::get('/delete/{id}', [EmployeeController::class, 'destroy']);
     });
     Route::prefix('day-off')->group(function () {
@@ -109,5 +112,8 @@ Route::prefix('dashboard')->group(function () {
         Route::put('/update/{id}', [StructureController::class, 'update']);
         Route::get('/get/{id}', [StructureController::class, 'getStructure']);
         Route::get('/delete/{id}', [StructureController::class, 'destroy']);
+    });
+    Route::prefix('attendance-request')->group(function () {
+        Route::post('/store', [AttendanceRequestController::class, 'store']);
     });
 });

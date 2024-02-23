@@ -1,4 +1,3 @@
-<div class="tab-content" id="v-pills-tabContent">
     <div class="tab-pane fade show active" id="v-pills-personal" role="tabpanel" aria-labelledby="v-pills-personal-tab">
         <div class="border px-3 pt-3 pb-0 rounded">
             <ul class="nav nav-pills" role="tablist">
@@ -113,9 +112,15 @@
                             </ul>
                         </div>
                         <div class="col">
-                            <button type="button" class="d-inline-flex btn btn-primary btn-sm">
-                                <i class="fal fa-pencil-alt mr-1"></i>
-                                Edit
+                            <button type="button" data-backdrop="static" data-keyboard="false"
+                                class="badge mx-1 badge-success p-2 border-0 text-white btn-ubah-personal"
+                                data-id="{{ $employee->id }}" title="Ubah">
+                                <i class="fal fa-pencil-alt mr-1 ikon-edit"></i>
+                                <div class="span spinner-text d-none">
+                                    <span class="spinner-border spinner-border-sm " role="status"
+                                        aria-hidden="true"></span>
+                                    Loading...
+                                </div>
                             </button>
                         </div>
                     </div>
@@ -197,7 +202,16 @@
                             </ul>
                         </div>
                         <div class="col">
-                            <button type="button" class="d-inline-flex btn btn-basic btn-sm">Sunting</button>
+                            <button type="button" data-backdrop="static" data-keyboard="false"
+                                class="badge mx-1 badge-success p-2 border-0 text-white btn-ubah-identitas"
+                                data-id="{{ $employee->id }}" title="Ubah">
+                                <i class="fal fa-pencil-alt mr-1 ikon-edit"></i>
+                                <div class="span spinner-text d-none">
+                                    <span class="spinner-border spinner-border-sm " role="status"
+                                        aria-hidden="true"></span>
+                                    Loading...
+                                </div>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -205,7 +219,7 @@
         </div>
     </div>
     <div class="tab-pane fade" id="v-pills-pekerjaan" role="tabpanel" aria-labelledby="v-pills-pekerjaan-tab">
-        <div class="border px-3 pt-3 pb-0 mb-4 rounded">
+        <div class="border px-3 pt-3 pb-0 rounded">
             <ul class="nav nav-pills" role="tablist">
                 <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#pekerjaan">Info
                         Pekerjaan</a>
@@ -558,4 +572,3 @@
             </div>
         </div>
     </div>
-</div>
