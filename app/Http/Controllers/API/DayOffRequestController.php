@@ -42,7 +42,7 @@ class DayOffRequestController extends Controller
 
                 DayOffRequest::create([
                     'attendance_code_id' => request()->attendance_code_id,
-                    'employee_id ' => $employee_id,
+                    'employee_id' => $employee_id,
                     'start_date' => $startDate,
                     'end_date' => $endDate,
                     'photo' => $imageName,
@@ -51,7 +51,7 @@ class DayOffRequestController extends Controller
             } else {
                 DayOffRequest::create([
                     'attendance_code_id' => request()->attendance_code_id,
-                    'employee_id ' => 2,
+                    'employee_id' => $employee_id,
                     'start_date' => $startDate,
                     'end_date' => $endDate,
                     'description' => request()->description,
