@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('day_off_requests', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('attendance_code_id');
+            $table->unsignedBigInteger('employee_id');
             $table->date('start_date');
             $table->date('end_date');
             $table->string('photo')->nullable();
@@ -22,7 +23,9 @@ return new class extends Migration
             $table->boolean('approved_line_child')->default(false);
             $table->boolean('approved_line_parent')->default(false);
             $table->timestamps();
+
             $table->foreign('attendance_code_id')->references('id')->on('attendance_codes')->onDelete('cascade');
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 

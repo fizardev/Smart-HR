@@ -14,7 +14,7 @@
                                 <h2 class="col-md-12 mt-2 text-center" id="waktu-realtime">
                                     {{ \Carbon\Carbon::now()->translatedFormat('H:i:s') }}</h2>
                                 <div class="attendance-btn mt-2">
-                                    @if ($attendances[0])
+                                    @if (isset($attendances[0]))
                                         <button
                                             class="btn btn-primary btn-sm btn-clock-in mr-1 {{ $attendances[0]->date == \Carbon\Carbon::now()->format('Y-m-d') && $attendances[0]->clock_in ? 'd-none' : '' }}"
                                             id="clock_in">

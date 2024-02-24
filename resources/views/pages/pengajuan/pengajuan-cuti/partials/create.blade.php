@@ -10,20 +10,34 @@
                         <span aria-hidden="true"><i class="fal fa-times"></i></span>
                     </button>
                 </div>
-                <div class="modal-body py-0">
+                <div class="modal-body py-0 mt-2">
+                    <div class="form-group">
+                        <label for="Tanggal">Jenis Cuti</label>
+                        <div class="input-group">
+                            <select class="select2 form-control w-100" id="attendance_code_id"
+                                name="attendance_code_id">
+                                @foreach ($attendance_code as $item)
+                                    <option value="{{ $item->id }}">{{ $item->code }} - {{ $item->description }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body py-0 mt-2">
                     <div class="form-group">
                         <label for="Tanggal">Tanggal</label>
                         <div class="input-group">
                             <input type="text" id="datepicker-modal-2" class="form-control"
                                 placeholder="Select a date" aria-label="date" aria-describedby="datepicker-modal-2"
-                                name="tanggal">
+                                name="date">
                             <div class="input-group-prepend">
                                 <span class="input-group-text fs-xl"><i class="fal fa-calendar"></i></span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-body py-0 mt-3">
+                <div class="modal-body py-0 mt-2">
                     <div class="form-group">
                         <label class="form-label" for="keterangan">Keterangan</label>
                         <textarea class="form-control" id="keterangan" name="description" rows="3"></textarea>

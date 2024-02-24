@@ -76,6 +76,12 @@
         /* demo scripts for change table color */
         /* change background */
         $(document).ready(function() {
+            $(function() {
+                $('.select2').select2({
+                    placeholder: 'Pilih Data Berikut',
+                    dropdownParent: $('#tambah-data')
+                });
+            });
             $('#datepicker-modal-2').daterangepicker({
                 opens: 'left'
             }, function(start, end, label) {
@@ -83,11 +89,11 @@
                     .format('YYYY-MM-DD'));
             });
 
-
             $('#store-form').on('submit', function(e) {
                 console.log("submit")
                 e.preventDefault();
-                const formData = new FormData(this);
+                let formData = new FormData(this);
+                formData.append("employee_id", "{{ auth()->user()->employee->id }}");
                 $.ajax({
                     type: "POST",
                     url: '/api/employee/request/day-off',
