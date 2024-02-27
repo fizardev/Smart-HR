@@ -148,3 +148,73 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('.btn-ubah-personal').click(function(e) {
+        e.preventDefault();
+        let button = $(this);
+        let id = button.attr('data-id');
+        button.find('.ikon-edit').hide();
+        button.find('.spinner-text').removeClass('d-none');
+
+        $.ajax({
+            type: "GET", // Method pengiriman data bisa dengan GET atau POST
+            url: `/api/dashboard/employee/get/${id}`, // Isi dengan url/path file php yang dituju
+            dataType: "json",
+            success: function(data) {
+                button.find('.ikon-edit').show();
+                button.find('.spinner-text').addClass('d-none');
+                $('#ubah-personal').modal('show');
+                $('#ubah-personal #fullname').val(data.fullname);
+                $('#ubah-personal #mobile_phone').val(data.mobile_phone);
+                $('#ubah-personal #email').val(data.email);
+                $('#ubah-personal #place_of_birth').val(data.place_of_birth);
+                $('#ubah-personal #birthdate').datepicker({
+                    todayBtn: "linked",
+                    clearBtn: false,
+                    todayHighlight: true,
+                    format: "yyyy-mm-dd",
+                }).val(data.birthdate);
+                $('#ubah-personal #gender').val(data.gender).select2({
+                    dropdownParent: $('#ubah-personal')
+                });
+                $('#ubah-personal #marital-status').val(data.marital_status).select2({
+                    dropdownParent: $('#ubah-personal')
+                });
+                $('#ubah-personal #religion').val(data.religion).select2({
+                    dropdownParent: $('#ubah-personal')
+                });
+                $('#ubah-personal #blood-type').val(data.blood_type);
+            },
+            error: function(xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+
+        $('#update-personal-form').on('submit', function(e) {
+            e.preventDefault();
+            let formData = $(this).serialize();
+            $.ajax({
+                type: "POST",
+                url: '/api/dashboard/employee/update/' + id,
+                data: formData,
+                beforeSend: function() {
+                    $('#update-personal-form').find('.ikon-edit').hide();
+                    $('#update-personal-form').find('.spinner-text')
+                        .removeClass(
+                            'd-none');
+                },
+                success: function(response) {
+                    $('#ubah-personal').modal('hide');
+                    showSuccessAlert(response.message)
+                    setTimeout(function() {
+                        location.reload();
+                    }, 500);
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+    });
+</script>

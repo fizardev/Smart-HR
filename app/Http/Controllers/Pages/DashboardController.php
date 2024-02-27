@@ -54,10 +54,18 @@ class DashboardController extends Controller
         $employee = $user->employee;
         $company = Company::first();
 
+        $employeeID = Auth::user()->employee->id;
+        // Mengambil tiga entri terakhir untuk seorang karyawan berdasarkan employee_id dan tanggal
+        $attendances = Attendance::where('employee_id', $employeeID)
+            ->whereDate('date', '<=', Carbon::now()) // Tanggal harus lebih besar dari atau sama dengan tanggal kemarin
+            ->orderBy('date', 'desc') // Urutkan berdasarkan tanggal secara menurun
+            ->limit(3) // Batasi hasil menjadi tiga entri
+            ->get();
+
         $attendances = AttendanceRequest::all();
 
         $roles = Role::all();
-        return view('pages.pegawai.profil-pegawai.index', compact('user', 'roles', 'employee', 'company'));
+        return view('pages.pegawai.profil-pegawai.index', compact('user', 'roles', 'employee', 'company', 'attendances'));
     }
 
     public function  getDataOrganizations()

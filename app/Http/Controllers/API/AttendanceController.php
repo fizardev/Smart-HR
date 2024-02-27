@@ -13,8 +13,6 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class AttendanceController extends Controller
 {
-
-
     public function clock_in(Request $request)
     {
         try {

@@ -87,14 +87,14 @@
                         <div class="col-lg-12">
                             <div class="form-group mb-3">
                                 <label class="form-label" for="example-textarea">Deskripsi</label>
-                                <textarea class="form-control" id="example-textarea" rows="5"></textarea>
+                                <textarea class="form-control" name="description" id="example-textarea" rows="5"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary btn-submit">
                         <div class="ikon-tambah">
                             <span class="fal fa-plus-circle mr-1"></span>
                             Tambah

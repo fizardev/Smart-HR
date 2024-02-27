@@ -30,6 +30,7 @@
             @include('pages.pegawai.profil-pegawai.partials.modal.edit-employee')
             @include('pages.pegawai.profil-pegawai.partials.modal.edit-identity')
             @include('pages.pegawai.profil-pegawai.partials.modal.create-attendance-request')
+            @include('pages.pegawai.profil-pegawai.partials.modal.detail-attendance-request')
 
     </main>
 @endsection
@@ -37,6 +38,7 @@
     <script src="/js/datagrid/datatables/datatables.bundle.js"></script>
     <script src="/js/formplugins/select2/select2.bundle.js"></script>
     <script src="/js/formplugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#dt-basic-example').dataTable({
@@ -53,137 +55,6 @@
                 var theadColor = $(this).attr("data-bg");
                 console.log(theadColor);
                 $('#dt-basic-example').removeClassPrefix('bg-').addClass(theadColor);
-            });
-
-            $('.btn-ubah-personal').click(function(e) {
-                e.preventDefault();
-                let button = $(this);
-                let id = button.attr('data-id');
-                button.find('.ikon-edit').hide();
-                button.find('.spinner-text').removeClass('d-none');
-
-                $.ajax({
-                    type: "GET", // Method pengiriman data bisa dengan GET atau POST
-                    url: `/api/dashboard/employee/get/${id}`, // Isi dengan url/path file php yang dituju
-                    dataType: "json",
-                    success: function(data) {
-                        button.find('.ikon-edit').show();
-                        button.find('.spinner-text').addClass('d-none');
-                        $('#ubah-personal').modal('show');
-                        $('#ubah-personal #fullname').val(data.fullname);
-                        $('#ubah-personal #mobile_phone').val(data.mobile_phone);
-                        $('#ubah-personal #email').val(data.email);
-                        $('#ubah-personal #place_of_birth').val(data.place_of_birth);
-                        $('#ubah-personal #birthdate').datepicker({
-                            todayBtn: "linked",
-                            clearBtn: false,
-                            todayHighlight: true,
-                            format: "yyyy-mm-dd",
-                        }).val(data.birthdate);
-                        $('#ubah-personal #gender').val(data.gender).select2({
-                            dropdownParent: $('#ubah-personal')
-                        });
-                        $('#ubah-personal #marital-status').val(data.marital_status).select2({
-                            dropdownParent: $('#ubah-personal')
-                        });
-                        $('#ubah-personal #religion').val(data.religion).select2({
-                            dropdownParent: $('#ubah-personal')
-                        });
-                        $('#ubah-personal #blood-type').val(data.blood_type);
-                    },
-                    error: function(xhr) {
-                        console.log(xhr.responseText);
-                    }
-                });
-
-                $('#update-personal-form').on('submit', function(e) {
-                    e.preventDefault();
-                    let formData = $(this).serialize();
-                    $.ajax({
-                        type: "POST",
-                        url: '/api/dashboard/employee/update/' + id,
-                        data: formData,
-                        beforeSend: function() {
-                            $('#update-personal-form').find('.ikon-edit').hide();
-                            $('#update-personal-form').find('.spinner-text')
-                                .removeClass(
-                                    'd-none');
-                        },
-                        success: function(response) {
-                            $('#ubah-personal').modal('hide');
-                            showSuccessAlert(response.message)
-                            setTimeout(function() {
-                                location.reload();
-                            }, 500);
-                        },
-                        error: function(xhr) {
-                            console.log(xhr.responseText);
-                        }
-                    });
-                });
-            });
-
-            $('.btn-ubah-identitas').click(function(e) {
-                e.preventDefault();
-                let button = $(this);
-                // console.log('clicked');
-                let id = button.attr('data-id');
-                button.find('.ikon-edit').hide();
-                button.find('.spinner-text').removeClass('d-none');
-
-                $.ajax({
-                    type: "GET", // Method pengiriman data bisa dengan GET atau POST
-                    url: `/api/dashboard/employee/get/${id}`, // Isi dengan url/path file php yang dituju
-                    dataType: "json",
-                    success: function(data) {
-                        console.log(data);
-                        button.find('.ikon-edit').show();
-                        button.find('.spinner-text').addClass('d-none');
-                        $('#ubah-identitas').modal('show');
-                        $('#ubah-identitas #identity-type').val(data.identity_type);
-                        $('#ubah-identitas #identity-number').val(data.identity_number);
-                        var identityNumberExpired = data.identity_expire_date;
-                        if (!identityNumberExpired) {
-                            $('#ubah-identitas #identity-expire-date').prop('disabled', true);
-                        } else {
-                            // Jika ada data, maka atur nilai input
-                            $('#ubah-identitas #identity-expire-date').val(
-                                identityNumberExpired);
-                        }
-                        $('#ubah-identitas #postal-code').val(data.postal_code);
-                        $('#ubah-identitas #citizen-id-address').val(data.citizen_id_address);
-                        $('#ubah-identitas #residental-address').val(data.residental_address);
-                    },
-                    error: function(xhr) {
-                        console.log(xhr.responseText);
-                    }
-                });
-
-                $('#update-identity-form').on('submit', function(e) {
-                    e.preventDefault();
-                    let formData = $(this).serialize();
-                    $.ajax({
-                        type: "POST",
-                        url: '/api/dashboard/employee/update-identitas/' + id,
-                        data: formData,
-                        beforeSend: function() {
-                            $('#update-identity-form').find('.ikon-edit').hide();
-                            $('#update-identity-form').find('.spinner-text')
-                                .removeClass(
-                                    'd-none');
-                        },
-                        success: function(response) {
-                            $('#ubah-identitas').modal('hide');
-                            showSuccessAlert(response.message)
-                            setTimeout(function() {
-                                location.reload();
-                            }, 500);
-                        },
-                        error: function(xhr) {
-                            console.log(xhr.responseText);
-                        }
-                    });
-                });
             });
 
             $('.btn-ajukan').click(function(e) {
@@ -206,26 +77,27 @@
 
                 $('#store-attendance-request').on('submit', function(e) {
                     e.preventDefault();
+                    $(".btn-submit").prop('disabled', true);
                     let formData = $(this).serialize();
+                    let form = $(this); // Simpan referensi ke formulir
                     $.ajax({
                         type: "POST",
                         url: '/api/dashboard/attendance-request/store/',
                         data: formData,
                         beforeSend: function() {
-                            $('#store-attendance-request').find('.ikon-tambah').hide();
-                            $('#store-attendance-request').find('.spinner-text')
-                                .removeClass(
-                                    'd-none');
+                            form.find('.ikon-tambah').hide();
+                            form.find('.spinner-text').removeClass('d-none');
                         },
                         success: function(response) {
-                            $('#store-attendance-request').find('.ikon-edit').show();
-                            $('#store-attendance-request').find('.spinner-text')
-                                .addClass('d-none');
-                            $('#tambah-data').modal('hide');
-                            showSuccessAlert(response.message)
+                            form.find('.ikon-edit').show();
+                            form.find('.spinner-text').addClass('d-none');
+                            $('#create-attendance-form').modal('hide');
+                            showSuccessAlert(response.message);
                             setTimeout(function() {
                                 location.reload();
                             }, 500);
+                            // Nonaktifkan form setelah berhasil disubmit
+                            form.off('submit');
                         },
                         error: function(xhr) {
                             console.log(xhr.responseText);
@@ -233,7 +105,6 @@
                     });
                 });
             });
-
 
             $(function() {
                 $('.select2').select2({

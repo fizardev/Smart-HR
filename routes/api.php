@@ -116,6 +116,7 @@ Route::prefix('dashboard')->group(function () {
         Route::get('/delete/{id}', [StructureController::class, 'destroy']);
     });
     Route::prefix('attendance-request')->group(function () {
+        Route::get('/get/{id}', [AttendanceRequestController::class, 'getAttendance']);
         Route::post('/store', [AttendanceRequestController::class, 'store']);
     });
 });
