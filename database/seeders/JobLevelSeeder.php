@@ -14,11 +14,11 @@ class JobLevelSeeder extends Seeder
     public function run(): void
     {
         $organisasi = [
-            ['name' => 'Direktur'],
+            ['name' => 'Director'],
             ['name' => 'Owner'],
-            ['name' => 'Kepala'],
+            ['name' => 'Head'],
             ['name' => 'Supervisor'],
-            ['name' => 'Koordinator'],
+            ['name' => 'Coordinator'],
             ['name' => 'Staff'],
             ['name' => 'Non Staff'],
             ['name' => 'Dokter Full-Time'],

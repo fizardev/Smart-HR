@@ -1,6 +1,52 @@
 @extends('inc.layout')
-@section('title', 'Organisasi')
-@section('title', 'Job Position')
+@section('title', 'Pegawai')
+@section('extended-css')
+    <style>
+        .upload-container {
+            width: 100%;
+        }
+
+        .upload-wrapper {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #fff;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .upload-text p {
+            margin: 0;
+        }
+
+        .button {
+            margin-top: 10px;
+            display: inline-block;
+            padding: 6px 15px;
+            background-color: #fd1381;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        #fileList {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+    </style>
+@endsection
 @section('content')
     <main id="js-page-content" role="main" class="page-content">
         <div class="panel-container show">
@@ -17,6 +63,9 @@
                                         <li class="nav-item"><a class="nav-link" data-toggle="tab"
                                                 href="#js_pill_border_icon-2" role="tab"><i
                                                     class="fal fa-plus-circle mr-1"></i>Tambah Pegawai</a></li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab"
+                                                href="#js_pill_border_icon-3" role="tab"><i
+                                                    class="fal fa-plus-circle mr-1"></i>Import Pegawai</a></li>
                                     </ul>
                                     <div class="tab-content px-0">
                                         <div class="tab-pane fade show active" id="js_pill_border_icon-1" role="tabpanel">
@@ -81,6 +130,40 @@
                                                 </tfoot>
                                             </table>
                                             <!-- datatable end -->
+                                        </div>
+                                        <div class="tab-pane fade show" id="js_pill_border_icon-3" role="tabpanel">
+                                            <form id="import-pegawai" enctype="multipart/form-data">
+                                                @method('POST')
+                                                @csrf
+
+                                                <div class="upload-container">
+                                                    <div class="upload-wrapper" id="drop-area">
+                                                        <div class="upload-icon">
+                                                            <i class="fas fa-file-excel"></i>
+                                                        </div>
+                                                        <div class="upload-text">
+                                                            <p>Klik tombol dibawah ini untuk upload file</p>
+                                                            <label class="button" for="fileElem">Browse Files</label>
+                                                            <input type="file" id="fileElem" multiple
+                                                                accept=".xls, .xlsx" style="display: none;"
+                                                                name="employee_import">
+                                                        </div>
+                                                    </div>
+                                                    <div id="fileList"></div>
+
+                                                    <button type="submit" class="btn btn-primary btn-block">
+                                                        <div class="ikon-tambah">
+                                                            <span class="fas fa-upload mr-1"></span>
+                                                            Tambah
+                                                        </div>
+                                                        <div class="span spinner-text d-none">
+                                                            <span class="spinner-border spinner-border-sm" role="status"
+                                                                aria-hidden="true"></span>
+                                                            Loading...
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </form>
                                         </div>
                                         <div class="tab-pane p-3 fade" id="js_pill_border_icon-2" role="tabpanel">
 
@@ -731,6 +814,66 @@
         $(document).ready(function() {
             $('#dt-basic-example').dataTable({
                 responsive: true
+            });
+            // Input change
+            $("#fileElem").on("change", function() {
+                var files = $(this)[0].files;
+                handleFiles(files);
+            });
+
+            function handleFiles(files) {
+                console.log(files);
+                var allowedExtensions = /(\.xls|\.xlsx)$/i;
+                var fileList = $("#fileList");
+                fileList.empty();
+
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+
+                    if (!allowedExtensions.test(file.name)) {
+                        alert("Only Excel files (.xls, .xlsx) are allowed.");
+                        continue;
+                    }
+
+                    // Display file name
+                    fileList.append("<div>" + file.name + "</div>");
+
+                    // You can handle the file here
+                    console.log("File uploaded:", file.name);
+                }
+            }
+
+            $('#import-pegawai').submit(function(event) {
+                event.preventDefault();
+
+                var formData = new FormData($(this)[0]);
+
+                $.ajax({
+                    url: '/api/dashboard/employee/import', // Ganti dengan endpoint API Anda
+                    type: 'POST',
+                    data: formData,
+                    async: true, // Set async menjadi true untuk melakukan operasi secara asynchronous
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function() {
+                        $('#import-pegawai').find('.ikon-tambah').hide();
+                        $('#import-pegawai').find('.spinner-text').removeClass('d-none');
+                    },
+                    success: function(response) {
+                        $('#import-pegawai').find('.ikon-edit').show();
+                        $('#import-pegawai').find('.spinner-text').addClass('d-none');
+                        $('#tambah-data').modal('hide');
+                        showSuccessAlert(response.message)
+                        setTimeout(function() {
+                            location.reload();
+                        }, 500);
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        console.error('Gagal menyimpan data:', errorThrown);
+                        // Tampilkan pesan error kepada pengguna
+                    }
+                });
             });
 
             $('.js-thead-colors a').on('click', function() {

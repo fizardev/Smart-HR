@@ -38,6 +38,7 @@ Route::prefix('dashboard')->group(function () {
     Route::put('/clock-in', [AttendanceController::class, 'clock_in']);
     Route::put('/clock-out', [AttendanceController::class, 'clock_out']);
     Route::post('/management-shift/store', [AttendanceController::class, 'import']);
+    Route::post('/employee/import', [EmployeeController::class, 'import']);
     //company
     Route::post('/company/{id}', [CompanyController::class, 'update']);
     //organization

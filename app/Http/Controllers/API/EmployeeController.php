@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Imports\EmployeeImport;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EmployeeController extends Controller
 {
@@ -106,5 +108,11 @@ class EmployeeController extends Controller
                 'error' => $e->getMessage(),
             ], 404);
         }
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new EmployeeImport, $request->file('employee_import'));
+        return response()->json(['message' => 'Employee Berhasil di Tambahkan!']);
     }
 }

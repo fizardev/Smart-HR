@@ -1,5 +1,5 @@
 @extends('inc.layout')
-@section('title', 'Organisasi')
+@section('title', 'Manajemen Shift')
 @section('extended-css')
     <style>
         .upload-container {
@@ -72,8 +72,17 @@
                                         </div>
                                     </div>
                                     <div id="fileList"></div>
-                                    <button type="submit" class="btn btn-primary btn-block"><i
-                                            class="fas fa-upload mr-2"></i> Simpan Data </button>
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                        <div class="ikon-tambah">
+                                            <span class="fal fa-upload mr-1"></span>
+                                            Tambah
+                                        </div>
+                                        <div class="span spinner-text d-none">
+                                            <span class="spinner-border spinner-border-sm" role="status"
+                                                aria-hidden="true"></span>
+                                            Loading...
+                                        </div>
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -129,7 +138,14 @@
                 cache: false,
                 contentType: false,
                 processData: false,
+                beforeSend: function() {
+                    $('#store-form').find('.ikon-tambah').hide();
+                    $('#store-form').find('.spinner-text').removeClass('d-none');
+                },
                 success: function(response) {
+                    $('#store-form').find('.ikon-edit').show();
+                    $('#store-form').find('.spinner-text').addClass('d-none');
+                    $('#tambah-data').modal('hide');
                     showSuccessAlert(response.message)
                     setTimeout(function() {
                         location.reload();
