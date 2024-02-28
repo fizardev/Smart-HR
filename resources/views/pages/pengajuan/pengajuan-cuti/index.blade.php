@@ -49,7 +49,8 @@
                                             </td>
                                             <td>
                                                 <form method="post" id="approve-request" data-id="{{ $row->id }}">
-                                                    <input type="hidden" name="is_approved" value="">
+                                                    <input type="hidden" name="is_approved"
+                                                        value="{{ ($row->is_approved == 'Pending' ? 'Verifikasi' : $row->is_approved == 'Verifikasi') ? 'Disetujui' : '' }}">
                                                     <button type="submit" class="btn btn-success py-1 px-2" alt="Setujui">
                                                         <i class="fas fa-check-square ikon-edit"></i>
                                                         <div class="span spinner-text d-none">

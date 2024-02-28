@@ -39,9 +39,6 @@ class DashboardController extends Controller
 
     public function index()
     {
-        Artisan::call('optimize');
-        return 'optimize complete';
-        die;
         $employeeID = Auth::user()->employee->id;
         // Mengambil tiga entri terakhir untuk seorang karyawan berdasarkan employee_id dan tanggal
         $attendances = Attendance::where('employee_id', $employeeID)
