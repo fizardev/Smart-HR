@@ -123,4 +123,5 @@ Route::prefix('dashboard')->group(function () {
 
 Route::prefix('employee')->group(function () {
     Route::post('request/day-off', [DayOffRequestController::class, 'store']);
+    Route::put('approve/day-off/{id}', [DayOffRequestController::class, 'approve']);
 });

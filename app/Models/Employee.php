@@ -38,4 +38,8 @@ class Employee extends Model
     {
         return $this->hasMany(Attendance::class);
     }
+    public function day_off_requests()
+    {
+        return $this->hasMany(DayOffRequest::class);
+    }
 }

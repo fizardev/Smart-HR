@@ -5,6 +5,7 @@ use App\Http\Controllers\Pages\CompanyController;
 use App\Http\Controllers\Pages\DashboardController;
 use App\Http\Controllers\Pages\UserController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,6 +52,11 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('employee')->group(function () {
         Route::get("/day-off-requests", [DashboardController::class, 'dayOffRequest'])->name("day-off-requests");
+        Route::get("/day-off-requests/{id}", [DashboardController::class, 'getDayOffRequest'])->name("day-off-requests.get");
+    });
+    Route::get('/optimize', function () {
+        Artisan::call('optimize');
+        return 'optimize complete';
     });
 });
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\DayOffRequest;
+use App\Models\Employee;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -29,11 +30,9 @@ class DayOffRequestController extends Controller
             // Ubah tanggal ke format Y-m-d
             $startDate = Carbon::createFromFormat('m/d/Y', $dateRange[0])->format('Y-m-d');
             $endDate = Carbon::createFromFormat('m/d/Y', $dateRange[1])->format('Y-m-d');
-            // Ambil data kehadiran berdasarkan rentang tanggal dan employee_id
-            // $attendances = Attendance::where('employee_id', request()->employee_id)
-            //     ->whereBetween('date', [$startDate, $endDate])
-            //     ->get();
             $employee_id = request()->employee_id;
+            $employee = Employee::find($employee_id);
+
             if (request()->hasFile('photo')) {
                 $image = request()->file('photo');
                 $imageName = request()->attendance_code_id . '_cuti_' . time() . '.' . $image->getClientOriginalExtension();
@@ -45,6 +44,8 @@ class DayOffRequestController extends Controller
                     'employee_id' => $employee_id,
                     'start_date' => $startDate,
                     'end_date' => $endDate,
+                    'approved_line_child' => $employee->approval_line,
+                    'approved_line_parent' => $employee->approval_line_parent,
                     'photo' => $imageName,
                     'description' => request()->description,
                 ]);
@@ -54,6 +55,8 @@ class DayOffRequestController extends Controller
                     'employee_id' => $employee_id,
                     'start_date' => $startDate,
                     'end_date' => $endDate,
+                    'approved_line_child' => $employee->approval_line,
+                    'approved_line_parent' => $employee->approval_line_parent,
                     'description' => request()->description,
                 ]);
             }
@@ -65,5 +68,11 @@ class DayOffRequestController extends Controller
                 'error' => $e->getMessage()
             ], 404);
         }
+    }
+
+    public function approve($id)
+    {
+        $day_off_request = DayOffRequest::find($id);
+        dd($day_off_request);
     }
 }

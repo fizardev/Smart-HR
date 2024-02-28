@@ -21,8 +21,8 @@
             </div>
         </div>
         <div class="info-card">
-            <img src="/img/demo/avatars/avatar-admin.png" class="profile-image rounded-circle"
-                alt="{{ auth()->user()->name }}">
+            <img src="{{ auth()->user()->employee->gender == 'Laki-laki' ? '/img/demo/avatars/avatar-c.png' : '/img/demo/avatars/avatar-p.png' }}"
+                class="profile-image rounded-circle" alt="{{ auth()->user()->name }}">
             <div class="info-card-text">
                 <a href="#" class="d-flex align-items-center text-white">
                     <span class="text-truncate text-truncate-sm d-inline-block">

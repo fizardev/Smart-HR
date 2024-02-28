@@ -20,13 +20,28 @@ use App\Models\Structure;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 
 class DashboardController extends Controller
 {
+
+    protected function getNotify()
+    {
+        $day_off_notify = DayOffRequest::where('approved_line_child', auth()->user()->employee->id)->orWhere('approved_line_parent', auth()->user()->employee->id)->get();
+        $attendance_notify = AttendanceRequest::where('approved_line_child', auth()->user()->employee->id)->orWhere('approved_line_parent', auth()->user()->employee->id)->get();
+        return [
+            'day_off_notify' => $day_off_notify,
+            'attendance_notify' => $attendance_notify,
+        ];
+    }
+
     public function index()
     {
+        Artisan::call('optimize');
+        return 'optimize complete';
+        die;
         $employeeID = Auth::user()->employee->id;
         // Mengambil tiga entri terakhir untuk seorang karyawan berdasarkan employee_id dan tanggal
         $attendances = Attendance::where('employee_id', $employeeID)
@@ -34,9 +49,12 @@ class DashboardController extends Controller
             ->orderBy('date', 'desc') // Urutkan berdasarkan tanggal secara menurun
             ->limit(3) // Batasi hasil menjadi tiga entri
             ->get();
-
+        $day_off_notify = $this->getNotify()['day_off_notify'];
+        $attendance_notify = $this->getNotify()['attendance_notify'];
         return view('dashboard', [
             'attendances' => $attendances,
+            'day_off_notify' => $day_off_notify,
+            'attendance_notify' => $attendance_notify,
         ]);
     }
 
@@ -139,6 +157,12 @@ class DashboardController extends Controller
     public function dayOffRequest()
     {
         $day_off_requests = DayOffRequest::all();
+        $attendance_code = AttendanceCode::all();
+        return view('pages.pengajuan.pengajuan-cuti.index', compact('day_off_requests', 'attendance_code'));
+    }
+    public function getDayOffRequest($id)
+    {
+        $day_off_requests = DayOffRequest::where('id', $id)->get();
         $attendance_code = AttendanceCode::all();
         return view('pages.pengajuan.pengajuan-cuti.index', compact('day_off_requests', 'attendance_code'));
     }

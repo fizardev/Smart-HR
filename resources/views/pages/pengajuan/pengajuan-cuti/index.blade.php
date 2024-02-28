@@ -30,6 +30,7 @@
                                         <th style="white-space: nowrap">Tanggal</th>
                                         <th style="white-space: nowrap">Jenis Cuti</th>
                                         <th style="white-space: nowrap">Status</th>
+                                        <th style="white-space: nowrap">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -46,6 +47,18 @@
                                                     {{ $row->is_approved }} </span>
 
                                             </td>
+                                            <td>
+                                                <form method="post" id="approve-request" data-id="{{ $row->id }}">
+                                                    <input type="hidden" name="is_approved" value="">
+                                                    <button type="submit" class="btn btn-success py-1 px-2" alt="Setujui">
+                                                        <i class="fas fa-check-square ikon-edit"></i>
+                                                        <div class="span spinner-text d-none">
+                                                            <span class="spinner-border spinner-border-sm" role="status"
+                                                                aria-hidden="true"></span>
+                                                        </div>
+                                                    </button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -55,6 +68,7 @@
                                         <th style="white-space: nowrap">Tanggal</th>
                                         <th style="white-space: nowrap">Jenis Cuti</th>
                                         <th style="white-space: nowrap">Status</th>
+                                        <th style="white-space: nowrap">Aksi</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -90,7 +104,6 @@
             });
 
             $('#store-form').on('submit', function(e) {
-                console.log("submit")
                 e.preventDefault();
                 let formData = new FormData(this);
                 formData.append("employee_id", "{{ auth()->user()->employee->id }}");
@@ -119,6 +132,32 @@
                 });
             });
 
+            $('#approve-request').on('submit', function(e) {
+                e.preventDefault();
+                console.log("submited");
+                let formData = $(this).serialize();
+                let id = $(this).attr('data-id');
+                $.ajax({
+                    type: "PUT",
+                    url: '/api/employee/approve/day-off/' + id,
+                    data: formData,
+                    beforeSend: function() {
+                        $('#approve-request').find('.ikon-edit').hide();
+                        $('#approve-request').find('.spinner-text')
+                            .removeClass(
+                                'd-none');
+                    },
+                    success: function(response) {
+                        showSuccessAlert(response.message)
+                        setTimeout(function() {
+                            location.reload();
+                        }, 500);
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            })
 
             $('#dt-basic-example').dataTable({
                 responsive: true

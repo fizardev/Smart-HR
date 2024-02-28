@@ -45,7 +45,7 @@ class UserController extends Controller
             return response()->json(['message' => 'User Berhasil di Tambahkan!']);
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'No result'
+                'error' => $e->getMessage()
             ], 404);
         }
     }

@@ -13,4 +13,8 @@ class DayOffRequest extends Model
     {
         return $this->belongsTo(AttendanceCode::class);
     }
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
 }

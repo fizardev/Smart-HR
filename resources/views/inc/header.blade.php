@@ -114,6 +114,10 @@
         font-size: 2.5em;
     }
 
+    .notification:not(.notification-loading):before {
+        content: "Tidak ada pengajuan!" !important;
+    }
+
     @keyframes fadeIn {
         0% {
             bottom: -9999px !important;

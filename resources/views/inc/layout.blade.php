@@ -17,7 +17,7 @@
                     'settings_app' => 'N',
                     'my_app' => 'N',
                     'message_app' => 'N',
-                    'notification_app' => 'N',
+                    'notification_app' => 'Y',
                 ])
                 <!-- END Page Header -->
                 <!-- BEGIN Page Content -->
