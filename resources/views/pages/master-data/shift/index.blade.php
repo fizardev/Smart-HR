@@ -163,7 +163,7 @@
                 let formData = $(this).serialize();
                 $.ajax({
                     type: "POST",
-                    url: '/api/dashboard/shifts/store/',
+                    url: '/api/dashboard/shifts/store',
                     data: formData,
                     beforeSend: function() {
                         $('#store-form').find('.ikon-tambah').hide();

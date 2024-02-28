@@ -146,7 +146,7 @@
                 let formData = $(this).serialize();
                 $.ajax({
                     type: "POST",
-                    url: '/api/dashboard/day-off/store/',
+                    url: '/api/dashboard/day-off/store',
                     data: formData,
                     beforeSend: function() {
                         $('#store-form').find('.ikon-tambah').hide();
