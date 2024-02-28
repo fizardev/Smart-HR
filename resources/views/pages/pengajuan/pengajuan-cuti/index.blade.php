@@ -108,6 +108,10 @@
                 e.preventDefault();
                 let formData = new FormData(this);
                 formData.append("employee_id", "{{ auth()->user()->employee->id }}");
+                formData.append("approved_line_child", "{{ auth()->user()->employee->approval_line }}");
+                formData.append("approved_line_parent",
+                    "{{ auth()->user()->employee->approval_line_parent }}");
+
                 $.ajax({
                     type: "POST",
                     url: '/api/employee/request/day-off',
