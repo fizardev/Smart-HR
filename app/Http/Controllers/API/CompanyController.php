@@ -19,7 +19,7 @@ class CompanyController extends Controller
             'address' => 'required',
             'province' => 'required',
             'city' => 'required',
-            'logo' => 'required',
+            'logo' => 'nullable',
             'category' => 'required',
             'class' => 'required',
             'operating_permit_number' => 'required',
