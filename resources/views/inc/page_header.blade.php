@@ -233,10 +233,10 @@
 
         <!-- app notification -->
         @if (
-            ($notification_app == 'Y' && isset($getNotify['day_off_count_child'])) ||
-                ($notification_app == 'Y' && isset($getNotify['day_off_count_parent'])) ||
-                ($notification_app == 'Y' && isset($getNotify['attendance_count_parent'])) ||
-                ($notification_app == 'Y' && isset($getNotify['attendance_count_child'])))
+            ($notification_app == 'Y' && $getNotify['day_off_count_child'] > 0) ||
+                ($notification_app == 'Y' && $getNotify['day_off_count_parent'] > 0) ||
+                ($notification_app == 'Y' && $getNotify['attendance_count_parent'] > 0) ||
+                ($notification_app == 'Y' && $getNotify['attendance_count_child'] > 0))
             <div>
                 <a href="#" class="header-icon" data-toggle="dropdown"
                     title="You got {{ $getNotify['day_off_count_child'] ? $getNotify['day_off_count_child'] : $getNotify['day_off_count_parent'] + ($getNotify['attendance_count_child'] ? $getNotify['attendance_count_child'] : $getNotify['attendance_count_parent']) }} notifications">

@@ -6,6 +6,7 @@ use App\Models\Employee;
 use App\Models\JobLevel;
 use App\Models\JobPosition;
 use App\Models\Organization;
+use App\Models\User;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -21,8 +22,9 @@ class EmployeeImport implements ToCollection, WithHeadingRow
             $organization = Organization::where('name', $row['organization_id'])->first();
             $job_level = JobLevel::where('name', $row['job_level_id'])->first();
             $job_position = JobPosition::where('name', $row['job_position_id'])->first();
-            if ($organization !== null && $job_level !== null && $job_position !== null) {
-                Employee::create([
+            $employee = Employee::where('email', $row['email'])->first();
+            if ($organization !== null && $job_level !== null && $job_position !== null && $employee == null) {
+                $employee = Employee::create([
                     'id' => $row["id"],
                     'fullname' => $row["fullname"],
                     'email' => $row["email"],
@@ -47,8 +49,8 @@ class EmployeeImport implements ToCollection, WithHeadingRow
                     'organization_id' => $organization->id,
                     'job_position_id' => $job_position->id,
                     'job_level_id' => $job_level->id,
-                    'approval_line' => $row['approval_line'],
-                    'approval_line_parent' => $row['approval_line_parent'],
+                    // 'approval_line' => $row['approval_line'],
+                    // 'approval_line_parent' => $row['approval_line_parent'],
                     'basic_salary' => $row['basic_salary'],
                     'payment_schedule' => $row['payment_schedule'],
                     'protate_setting' => $row['protate_setting'],
@@ -74,12 +76,31 @@ class EmployeeImport implements ToCollection, WithHeadingRow
                     'sip' => $row['sip'],
                     'expire_sip' => $row['expire_sip']
                 ]);
-            } else {
-                dd([
-                    'organization' => $row['organization_id'],
-                    'job_level' => $row['job_level_id'],
-                    'job_position' => $row['job_position_id'],
+
+                $user = User::create([
+                    'employee_id' => $employee->id,
+                    'name' => $row['fullname'],
+                    'email' => $row['email'],
                 ]);
+
+                $user->assignRole('employee');
+            } else {
+                // dd($row);
+            }
+        }
+
+        foreach ($rows as $row) {
+            $child = Employee::where('fullname', $row['approval_line'])->value('id');
+            $parent = Employee::where('fullname', $row['approval_line_parent'])->value('id');
+            $pegawai = Employee::where('email', $row['email'])->first();
+            if ($pegawai !== null) {
+
+                $pegawai->update([
+                    'approval_line' => $child,
+                    'approval_line_parent' => $parent,
+                ]);
+            } else {
+                // dd($row);
             }
         }
     }

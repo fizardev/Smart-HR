@@ -67,7 +67,8 @@ class DashboardController extends Controller
     {
         $users = User::all();
         $roles = Role::all();
-        return view('pages.master-data.user.index', compact('users', 'roles'));
+        $getNotify = $this->getNotify();
+        return view('pages.master-data.user.index', compact('users', 'roles', 'getNotify'));
     }
 
     public function  getDataUser()
@@ -76,29 +77,32 @@ class DashboardController extends Controller
         $user = User::where('id', $userId)->first();
         $employee = $user->employee;
         $company = Company::first();
-
+        $getNotify = $this->getNotify();
         $attendances = AttendanceRequest::all();
 
         $roles = Role::all();
-        return view('pages.pegawai.profil-pegawai.index', compact('user', 'roles', 'employee', 'company'));
+        return view('pages.pegawai.profil-pegawai.index', compact('user', 'roles', 'employee', 'company', 'getNotify'));
     }
 
     public function  getDataOrganizations()
     {
         $organizations = Organization::all();
-        return view('pages.master-data.organization.index', compact('organizations'));
+        $getNotify = $this->getNotify();
+        return view('pages.master-data.organization.index', compact('organizations', 'getNotify'));
     }
 
     public function getDataJobLevels()
     {
         $jobLevel = JobLevel::all();
-        return view('pages.master-data.job-level.index', compact('jobLevel'));
+        $getNotify = $this->getNotify();
+        return view('pages.master-data.job-level.index', compact('jobLevel', 'getNotify'));
     }
 
     public function getDataJobPositions()
     {
         $jobPosition = JobPosition::all();
-        return view('pages.master-data.job-position.index', compact('jobPosition'));
+        $getNotify = $this->getNotify();
+        return view('pages.master-data.job-position.index', compact('jobPosition', 'getNotify'));
     }
 
     public function getDataEmployees()
@@ -107,35 +111,40 @@ class DashboardController extends Controller
         $jobLevel = JobLevel::all();
         $organizations = Organization::all();
         $jobPosition = JobPosition::all();
+        $getNotify = $this->getNotify();
 
-        return view('pages.pegawai.daftar-pegawai.index', compact('employees', 'jobLevel', 'organizations', 'jobPosition'));
+        return view('pages.pegawai.daftar-pegawai.index', compact('employees', 'jobLevel', 'organizations', 'jobPosition', 'getNotify'));
     }
 
     public function getDataHolidays()
     {
         return view('pages.master-data.holidays.index', [
-            'holidays' => Holiday::all()
+            'holidays' => Holiday::all(),
+            'getNotify' => $this->getNotify()
         ]);
     }
 
     public function getDataAttendanceCodes()
     {
         return view('pages.master-data.attendance-code.index', [
-            'attendance_code' => AttendanceCode::all()
+            'attendance_code' => AttendanceCode::all(),
+            'getNotify' => $this->getNotify()
         ]);
     }
 
     public function getDataShifts()
     {
         return view('pages.master-data.shift.index', [
-            'shifts' => Shift::all()
+            'shifts' => Shift::all(),
+            'getNotify' => $this->getNotify()
         ]);
     }
 
     public function getDataBanks()
     {
         return view('pages.master-data.banks.index', [
-            'banks' => Bank::all()
+            'banks' => Bank::all(),
+            'getNotify' => $this->getNotify()
         ]);
     }
 
@@ -144,6 +153,7 @@ class DashboardController extends Controller
         return view('pages.master-data.bank-employees.index', [
             // 'bank_employees' => BankEmployee::all(),
             'employees' => Employee::all(),
+            'getNotify' => $this->getNotify(),
             'banks' => Bank::all()
         ]);
     }
@@ -152,7 +162,8 @@ class DashboardController extends Controller
     {
         return view('pages.master-data.structures.index', [
             'organizations' => Organization::all(),
-            'structures' => Structure::all()
+            'structures' => Structure::all(),
+            'getNotify' => $this->getNotify(),
         ]);
     }
     public function getManagementShift()
@@ -161,14 +172,16 @@ class DashboardController extends Controller
     }
     public function dayOffRequest()
     {
+        $getNotify = $this->getNotify();
         $day_off_requests = DayOffRequest::all();
         $attendance_code = AttendanceCode::all();
-        return view('pages.pengajuan.pengajuan-cuti.index', compact('day_off_requests', 'attendance_code'));
+        return view('pages.pengajuan.pengajuan-cuti.index', compact('day_off_requests', 'attendance_code', 'getNotify'));
     }
     public function getDayOffRequest($id)
     {
+        $getNotify = $this->getNotify();
         $day_off_requests = DayOffRequest::where('id', $id)->get();
         $attendance_code = AttendanceCode::all();
-        return view('pages.pengajuan.pengajuan-cuti.index', compact('day_off_requests', 'attendance_code'));
+        return view('pages.pengajuan.pengajuan-cuti.index', compact('day_off_requests', 'attendance_code', 'getNotify'));
     }
 }
