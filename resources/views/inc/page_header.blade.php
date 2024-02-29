@@ -232,18 +232,24 @@
         @endif
 
         <!-- app notification -->
-        @if (($notification_app == 'Y' && isset($day_off_notify)) || ($notification_app == 'Y' && isset($attendance_notify)))
+        @if (
+            ($notification_app == 'Y' && isset($getNotify['day_off_count_child'])) ||
+                ($notification_app == 'Y' && isset($getNotify['day_off_count_parent'])) ||
+                ($notification_app == 'Y' && isset($getNotify['attendance_count_parent'])) ||
+                ($notification_app == 'Y' && isset($getNotify['attendance_count_child'])))
             <div>
                 <a href="#" class="header-icon" data-toggle="dropdown"
-                    title="You got {{ $day_off_notify->count() + $attendance_notify->count() }} notifications">
+                    title="You got {{ $getNotify['day_off_count_child'] ? $getNotify['day_off_count_child'] : $getNotify['day_off_count_parent'] + ($getNotify['attendance_count_child'] ? $getNotify['attendance_count_child'] : $getNotify['attendance_count_parent']) }} notifications">
                     <i class="fal fa-bell"></i>
-                    <span class="badge badge-icon">{{ $day_off_notify->count() + $attendance_notify->count() }}</span>
+                    <span
+                        class="badge badge-icon">{{ $getNotify['day_off_count_child'] ? $getNotify['day_off_count_child'] : $getNotify['day_off_count_parent'] + ($getNotify['attendance_count_child'] ? $getNotify['attendance_count_child'] : $getNotify['attendance_count_parent']) }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-animated dropdown-xl">
                     <div
                         class="dropdown-header bg-trans-gradient d-flex justify-content-center align-items-center rounded-top mb-2">
                         <h4 class="m-0 text-center color-white">
-                            {{ $day_off_notify->count() + $attendance_notify->count() }} Pengajuan Baru
+                            {{ $getNotify['day_off_count_child'] ? $getNotify['day_off_count_child'] : $getNotify['day_off_count_parent'] + ($getNotify['attendance_count_child'] ? $getNotify['attendance_count_child'] : $getNotify['attendance_count_parent']) }}
+                            Pengajuan Baru
                             <small class="mb-0 opacity-80">Meminta untuk disetujui</small>
                         </h4>
                     </div>
@@ -271,26 +277,51 @@
                         <div class="tab-pane" id="tab-dayoff-requests" role="tabpanel">
                             <div class="custom-scroll h-100">
                                 <ul class="notification">
-                                    @foreach ($day_off_notify as $row)
-                                        <li class="unread">
-                                            <a href="{{ route('day-off-requests.get', $row->id) }}"
-                                                class="d-flex align-items-center">
-                                                <span class="status mr-2">
-                                                    <span class="profile-image rounded-circle d-inline-block"
-                                                        style="background-image: url('{{ $row->employee->gender == 'Laki-laki' ? asset('img/demo/avatars/avatar-c.png') : asset('img/demo/avatars/avatar-p.png') }}')"></span>
-                                                </span>
-                                                <span class="d-flex flex-column flex-1 ml-1">
-                                                    <span class="name">{{ $row->employee->fullname }} <span
-                                                            class="badge badge-primary fw-n position-absolute pos-top pos-right mt-1">{{ $row->attendance_code->code }}</span></span>
-                                                    <span class="msg-a fs-sm text-danger">{{ $row->start_date }} s.d.
-                                                        {{ $row->end_date }}</span>
-                                                    <span
-                                                        class="msg-b fs-xs">{{ Str::limit($row->description, $limit = 50, $end = '...') }}</span>
-                                                    <span
-                                                        class="fs-nano text-muted mt-1">{{ $row->created_at->diffForHumans() }}</span>
-                                                </span>
-                                            </a>
-                                        </li>
+                                    @foreach ($getNotify['day_off_notify'] as $row)
+                                        @if ($row->approved_line_child == auth()->user()->employee->id && $row->is_approved == 'Pending')
+                                            <li class="unread">
+                                                <a href="{{ route('day-off-requests.get', $row->id) }}"
+                                                    class="d-flex align-items-center">
+                                                    <span class="status mr-2">
+                                                        <span class="profile-image rounded-circle d-inline-block"
+                                                            style="background-image: url('{{ $row->employee->gender == 'Laki-laki' ? asset('img/demo/avatars/avatar-c.png') : asset('img/demo/avatars/avatar-p.png') }}')"></span>
+                                                    </span>
+                                                    <span class="d-flex flex-column flex-1 ml-1">
+                                                        <span class="name">{{ $row->employee->fullname }} <span
+                                                                class="badge badge-primary fw-n position-absolute pos-top pos-right mt-1">{{ $row->attendance_code->code }}</span></span>
+                                                        <span class="msg-a fs-sm text-danger">{{ $row->start_date }}
+                                                            s.d.
+                                                            {{ $row->end_date }}</span>
+                                                        <span
+                                                            class="msg-b fs-xs">{{ Str::limit($row->description, $limit = 50, $end = '...') }}</span>
+                                                        <span
+                                                            class="fs-nano text-muted mt-1">{{ $row->created_at->diffForHumans() }}</span>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        @endif
+                                        @if ($row->approved_line_parent == auth()->user()->employee->id && $row->is_approved == 'Verifikasi')
+                                            <li class="unread">
+                                                <a href="{{ route('day-off-requests.get', $row->id) }}"
+                                                    class="d-flex align-items-center">
+                                                    <span class="status mr-2">
+                                                        <span class="profile-image rounded-circle d-inline-block"
+                                                            style="background-image: url('{{ $row->employee->gender == 'Laki-laki' ? asset('img/demo/avatars/avatar-c.png') : asset('img/demo/avatars/avatar-p.png') }}')"></span>
+                                                    </span>
+                                                    <span class="d-flex flex-column flex-1 ml-1">
+                                                        <span class="name">{{ $row->employee->fullname }} <span
+                                                                class="badge badge-primary fw-n position-absolute pos-top pos-right mt-1">{{ $row->attendance_code->code }}</span></span>
+                                                        <span class="msg-a fs-sm text-danger">{{ $row->start_date }}
+                                                            s.d.
+                                                            {{ $row->end_date }}</span>
+                                                        <span
+                                                            class="msg-b fs-xs">{{ Str::limit($row->description, $limit = 50, $end = '...') }}</span>
+                                                        <span
+                                                            class="fs-nano text-muted mt-1">{{ $row->created_at->diffForHumans() }}</span>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        @endif
                                     @endforeach
                                 </ul>
                             </div>
@@ -298,25 +329,51 @@
                         <div class="tab-pane" id="tab-attendance-requests" role="tabpanel">
                             <div class="custom-scroll h-100">
                                 <ul class="notification">
-                                    @foreach ($attendance_notify as $row)
-                                        <li class="unread">
-                                            <a href="#" class="d-flex align-items-center">
-                                                <span class="status mr-2">
-                                                    <span class="profile-image rounded-circle d-inline-block"
-                                                        style="background-image: url('{{ $row->employee->gender == 'Laki-laki' ? asset('img/demo/avatars/avatar-c.png') : asset('img/demo/avatars/avatar-p.png') }}')"></span>
-                                                </span>
-                                                <span class="d-flex flex-column flex-1 ml-1">
-                                                    <span class="name">{{ $row->employee->fullname }} <span
-                                                            class="badge badge-primary fw-n position-absolute pos-top pos-right mt-1">{{ $row->attendance_code->code }}</span></span>
-                                                    <span class="msg-a fs-sm text-danger">{{ $row->start_date }} s.d.
-                                                        {{ $row->end_date }}</span>
-                                                    <span
-                                                        class="msg-b fs-xs">{{ Str::limit($row->description, $limit = 50, $end = '...') }}</span>
-                                                    <span
-                                                        class="fs-nano text-muted mt-1">{{ $row->created_at->diffForHumans() }}</span>
-                                                </span>
-                                            </a>
-                                        </li>
+                                    @foreach ($getNotify['attendance_notify'] as $row)
+                                        @if ($row->approved_line_child == auth()->user()->employee->id && $row->is_approved == 'Pending')
+                                            <li class="unread">
+                                                <a href="{{ route('day-off-requests.get', $row->id) }}"
+                                                    class="d-flex align-items-center">
+                                                    <span class="status mr-2">
+                                                        <span class="profile-image rounded-circle d-inline-block"
+                                                            style="background-image: url('{{ $row->employee->gender == 'Laki-laki' ? asset('img/demo/avatars/avatar-c.png') : asset('img/demo/avatars/avatar-p.png') }}')"></span>
+                                                    </span>
+                                                    <span class="d-flex flex-column flex-1 ml-1">
+                                                        <span class="name">{{ $row->employee->fullname }} <span
+                                                                class="badge badge-primary fw-n position-absolute pos-top pos-right mt-1">{{ $row->attendance_code->code }}</span></span>
+                                                        <span class="msg-a fs-sm text-danger">{{ $row->start_date }}
+                                                            s.d.
+                                                            {{ $row->end_date }}</span>
+                                                        <span
+                                                            class="msg-b fs-xs">{{ Str::limit($row->description, $limit = 50, $end = '...') }}</span>
+                                                        <span
+                                                            class="fs-nano text-muted mt-1">{{ $row->created_at->diffForHumans() }}</span>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        @endif
+                                        @if ($row->approved_line_parent == auth()->user()->employee->id && $row->is_approved == 'Verifikasi')
+                                            <li class="unread">
+                                                <a href="{{ route('day-off-requests.get', $row->id) }}"
+                                                    class="d-flex align-items-center">
+                                                    <span class="status mr-2">
+                                                        <span class="profile-image rounded-circle d-inline-block"
+                                                            style="background-image: url('{{ $row->employee->gender == 'Laki-laki' ? asset('img/demo/avatars/avatar-c.png') : asset('img/demo/avatars/avatar-p.png') }}')"></span>
+                                                    </span>
+                                                    <span class="d-flex flex-column flex-1 ml-1">
+                                                        <span class="name">{{ $row->employee->fullname }} <span
+                                                                class="badge badge-primary fw-n position-absolute pos-top pos-right mt-1">{{ $row->attendance_code->code }}</span></span>
+                                                        <span class="msg-a fs-sm text-danger">{{ $row->start_date }}
+                                                            s.d.
+                                                            {{ $row->end_date }}</span>
+                                                        <span
+                                                            class="msg-b fs-xs">{{ Str::limit($row->description, $limit = 50, $end = '...') }}</span>
+                                                        <span
+                                                            class="fs-nano text-muted mt-1">{{ $row->created_at->diffForHumans() }}</span>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        @endif
                                     @endforeach
                                 </ul>
                             </div>

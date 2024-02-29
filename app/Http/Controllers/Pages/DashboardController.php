@@ -29,11 +29,19 @@ class DashboardController extends Controller
 
     protected function getNotify()
     {
-        $day_off_notify = DayOffRequest::where('approved_line_child', auth()->user()->employee->id)->orWhere('approved_line_parent', auth()->user()->employee->id)->get();
+        $day_off_notify = DayOffRequest::where('approved_line_child', auth()->user()->employee->id)->orWhere('approved_line_parent', auth()->user()->employee->id)->latest()->get();
         $attendance_notify = AttendanceRequest::where('approved_line_child', auth()->user()->employee->id)->orWhere('approved_line_parent', auth()->user()->employee->id)->get();
+        $day_off_count_child = DayOffRequest::where('approved_line_child', auth()->user()->employee->id)->where('is_approved', 'Pending')->count();
+        $day_off_count_parent = DayOffRequest::where('approved_line_parent', auth()->user()->employee->id)->where('is_approved', 'Verifikasi')->count();
+        $attendance_count_child = AttendanceRequest::where('approved_line_child', auth()->user()->employee->id)->where('is_approved', 'Pending')->count();
+        $attendance_count_parent = AttendanceRequest::where('approved_line_parent', auth()->user()->employee->id)->where('is_approved', 'Verifikasi')->count();
         return [
             'day_off_notify' => $day_off_notify,
             'attendance_notify' => $attendance_notify,
+            'day_off_count_child' => $day_off_count_child,
+            'day_off_count_parent' => $day_off_count_parent,
+            'attendance_count_parent' => $attendance_count_parent,
+            'attendance_count_child' => $attendance_count_child
         ];
     }
 
@@ -48,10 +56,10 @@ class DashboardController extends Controller
             ->get();
         $day_off_notify = $this->getNotify()['day_off_notify'];
         $attendance_notify = $this->getNotify()['attendance_notify'];
+        // dd($this->getNotify());
         return view('dashboard', [
             'attendances' => $attendances,
-            'day_off_notify' => $day_off_notify,
-            'attendance_notify' => $attendance_notify,
+            'getNotify' => $this->getNotify()
         ]);
     }
 

@@ -43,14 +43,14 @@
                                             </td>
                                             <td style="white-space: nowrap">
                                                 <span
-                                                    class="badge {{ $row->is_approved == 'Pending' ? 'badge-warning' : ($row->is_approved == 'Disetujui' ? 'badge-success' : ($row->is_approved == 'Ditolak' ? 'badge-danger' : '')) }}">
+                                                    class="badge {{ $row->is_approved == 'Pending' ? 'badge-warning' : ($row->is_approved == 'Disetujui' ? 'badge-success' : ($row->is_approved == 'Ditolak' ? 'badge-danger' : ($row->is_approved == 'Verifikasi' ? 'badge-primary' : ''))) }}">
                                                     {{ $row->is_approved }} </span>
 
                                             </td>
                                             <td>
                                                 <form method="post" id="approve-request" data-id="{{ $row->id }}">
                                                     <input type="hidden" name="is_approved"
-                                                        value="{{ ($row->is_approved == 'Pending' ? 'Verifikasi' : $row->is_approved == 'Verifikasi') ? 'Disetujui' : '' }}">
+                                                        value="{{ $row->is_approved == 'Pending' && $row->approved_line_child == auth()->user()->employee->id ? 'Verifikasi' : ($row->is_approved == 'Verifikasi' && $row->approved_line_parent == auth()->user()->employee->id ? 'Disetujui' : '') }}">
                                                     <button type="submit" class="btn btn-success py-1 px-2" alt="Setujui">
                                                         <i class="fas fa-check-square ikon-edit"></i>
                                                         <div class="span spinner-text d-none">

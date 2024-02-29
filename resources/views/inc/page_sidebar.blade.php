@@ -4,7 +4,7 @@
         <a href="#"
             class="page-logo-link press-scale-down d-flex align-items-center justify-content-center position-relative"
             data-toggle="modal" data-target="#modal-shortcut">
-            <img src="{{ asset('storage/img/logo.png') }}" alt="Laravel" aria-roledescription="logo" style="width: 45px">
+            <img src="{{ asset('/img/logo.png') }}" alt="Laravel" aria-roledescription="logo" style="width: 45px">
             <span class="page-logo-text font-weight-bold">SMART HR</span>
         </a>
     </div>

@@ -73,6 +73,8 @@ class DayOffRequestController extends Controller
     public function approve($id)
     {
         $day_off_request = DayOffRequest::find($id);
-        dd($day_off_request);
+        $day_off_request->update([
+            'is_approved' => request()->is_approved
+        ]);
     }
 }
