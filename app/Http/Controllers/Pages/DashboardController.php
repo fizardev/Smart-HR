@@ -168,7 +168,7 @@ class DashboardController extends Controller
     }
     public function getManagementShift()
     {
-        return view('pages.pegawai.manajemen-shift.index');
+        return view('pages.pegawai.manajemen-shift.index', ['getNotify' => $this->getNotify()]);
     }
     public function dayOffRequest()
     {

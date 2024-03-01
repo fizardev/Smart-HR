@@ -68,7 +68,7 @@ class EmployeeSeeder extends Seeder
                 'expire_sip' => null,
             ],
             [
-                'fullname' => "Fizar Rama Waluyo",
+                'fullname' => "Fizar Rama Waluyo, S. Kom.",
                 'email' => "fizar@livasya.id",
                 'mobile_phone' => "6283865284307",
                 'place_of_birth' => 'Majalengka',
