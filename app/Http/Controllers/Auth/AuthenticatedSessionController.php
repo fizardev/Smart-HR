@@ -71,7 +71,7 @@ class AuthenticatedSessionController extends Controller
         try {
             $encodedData = json_encode($data);
 
-            $url = 'https://webmail.livasya.id/service/soap';
+            $url = 'https://webmail.livasya.com/service/soap';
             $curl = curl_init($url);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
