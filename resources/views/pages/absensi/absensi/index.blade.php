@@ -17,7 +17,7 @@
                 <div id="panel-1" class="panel">
                     <div class="panel-hdr">
                         <h2>
-                            Absensi Bulan {{ now()->format('F Y') }}
+                            Absensi Bulan {{ now()->translatedFormat('F Y') }}
                         </h2>
                     </div>
                     <div class="panel-container show">
@@ -36,7 +36,8 @@
                                 <tbody>
                                     @foreach ($attendances as $row)
                                         <tr>
-                                            <td style="white-space: nowrap">{{ $row->date }}
+                                            <td style="white-space: nowrap">
+                                                {{ \Carbon\Carbon::parse($row->date)->translatedFormat('j F Y') }}
                                             </td>
                                             <td style="white-space: nowrap"
                                                 class="{{ $row->clock_in && \Carbon\Carbon::parse($row->clock_in)->format('H:i') > \Carbon\Carbon::parse($row->shift->time_in)->format('H:i') ? 'text-danger' : '' }}">
@@ -48,7 +49,11 @@
                                             </td>
                                             <td style="white-space: nowrap"
                                                 class="{{ $row->clock_out && \Carbon\Carbon::parse($row->clock_out)->format('H:i') < \Carbon\Carbon::parse($row->shift->time_out)->format('H:i') ? 'text-danger' : '' }}">
-                                                {{ \Carbon\Carbon::parse($row->clock_out)->format('H:i') }}
+                                                @isset($row->clock_out)
+                                                    {{ \Carbon\Carbon::parse($row->clock_out)->format('H:i') }}
+                                                @else
+                                                    -
+                                                @endisset
                                             </td>
                                             <td style="white-space: nowrap">{{ $row->is_day_off == 1 ? 'Ya' : '-' }}
                                             </td>

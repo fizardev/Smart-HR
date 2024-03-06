@@ -193,13 +193,13 @@ class DashboardController extends Controller
         for ($date = $startDate; $date->lte($endDate); $date->addDay()) {
             $rangeDates[] = $date->toDateString();
         }
-
+        // Membalikkan array $rangeDates agar tanggal terlama berada di bagian bawah
+        $rangeDates = array_reverse($rangeDates);
         // Query untuk mendapatkan data attendances berdasarkan range tanggal dan employee_id
         $attendances = Attendance::where('employee_id', auth()->user()->employee->id)
             ->whereIn('date', $rangeDates)
-            ->latest()
             ->get();
-
+        dd($attendances);
         // $attendance_code = AttendanceCode::all();
         return view('pages.absensi.absensi.index', compact('attendances', 'getNotify'));
     }

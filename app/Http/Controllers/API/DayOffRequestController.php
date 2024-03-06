@@ -90,7 +90,7 @@ class DayOffRequestController extends Controller
                 DB::table('attendances')
                     ->where('date', $date->toDateString())
                     ->where('employee_id', $day_off_request->employee_id)
-                    ->update(['is_day_off' => '1', 'day_off_request_id' => $id]);
+                    ->update(['is_day_off' => '1', 'day_off_request_id' => $id, 'clock_in' => null, 'clock_out' => null]);
             }
         }
         $day_off_request->update([
