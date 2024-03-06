@@ -2,10 +2,10 @@
     role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
-            <form autocomplete="off" novalidate method="post" id="store-attendance-request"
-                enctype="multipart/form-data">
+            <form autocomplete="off" novalidate method="post" id="store-form" enctype="multipart/form-data">
                 @method('post')
                 @csrf
+                {{-- <input type="hidden" name="employee_id" value="{{ auth()->user()->employee->id }}"> --}}
                 <div class="modal-header">
                     <h5 class="font-weight-bold">Pengajuan Perubahan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -80,7 +80,7 @@
                             <div class="form-group mb-3">
                                 <label class="form-label">File <small>(opsional)</small></label>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFile">
+                                    <input type="file" name="file" class="custom-file-input" id="customFile">
                                     <label class="custom-file-label" for="customFile">Unggah File</label>
                                 </div>
                             </div>
@@ -88,7 +88,7 @@
                         <div class="col-lg-12">
                             <div class="form-group mb-3">
                                 <label class="form-label" for="example-textarea">Deskripsi</label>
-                                <textarea class="form-control" id="example-textarea" rows="5"></textarea>
+                                <textarea class="form-control" name="description" id="example-textarea" rows="5"></textarea>
                             </div>
                         </div>
                     </div>

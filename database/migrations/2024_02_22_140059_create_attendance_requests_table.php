@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('attendance_requests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('attendance_id')->constrained('attendances')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('employee_id')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
             $table->date('date')->nullable();
             $table->string('clockin')->nullable();
             $table->string('clockout')->nullable();
             $table->string('file')->nullable();
             $table->text('description')->nullable();
-            $table->string('is_approved')->default('pending');
+            $table->string('is_approved')->default('Pending');
             $table->boolean('approved_line_child')->default(0);
             $table->boolean('approved_line_parent')->default(0);
             $table->timestamps();

@@ -68,7 +68,7 @@
             </div>
         </div>
     </main>
-    @include('pages.pengajuan.pengajuan-absensi.partials.create')
+    @include('pages.absensi.pengajuan-absensi.partials.create')
 @endsection
 @section('plugin')
     <script src="/js/datagrid/datatables/datatables.bundle.js"></script>
@@ -85,7 +85,7 @@
                 var yesterday = new Date(today);
                 yesterday.setDate(today.getDate() - 1);
 
-                $('#store-attendance-request #date').datepicker({
+                $('#store-form #date').datepicker({
                     todayBtn: "linked",
                     clearBtn: false,
                     todayHighlight: true,
@@ -96,25 +96,30 @@
 
                 $('#create-attendance-form').modal('show');
 
-                $('#store-attendance-request').on('submit', function(e) {
+                $('#store-form').on('submit', function(e) {
                     e.preventDefault();
-                    let formData = $(this).serialize();
-                    formData += '&employee_id={{ auth()->user()->employee->id }}'
+                    let formData = new FormData(this);
+                    formData.append("employee_id", "{{ auth()->user()->employee->id }}");
+                    formData.append("approved_line_child",
+                        "{{ auth()->user()->employee->approval_line }}");
+                    formData.append("approved_line_parent",
+                        "{{ auth()->user()->employee->approval_line_parent }}");
+
                     $.ajax({
                         type: "POST",
-                        url: '/api/dashboard/attendance-request/store/',
+                        url: '/api/employee/request/attendance',
                         data: formData,
+                        processData: false,
+                        contentType: false,
                         beforeSend: function() {
-                            $('#store-attendance-request').find('.ikon-tambah').hide();
-                            $('#store-attendance-request').find('.spinner-text')
-                                .removeClass(
-                                    'd-none');
+                            $('#store-form').find('.ikon-tambah').hide();
+                            $('#store-form').find('.spinner-text').removeClass(
+                                'd-none');
                         },
                         success: function(response) {
-                            $('#store-attendance-request').find('.ikon-edit').show();
-                            $('#store-attendance-request').find('.spinner-text')
-                                .addClass('d-none');
-                            $('#tambah-data').modal('hide');
+                            $('#store-form').find('.ikon-edit').show();
+                            $('#store-form').find('.spinner-text').addClass('d-none');
+                            $('#create-attendance-form').modal('hide');
                             showSuccessAlert(response.message)
                             setTimeout(function() {
                                 location.reload();
