@@ -54,6 +54,9 @@ Route::middleware('auth')->group(function () {
         Route::get("/attendances", [DashboardController::class, 'getAttendances'])->name("attendances");
         Route::get("/day-off-requests", [DashboardController::class, 'dayOffRequest'])->name("day-off-requests");
         Route::get("/day-off-requests/{id}", [DashboardController::class, 'getDayOffRequest'])->name("day-off-requests.get");
+
+        Route::get("/attendance-requests", [DashboardController::class, 'attendanceRequest'])->name("attendance-requests");
+        Route::get("/attendance-requests/{id}", [DashboardController::class, 'getAttendanceRequest'])->name("attendance-requests.get");
     });
     Route::get('/optimize', function () {
         Artisan::call('optimize');
