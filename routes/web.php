@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('employee')->group(function () {
+        Route::get("/attendances", [DashboardController::class, 'getAttendances'])->name("attendances");
         Route::get("/day-off-requests", [DashboardController::class, 'dayOffRequest'])->name("day-off-requests");
         Route::get("/day-off-requests/{id}", [DashboardController::class, 'getDayOffRequest'])->name("day-off-requests.get");
     });

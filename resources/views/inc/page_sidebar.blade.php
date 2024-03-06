@@ -45,12 +45,18 @@
                 </a>
             </li>
             <li
-                class="{{ set_active_mainmenu(['employee/attendances', 'employee/attendance-requests', 'employee/day-off-requests']) }}">
+                class="{{ set_active_mainmenu(['employee/attendances', 'employee/attendance-requests', 'employee/day-off-requests', 'employee/attendances']) }}">
                 <a href="#" title="Settings" data-filter-tags="application user">
                     <i class='bx bxs-user-pin'></i>
-                    <span class="nav-link-text" data-i18n="nav.application_user">Pengajuan</span>
+                    <span class="nav-link-text" data-i18n="nav.application_user">Absensi</span>
                 </a>
                 <ul>
+                    <li class="{{ set_active(['employee/attendances']) }}">
+                        <a href="/employee/attendances" title="Analytics settings"
+                            data-filter-tags="employee settings day-off-requests perusahaan profile">
+                            <span class="nav-link-text" data-i18n="nav.application_day-off-requests">Absensi</span>
+                        </a>
+                    </li>
                     <li class="{{ set_active(['employee/attendance-requests']) }}">
                         <a href="/employee/attendance-requests" title="Analytics settings"
                             data-filter-tags="employee settings attendance-requests pegawai perusahaan profile">
@@ -63,13 +69,6 @@
                             data-filter-tags="employee settings day-off-requests perusahaan profile">
                             <span class="nav-link-text" data-i18n="nav.application_day-off-requests">Pengajuan
                                 Cuti</span>
-                        </a>
-                    </li>
-                    <li class="{{ set_active(['employee/day-off-requests']) }}">
-                        <a href="/employee/day-off-requests" title="Analytics settings"
-                            data-filter-tags="employee settings day-off-requests perusahaan profile">
-                            <span class="nav-link-text" data-i18n="nav.application_day-off-requests">Acc
-                                Pengajuan</span>
                         </a>
                     </li>
                 </ul>

@@ -18,4 +18,8 @@ class Attendance extends Model
     {
         return $this->belongsTo(Shift::class);
     }
+    public function day_off()
+    {
+        return $this->belongsTo(DayOffRequest::class, 'day_off_request_id');
+    }
 }

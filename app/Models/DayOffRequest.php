@@ -11,10 +11,14 @@ class DayOffRequest extends Model
     protected $guarded = ['id'];
     public function attendance_code()
     {
-        return $this->belongsTo(AttendanceCode::class);
+        return $this->belongsTo(AttendanceCode::class, 'attendance_code_id');
     }
     public function employee()
     {
         return $this->belongsTo(Employee::class);
+    }
+    public function attendance()
+    {
+        return $this->hasOne(Attendance::class);
     }
 }

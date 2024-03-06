@@ -11,8 +11,8 @@ class AttendanceCode extends Model
     protected $table = 'attendance_codes';
     protected $fillable = ['code', 'description'];
 
-    public function day_off_requests()
+    public function day_off_request()
     {
-        $this->hasMany(DayOffRequest::class);
+        $this->hasOne(DayOffRequest::class);
     }
 }

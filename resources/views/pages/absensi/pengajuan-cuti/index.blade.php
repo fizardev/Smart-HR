@@ -2,52 +2,74 @@
 @section('title', 'User')
 @section('content')
     <main id="js-page-content" role="main" class="page-content">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-6">
-                @foreach ($day_off_requests as $item)
-                    <div class="card mb-g">
-                        <div class="card-body pb-4 px-4">
-                            <div class="d-flex flex-row pb-3 pt-2  border-top-0 border-left-0 border-right-0">
-                                <div class="d-inline-block align-middle status status-success mr-3">
-                                    <span class="profile-image rounded-circle d-block"
-                                        style="background-image:url('{{ $item->employee->gender == 'Laki-laki' ? asset('img/demo/avatars/avatar-c.png') : asset('img/demo/avatars/avatar-p.png') }}'); background-size: cover; margin-top: -6px"></span>
-                                </div>
-                                <h5 class="mb-0 flex-1 text-dark fw-500">
-                                    {{ $item->employee->fullname }}
-                                    <small class="m-0 l-h-n">
-                                        {{ $item->employee->organization->name }}
-                                    </small>
-                                </h5>
-                                <span class="text-muted fs-xs opacity-70">
+        <div class="row mb-5">
+            <div class="col-xl-12">
+                <button type="button" class="btn btn-primary waves-effect waves-themed" data-backdrop="static"
+                    data-keyboard="false" data-toggle="modal" data-target="#tambah-data" title="Tambah User">
+                    <span class="fal fa-plus-circle mr-1"></span>
+                    Ajukan Cuti
+                </button>
+            </div>
+        </div>
 
-                                    {{ $item->created_at->diffForHumans(null, true) }}
-                                </span>
-                            </div>
-                            <div class="pb-3 pt-2 border-top-0 border-left-0 border-right-0 text-muted">
-                                <p>{{ $item->description }}</p>
-                                <img src="{{ asset('storage/img/pengajuan/cuti/' . $item->photo) }}" class="img-fluid"
-                                    alt="">
-                            </div>
-                            <div class="d-flex align-items-center mt-1">
-                                <button class="btn btn-primary btn-block" id="btn-accept" data-id="{{ $item->id }}">
-                                    <div class="ikon">
-                                        <span class="fal fa-check mr-1"></span>
-                                        Setujui
-                                    </div>
-                                    <div class="span spinner-text d-none">
-                                        <span class="spinner-border spinner-border-sm" role="status"
-                                            aria-hidden="true"></span>
-                                        Loading...
-                                    </div>
-                                </button>
-                            </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div id="panel-1" class="panel">
+                    <div class="panel-hdr">
+                        <h2>
+                            History Cuti
+                        </h2>
+                    </div>
+                    <div class="panel-container show">
+                        <div class="panel-content">
+                            <!-- datatable start -->
+                            <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
+                                <thead>
+                                    <tr>
+                                        <th style="white-space: nowrap">No</th>
+                                        <th style="white-space: nowrap">Tanggal</th>
+                                        <th style="white-space: nowrap">Jenis Cuti</th>
+                                        <th style="white-space: nowrap">Keterangan</th>
+                                        <th style="white-space: nowrap">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($day_off_requests as $row)
+                                        <tr>
+                                            <td style="white-space: nowrap">{{ $loop->iteration }}</td>
+                                            <td style="white-space: nowrap">{{ $row->start_date . ' - ' . $row->end_date }}
+                                            </td>
+                                            <td style="white-space: nowrap">{{ $row->attendance_code->description }}
+                                            </td>
+                                            <td style="white-space: nowrap">{{ $row->description }}
+                                            </td>
+                                            <td style="white-space: nowrap">
+                                                <span
+                                                    class="badge {{ $row->is_approved == 'Pending' ? 'badge-warning' : ($row->is_approved == 'Disetujui' ? 'badge-success' : ($row->is_approved == 'Ditolak' ? 'badge-danger' : ($row->is_approved == 'Verifikasi' ? 'badge-primary' : ''))) }}">
+                                                    {{ $row->is_approved }} </span>
+
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th style="white-space: nowrap">No</th>
+                                        <th style="white-space: nowrap">Tanggal</th>
+                                        <th style="white-space: nowrap">Jenis Cuti</th>
+                                        <th style="white-space: nowrap">Keterangan</th>
+                                        <th style="white-space: nowrap">Status</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <!-- datatable end -->
                         </div>
                     </div>
-                @endforeach
+                </div>
             </div>
         </div>
     </main>
-    @include('pages.pengajuan.pengajuan-cuti.partials.create')
+    @include('pages.absensi.pengajuan-cuti.partials.create')
 @endsection
 @section('plugin')
     <script src="/js/dependency/moment/moment.js"></script>
@@ -104,7 +126,7 @@
                 });
             });
 
-            $('#btn-accept').on('click', function(e) {
+            $('.btn-accept').on('click', function(e) {
                 e.preventDefault();
                 console.log("click");
                 let formData = {
@@ -116,19 +138,16 @@
                     url: '/api/employee/approve/day-off/' + id,
                     data: formData,
                     beforeSend: function() {
-                        $('#btn-accept').find('.ikon').hide();
-                        $('#btn-accept').find('.spinner-text')
+                        $('#approve-request').find('.ikon-edit').hide();
+                        $('#approve-request').find('.spinner-text')
                             .removeClass(
                                 'd-none');
                     },
                     success: function(response) {
-                        $('#btn-accept').find('.ikon').show();
-                        $('#btn-accept').find('.spinner-text').addClass('d-none');
                         showSuccessAlert(response.message)
                         setTimeout(function() {
-                            window.location.href =
-                                "{{ route('dashboard') }}"; // Ganti dengan URL yang ingin Anda muat ulang
-                        }, 1000);
+                            location.reload();
+                        }, 500);
                     },
                     error: function(xhr) {
                         console.log(xhr.responseText);

@@ -176,7 +176,32 @@ class DashboardController extends Controller
         $getNotify = $this->getNotify();
         $day_off_requests = DayOffRequest::where('employee_id', auth()->user()->employee->id)->latest()->get();
         $attendance_code = AttendanceCode::all();
-        return view('pages.pengajuan.pengajuan-cuti.index', compact('day_off_requests', 'attendance_code', 'getNotify'));
+        return view('pages.absensi.pengajuan-cuti.index', compact('day_off_requests', 'attendance_code', 'getNotify'));
+    }
+
+    public function getAttendances()
+    {
+        $getNotify = $this->getNotify();
+        // Jika tanggal saat ini sudah setelah tanggal 25, maka kita akan menggunakan bulan ini
+        $startDate = Carbon::now()->subMonth()->startOfMonth()->addDays(25);
+
+        // Tanggal akhir adalah 25 bulan sekarang
+        $endDate = Carbon::now()->startOfMonth()->addDays(25);
+
+        // Membuat range tanggal antara $startDate dan $endDate
+        $rangeDates = [];
+        for ($date = $startDate; $date->lte($endDate); $date->addDay()) {
+            $rangeDates[] = $date->toDateString();
+        }
+
+        // Query untuk mendapatkan data attendances berdasarkan range tanggal dan employee_id
+        $attendances = Attendance::where('employee_id', auth()->user()->employee->id)
+            ->whereIn('date', $rangeDates)
+            ->latest()
+            ->get();
+
+        // $attendance_code = AttendanceCode::all();
+        return view('pages.absensi.absensi.index', compact('attendances', 'getNotify'));
     }
     public function getDayOffRequest($id)
     {
@@ -186,6 +211,6 @@ class DashboardController extends Controller
         }
         $getNotify = $this->getNotify();
         $attendance_code = AttendanceCode::all();
-        return view('pages.pengajuan.pengajuan-cuti.show', compact('day_off_requests', 'attendance_code', 'getNotify'));
+        return view('pages.absensi.pengajuan-cuti.show', compact('day_off_requests', 'attendance_code', 'getNotify'));
     }
 }
