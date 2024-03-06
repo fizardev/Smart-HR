@@ -112,7 +112,15 @@ class EmployeeController extends Controller
 
     public function import(Request $request)
     {
-        Excel::import(new EmployeeImport, $request->file('employee_import'));
-        return response()->json(['message' => 'Employee Berhasil di Tambahkan!']);
+        try {
+            Excel::import(new EmployeeImport, $request->file('employee_import'));
+            //return response
+            return response()->json(['message' => 'Employee Berhasil di Tambahkan!']);
+        } catch (\Exception $e) {
+            $errorMessage = json_decode($e->getMessage(), true);
+            return response()->json([
+                'error' => $errorMessage,
+            ], 404);
+        }
     }
 }

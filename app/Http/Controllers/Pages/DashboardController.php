@@ -35,13 +35,14 @@ class DashboardController extends Controller
         $day_off_count_parent = DayOffRequest::where('approved_line_parent', auth()->user()->employee->id)->where('is_approved', 'Verifikasi')->count();
         $attendance_count_child = AttendanceRequest::where('approved_line_child', auth()->user()->employee->id)->where('is_approved', 'Pending')->count();
         $attendance_count_parent = AttendanceRequest::where('approved_line_parent', auth()->user()->employee->id)->where('is_approved', 'Verifikasi')->count();
+
         return [
             'day_off_notify' => $day_off_notify,
             'attendance_notify' => $attendance_notify,
             'day_off_count_child' => $day_off_count_child,
             'day_off_count_parent' => $day_off_count_parent,
             'attendance_count_parent' => $attendance_count_parent,
-            'attendance_count_child' => $attendance_count_child
+            'attendance_count_child' => $attendance_count_child,
         ];
     }
 
@@ -173,15 +174,18 @@ class DashboardController extends Controller
     public function dayOffRequest()
     {
         $getNotify = $this->getNotify();
-        $day_off_requests = DayOffRequest::all();
+        $day_off_requests = DayOffRequest::where('employee_id', auth()->user()->employee->id)->latest()->get();
         $attendance_code = AttendanceCode::all();
         return view('pages.pengajuan.pengajuan-cuti.index', compact('day_off_requests', 'attendance_code', 'getNotify'));
     }
     public function getDayOffRequest($id)
     {
-        $getNotify = $this->getNotify();
         $day_off_requests = DayOffRequest::where('id', $id)->get();
+        if ($day_off_requests[0]->approved_line_child !== auth()->user()->employee->id && $day_off_requests[0]->approved_line_parent !== auth()->user()->employee->id) {
+            return redirect()->route('dashboard')->with('error', 'Anda tidak bisa mengakses ini!');
+        }
+        $getNotify = $this->getNotify();
         $attendance_code = AttendanceCode::all();
-        return view('pages.pengajuan.pengajuan-cuti.index', compact('day_off_requests', 'attendance_code', 'getNotify'));
+        return view('pages.pengajuan.pengajuan-cuti.show', compact('day_off_requests', 'attendance_code', 'getNotify'));
     }
 }

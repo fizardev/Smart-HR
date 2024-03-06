@@ -870,7 +870,10 @@
                         }, 500);
                     },
                     error: function(xhr, textStatus, errorThrown) {
-                        console.error('Gagal menyimpan data:', errorThrown);
+                        alert('Gagal:', errorThrown);
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1000);
                         // Tampilkan pesan error kepada pengguna
                     }
                 });

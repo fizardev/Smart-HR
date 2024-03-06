@@ -8,6 +8,7 @@ use App\Models\DayOffRequest;
 use App\Models\Employee;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DayOffRequestController extends Controller
 {
@@ -73,8 +74,29 @@ class DayOffRequestController extends Controller
     public function approve($id)
     {
         $day_off_request = DayOffRequest::find($id);
+        // dd($day_off_request);
+        if ($day_off_request->approved_line_child !== null && $day_off_request->approved_line_parent == null) {
+            $is_approved = "Disetujui";
+        } else if (($day_off_request->approved_line_child !== null && $day_off_request->approved_line_parent !== null) && ($day_off_request->approved_line_child == request()->employee_id)) {
+            $is_approved = "Verifikasi";
+        } else if (($day_off_request->approved_line_child !== null && $day_off_request->approved_line_parent !== null) && ($day_off_request->approved_line_parent == request()->employee_id)) {
+            $is_approved = "Disetujui";
+            $startDate = Carbon::parse($day_off_request->start_date);
+            $endDate = Carbon::parse($day_off_request->end_date);
+
+            for ($date = $startDate; $date->lte($endDate); $date->addDay()) {
+                // Lakukan sesuatu dengan $date di sini
+                // echo $date->toDateString() . "\n";
+                DB::table('attendances')
+                    ->where('date', $date->toDateString())
+                    ->where('employee_id', $day_off_request->employee_id)
+                    ->update(['is_day_off' => '1', 'day_off_request_id' => $id]);
+            }
+        }
         $day_off_request->update([
-            'is_approved' => request()->is_approved
+            'is_approved' => $is_approved
         ]);
+
+        return response()->json(['message' => 'Status Pengajuan: ' . $is_approved]);
     }
 }
