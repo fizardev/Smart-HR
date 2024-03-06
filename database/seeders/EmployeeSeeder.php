@@ -16,7 +16,7 @@ class EmployeeSeeder extends Seeder
         $employees = [
             [
                 'fullname' => "Dimas Candra Pebriyanto",
-                'email' => "dimas@livasya.id",
+                'email' => "dimas@livasya.com",
                 'mobile_phone' => "6283865284307",
                 'place_of_birth' => 'Majalengka',
                 'birthdate' => "2003-02-18",
@@ -69,7 +69,7 @@ class EmployeeSeeder extends Seeder
             ],
             [
                 'fullname' => "Fizar Rama Waluyo, S. Kom.",
-                'email' => "fizar@livasya.id",
+                'email' => "fizar@livasya.com",
                 'mobile_phone' => "6283865284307",
                 'place_of_birth' => 'Majalengka',
                 'birthdate' => "2003-02-18",

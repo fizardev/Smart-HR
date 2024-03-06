@@ -184,4 +184,17 @@ class DashboardController extends Controller
         $attendance_code = AttendanceCode::all();
         return view('pages.pengajuan.pengajuan-cuti.index', compact('day_off_requests', 'attendance_code', 'getNotify'));
     }
+
+    public function attendanceRequest()
+    {
+        $getNotify = $this->getNotify();
+        $attendance_requests = AttendanceRequest::all();
+        return view('pages.pengajuan.pengajuan-absensi.index', compact('attendance_requests', 'getNotify'));
+    }
+    public function getAttendanceRequest($id)
+    {
+        $getNotify = $this->getNotify();
+        $attendance_requests = AttendanceRequest::where('id', $id)->get();
+        return view('pages.pengajuan.pengajuan-absensi.index', compact('attendance_requests', 'getNotify'));
+    }
 }
