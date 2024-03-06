@@ -199,7 +199,7 @@ class DashboardController extends Controller
         $attendances = Attendance::where('employee_id', auth()->user()->employee->id)
             ->whereIn('date', $rangeDates)
             ->get();
-        dd($attendances);
+        // dd($attendances);
         // $attendance_code = AttendanceCode::all();
         return view('pages.absensi.absensi.index', compact('attendances', 'getNotify'));
     }
