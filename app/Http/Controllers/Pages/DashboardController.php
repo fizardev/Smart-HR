@@ -55,12 +55,18 @@ class DashboardController extends Controller
             ->orderBy('date', 'desc') // Urutkan berdasarkan tanggal secara menurun
             ->limit(3) // Batasi hasil menjadi tiga entri
             ->get();
-        $day_off_notify = $this->getNotify()['day_off_notify'];
-        $attendance_notify = $this->getNotify()['attendance_notify'];
+        $hadir = Attendance::where('is_day_off', null)->where('employee_id', auth()->user()->employee->id)->where('clock_in', '!=', null)->count();
+        $izin = DayOffRequest::where('employee_id', auth()->user()->employee->id)->where('attendance_code_id', 1)->count();
+        $sakit = DayOffRequest::where('employee_id', auth()->user()->employee->id)->where('attendance_code_id', 2)->count();
+        $cuti = DayOffRequest::where('employee_id', auth()->user()->employee->id)->where('attendance_code_id', '!==', 2)->count() + DayOffRequest::where('employee_id', auth()->user()->employee->id)->where('attendance_code_id', '!==', 1)->count();
         // dd($this->getNotify());
         return view('dashboard', [
             'attendances' => $attendances,
-            'getNotify' => $this->getNotify()
+            'getNotify' => $this->getNotify(),
+            'jumlah_izin' => $izin,
+            'jumlah_sakit' => $sakit,
+            'jumlah_cuti' => $cuti,
+            'jumlah_hadir' => $hadir,
         ]);
     }
 

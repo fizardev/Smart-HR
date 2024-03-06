@@ -40,6 +40,42 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card-group text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $jumlah_hadir }}</h5>
+                            <p class="card-text">Jumlah Kehadiran
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $jumlah_izin }}</h5>
+                            <p class="card-text">Jumlah Izin
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $jumlah_sakit }}</h5>
+                            <p class="card-text">Jumlah Sakit
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $jumlah_cuti }}</h5>
+                            <p class="card-text">Jumlah Cuti
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
             @if ($attendances->count() > 0)
                 <div class="col-xl-12">
                     <div id="panel-1" class="panel">
