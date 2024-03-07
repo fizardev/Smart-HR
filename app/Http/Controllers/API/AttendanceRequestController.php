@@ -24,7 +24,7 @@ class AttendanceRequestController extends Controller
                 'clockin' => 'required_if:check_clockin,on|date_format:H:i',
                 'clockout' => 'required_if:check_clockout,on|date_format:H:i',
                 'file' => 'nullable|file',
-                'deskripsi' => 'nullable|string',
+                'description' => 'nullable|string',
             ]);
 
             $employee = Employee::where('id', request()->employee_id)->first(['approval_line', 'approval_line_parent']);
@@ -48,7 +48,7 @@ class AttendanceRequestController extends Controller
                     'clockin' => request()->clockin,
                     'clockout' => request()->clockout,
                     'file' => $imageName,
-                    'deskripsi' => request()->deskripsi,
+                    'description' => request()->description,
                 ]);
             } else {
                 AttendanceRequest::create([
@@ -59,7 +59,7 @@ class AttendanceRequestController extends Controller
                     'approved_line_parent' => $employee->approval_line_parent,
                     'clockin' => request()->clockin,
                     'clockout' => request()->clockout,
-                    'deskripsi' => request()->deskripsi,
+                    'description' => request()->description,
                 ]);
             }
 

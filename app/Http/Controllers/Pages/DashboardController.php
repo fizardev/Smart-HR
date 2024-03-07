@@ -48,6 +48,20 @@ class DashboardController extends Controller
 
     public function index()
     {
+        // Jika tanggal saat ini sudah setelah tanggal 25, maka kita akan menggunakan bulan ini
+        $startDate = Carbon::now()->subMonth()->startOfMonth()->addDays(25);
+
+        // Tanggal akhir adalah 25 bulan sekarang
+        $endDate = Carbon::now()->startOfMonth()->addDays(25);
+
+        // Membuat range tanggal antara $startDate dan $endDate
+        $rangeDates = [];
+        for ($date = $startDate; $date->lte($endDate); $date->addDay()) {
+            $rangeDates[] = $date->toDateString();
+        }
+        // Membalikkan array $rangeDates agar tanggal terlama berada di bagian bawah
+        $rangeDates = array_reverse($rangeDates);
+
         $employeeID = Auth::user()->employee->id;
         // Mengambil tiga entri terakhir untuk seorang karyawan berdasarkan employee_id dan tanggal
         $attendances = Attendance::where('employee_id', $employeeID)
@@ -55,17 +69,30 @@ class DashboardController extends Controller
             ->orderBy('date', 'desc') // Urutkan berdasarkan tanggal secara menurun
             ->limit(3) // Batasi hasil menjadi tiga entri
             ->get();
-        $hadir = Attendance::where('is_day_off', null)->where('employee_id', auth()->user()->employee->id)->where('clock_in', '!=', null)->count();
-        $izin = DayOffRequest::where('employee_id', auth()->user()->employee->id)->where('attendance_code_id', 1)->count();
-        $sakit = DayOffRequest::where('employee_id', auth()->user()->employee->id)->where('attendance_code_id', 2)->count();
-        $cuti = DayOffRequest::where('employee_id', auth()->user()->employee->id)->where('attendance_code_id', '!==', 2)->count() + DayOffRequest::where('employee_id', auth()->user()->employee->id)->where('attendance_code_id', '!==', 1)->count();
+
+        $hadir = Attendance::where('employee_id', auth()->user()->employee->id)->where('is_day_off', null)->where('clock_in', '!=', null)->whereIn('date', $rangeDates)->count();
+        $day_off = Attendance::where('employee_id', auth()->user()->employee->id)->where('day_off_request_id', '!=', null)->whereIn('date', $rangeDates)->get();
+        $jumlah_izin = 0;
+        $jumlah_sakit = 0;
+        $jumlah_cuti = 0;
+
+        foreach ($day_off as $row) {
+            $code = $row->day_off->attendance_code->code;
+            if ($code == "I") {
+                $jumlah_izin++;
+            } else if ($code == "S") {
+                $jumlah_sakit++;
+            } else {
+                $jumlah_cuti++;
+            }
+        }
         // dd($this->getNotify());
         return view('dashboard', [
             'attendances' => $attendances,
             'getNotify' => $this->getNotify(),
-            'jumlah_izin' => $izin,
-            'jumlah_sakit' => $sakit,
-            'jumlah_cuti' => $cuti,
+            'jumlah_izin' => $jumlah_izin,
+            'jumlah_sakit' => $jumlah_sakit,
+            'jumlah_cuti' => $jumlah_cuti,
             'jumlah_hadir' => $hadir,
         ]);
     }
@@ -224,7 +251,7 @@ class DashboardController extends Controller
     public function attendanceRequest()
     {
         $getNotify = $this->getNotify();
-        $attendance_requests = AttendanceRequest::all();
+        $attendance_requests = AttendanceRequest::where('employee_id', auth()->user()->employee->id)->get();
         return view('pages.absensi.pengajuan-absensi.index', compact('attendance_requests', 'getNotify'));
     }
     public function getAttendanceRequest($id)

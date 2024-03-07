@@ -13,7 +13,7 @@
             color: #666666 !important;
         }
 
-        .badge.pos-top.pos-right {
+        .badge.pos-top.pos-right.dashboard-report {
             font-size: 0.9em;
             top: 9px;
             right: 12px;
@@ -71,7 +71,7 @@
             <div class="col-md-3 pr-1" style="width: 25%; padding-left: 0px !important!">
                 <div class="card">
                     <div class="card-body p-2">
-                        <span class="badge badge-icon pos-top pos-right">{{ $jumlah_hadir }}</span>
+                        <span class="badge badge-icon pos-top pos-right dashboard-report">{{ $jumlah_hadir }}</span>
                         <div class="icon-dashboard-report text-primary">
                             <i class="fal fa-user-alt hadir"></i>
                         </div>
@@ -84,7 +84,7 @@
             <div class="col-md-3 px-1" style="width: 25%">
                 <div class="card">
                     <div class="card-body p-2">
-                        <span class="badge badge-icon pos-top pos-right">{{ $jumlah_izin }}</span>
+                        <span class="badge badge-icon pos-top pos-right dashboard-report">{{ $jumlah_izin }}</span>
                         <div class="icon-dashboard-report text-success">
                             <i class="fal fa-file-alt"></i>
                         </div>
@@ -97,7 +97,7 @@
             <div class="col-md-3 px-1" style="width: 25%">
                 <div class="card">
                     <div class="card-body p-2">
-                        <span class="badge badge-icon pos-top pos-right">{{ $jumlah_sakit }}</span>
+                        <span class="badge badge-icon pos-top pos-right dashboard-report">{{ $jumlah_sakit }}</span>
                         <div class="icon-dashboard-report text-danger">
                             <i class="fal fa-first-aid"></i>
                         </div>
@@ -110,7 +110,7 @@
             <div class="col-md-3 pl-1" style="width: 25%; padding-right: 0px !important!">
                 <div class="card">
                     <div class="card-body p-2">
-                        <span class="badge badge-icon pos-top pos-right">{{ $jumlah_cuti }}</span>
+                        <span class="badge badge-icon pos-top pos-right dashboard-report">{{ $jumlah_cuti }}</span>
                         <div class="icon-dashboard-report text-warning">
                             <i class="fal fa-clock"></i>
                         </div>

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class AttendanceRequest extends Model
 {
     use HasFactory;
-
+    protected $table = 'attendance_requests';
     protected $guarded = ['id'];
 
     public function attendance()

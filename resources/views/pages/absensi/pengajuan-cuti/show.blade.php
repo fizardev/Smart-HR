@@ -24,6 +24,14 @@
                                 </span>
                             </div>
                             <div class="pb-3 pt-2 border-top-0 border-left-0 border-right-0 text-muted">
+                                <p>
+                                    <span class="text-primary font-weight-bold" style="font-size: 1.1em">Pengajuan
+                                        {{ $item->attendance_code->description }}</span> :
+                                    <br>
+                                    Mulai : <span class="text-danger">{{ tgl($item->start_date) }}</span> <br>
+                                    Akhir : <span class="text-danger">{{ tgl($item->end_date) }} </span>
+                                    <hr style="border-color: #dddddd">
+                                </p>
                                 <p>{{ $item->description }}</p>
                                 <img src="{{ asset('/storage/img/pengajuan/cuti/' . $item->photo) }}" class="img-fluid"
                                     alt="">
