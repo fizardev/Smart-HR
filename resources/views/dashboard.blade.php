@@ -28,7 +28,7 @@
         @media screen and (max-width: 500px) {
 
             .badge.pos-top.pos-right.dashboard-report {
-                font-size: 0.8em;
+                font-size: 0.9em;
                 height: 15px;
                 width: 15px;
             }

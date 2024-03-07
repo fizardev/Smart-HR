@@ -2,16 +2,6 @@
 @section('title', 'User')
 @section('content')
     <main id="js-page-content" role="main" class="page-content">
-        <div class="row mb-5">
-            <div class="col-xl-12">
-                <button type="button" class="btn btn-primary waves-effect waves-themed" data-backdrop="static"
-                    data-keyboard="false" data-toggle="modal" data-target="#tambah-data" title="Tambah User">
-                    <span class="fal fa-plus-circle mr-1"></span>
-                    Ajukan Cuti
-                </button>
-            </div>
-        </div>
-
         <div class="row">
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
