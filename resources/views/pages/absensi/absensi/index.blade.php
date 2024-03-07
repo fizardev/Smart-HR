@@ -23,60 +23,65 @@
                     <div class="panel-container show">
                         <div class="panel-content">
                             <!-- datatable start -->
-                            <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
-                                <thead>
-                                    <tr>
-                                        <th style="white-space: nowrap">Tanggal</th>
-                                        <th style="white-space: nowrap">Clock In</th>
-                                        <th style="white-space: nowrap">Clock Out</th>
-                                        <th style="white-space: nowrap">Libur</th>
-                                        <th style="white-space: nowrap">Keterangan</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($attendances as $row)
+                            <div class="table-responsive">
+                                <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
+                                    <thead>
                                         <tr>
-                                            <td style="white-space: nowrap">
-                                                {{ \Carbon\Carbon::parse($row->date)->translatedFormat('j F Y') }}
-                                            </td>
-                                            <td style="white-space: nowrap"
-                                                class="{{ $row->clock_in && \Carbon\Carbon::parse($row->clock_in)->format('H:i') > \Carbon\Carbon::parse($row->shift->time_in)->format('H:i') ? 'text-danger' : '' }}">
-                                                @isset($row->clock_in)
-                                                    {{ \Carbon\Carbon::parse($row->clock_in)->format('H:i') }}
-                                                @else
-                                                    -
-                                                @endisset
-                                            </td>
-                                            <td style="white-space: nowrap"
-                                                class="{{ $row->clock_out && \Carbon\Carbon::parse($row->clock_out)->format('H:i') < \Carbon\Carbon::parse($row->shift->time_out)->format('H:i') ? 'text-danger' : '' }}">
-                                                @isset($row->clock_out)
-                                                    {{ \Carbon\Carbon::parse($row->clock_out)->format('H:i') }}
-                                                @else
-                                                    -
-                                                @endisset
-                                            </td>
-                                            <td style="white-space: nowrap">{{ $row->is_day_off == 1 ? 'Ya' : '-' }}
-                                            </td>
-                                            <td style="white-space: nowrap">
-                                                @isset($row->day_off)
-                                                    {{ $row->day_off->attendance_code->description }}
-                                                @else
-                                                    -
-                                                @endisset
-                                            </td>
+                                            <th style="white-space: nowrap">No</th>
+                                            <th style="white-space: nowrap">Tanggal</th>
+                                            <th style="white-space: nowrap">Clock In</th>
+                                            <th style="white-space: nowrap">Clock Out</th>
+                                            <th style="white-space: nowrap">Libur</th>
+                                            <th style="white-space: nowrap">Keterangan</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th style="white-space: nowrap">No</th>
-                                        <th style="white-space: nowrap">Tanggal</th>
-                                        <th style="white-space: nowrap">Jenis Cuti</th>
-                                        <th style="white-space: nowrap">Keterangan</th>
-                                        <th style="white-space: nowrap">Status</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($attendances as $row)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td style="white-space: nowrap">
+                                                    {{ \Carbon\Carbon::parse($row->date)->translatedFormat('j F Y') }}
+                                                </td>
+                                                <td style="white-space: nowrap"
+                                                    class="{{ $row->clock_in && \Carbon\Carbon::parse($row->clock_in)->format('H:i') > \Carbon\Carbon::parse($row->shift->time_in)->format('H:i') ? 'text-danger' : '' }}">
+                                                    @isset($row->clock_in)
+                                                        {{ \Carbon\Carbon::parse($row->clock_in)->format('H:i') }}
+                                                    @else
+                                                        -
+                                                    @endisset
+                                                </td>
+                                                <td style="white-space: nowrap"
+                                                    class="{{ $row->clock_out && \Carbon\Carbon::parse($row->clock_out)->format('H:i') < \Carbon\Carbon::parse($row->shift->time_out)->format('H:i') ? 'text-danger' : '' }}">
+                                                    @isset($row->clock_out)
+                                                        {{ \Carbon\Carbon::parse($row->clock_out)->format('H:i') }}
+                                                    @else
+                                                        -
+                                                    @endisset
+                                                </td>
+                                                <td style="white-space: nowrap">{{ $row->is_day_off == 1 ? 'Ya' : '-' }}
+                                                </td>
+                                                <td style="white-space: nowrap">
+                                                    @isset($row->day_off)
+                                                        {{ $row->day_off->attendance_code->description }}
+                                                    @else
+                                                        -
+                                                    @endisset
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th style="white-space: nowrap">No</th>
+                                            <th style="white-space: nowrap">Tanggal</th>
+                                            <th style="white-space: nowrap">Clock In</th>
+                                            <th style="white-space: nowrap">Clock Out</th>
+                                            <th style="white-space: nowrap">Libur</th>
+                                            <th style="white-space: nowrap">Keterangan</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
                             <!-- datatable end -->
                         </div>
                     </div>
@@ -169,9 +174,10 @@
                 });
             })
 
-            $('#dt-basic-example').dataTable({
-                responsive: true
-            });
+            // $('#dt-basic-example').dataTable({
+            //     responsive: true,
+            //     pageLength: 31
+            // });
 
             $('.js-thead-colors a').on('click', function() {
                 var theadColor = $(this).attr("data-bg");
