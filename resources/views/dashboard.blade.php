@@ -24,6 +24,17 @@
             justify-content: center;
             align-items: center;
         }
+
+        @media screen and (max-width: 500px) {
+
+            .badge.pos-top.pos-right.dashboard-report {
+                font-size: 0.8em;
+                height: 15px;
+                width: 15px;
+            }
+        }
+
+        .badge.pos-top.pos-right.dashboard-report {}
     </style>
 @endsection
 @section('content')
