@@ -83,10 +83,18 @@ class AttendanceRequestController extends Controller
         } else if (($attendance_request->approved_line_child !== null && $attendance_request->approved_line_parent !== null) && ($attendance_request->approved_line_parent == request()->employee_id)) {
             $is_approved = "Disetujui";
 
+            // Periksa apakah ada data clock_in dan clock_out yang dikirim
+            $updateData = ['clock_in' => $attendance_request->clockin];
+            if ($attendance_request->clockout) {
+                $updateData['clock_out'] = $attendance_request->clockout;
+                $updateData['late_clock_in'] = null;
+                $updateData['early_clock_out'] = null;
+            }
+
             DB::table('attendances')
                 ->where('id', $attendance_request->attendance_id)
                 ->where('employee_id', $attendance_request->employee_id)
-                ->update(['clock_in' => $attendance_request->clockin, 'clock_out' => $attendance_request->clockout, 'late_clock_in' => null, 'early_clock_out' => null]);
+                ->update($updateData);
         }
         $attendance_request->update([
             'is_approved' => $is_approved
