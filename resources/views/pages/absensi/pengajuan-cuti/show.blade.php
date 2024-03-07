@@ -25,7 +25,7 @@
                             </div>
                             <div class="pb-3 pt-2 border-top-0 border-left-0 border-right-0 text-muted">
                                 <p>{{ $item->description }}</p>
-                                <img src="{{ asset('storage/img/pengajuan/cuti/' . $item->photo) }}" class="img-fluid"
+                                <img src="{{ asset('/storage/img/pengajuan/cuti/' . $item->photo) }}" class="img-fluid"
                                     alt="">
                             </div>
                             <div class="d-flex align-items-center mt-1">
