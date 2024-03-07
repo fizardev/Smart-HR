@@ -209,6 +209,7 @@ class DashboardController extends Controller
         // $attendance_code = AttendanceCode::all();
         return view('pages.absensi.absensi.index', compact('attendances', 'getNotify'));
     }
+
     public function getDayOffRequest($id)
     {
         $day_off_requests = DayOffRequest::where('id', $id)->get();
@@ -218,5 +219,18 @@ class DashboardController extends Controller
         $getNotify = $this->getNotify();
         $attendance_code = AttendanceCode::all();
         return view('pages.absensi.pengajuan-cuti.show', compact('day_off_requests', 'attendance_code', 'getNotify'));
+    }
+
+    public function attendanceRequest()
+    {
+        $getNotify = $this->getNotify();
+        $attendance_requests = AttendanceRequest::all();
+        return view('pages.absensi.pengajuan-absensi.index', compact('attendance_requests', 'getNotify'));
+    }
+    public function getAttendanceRequest($id)
+    {
+        $getNotify = $this->getNotify();
+        $attendance_requests = AttendanceRequest::where('id', $id)->get();
+        return view('pages.absensi.pengajuan-absensi.show', compact('attendance_requests', 'getNotify'));
     }
 }

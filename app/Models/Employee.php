@@ -42,4 +42,8 @@ class Employee extends Model
     {
         return $this->hasMany(DayOffRequest::class);
     }
+    public function attendance_requests()
+    {
+        return $this->hasMany(AttendanceRequest::class);
+    }
 }

@@ -116,12 +116,12 @@ Route::prefix('dashboard')->group(function () {
         Route::get('/get/{id}', [StructureController::class, 'getStructure']);
         Route::get('/delete/{id}', [StructureController::class, 'destroy']);
     });
-    Route::prefix('attendance-request')->group(function () {
-        Route::post('/store', [AttendanceRequestController::class, 'store']);
-    });
 });
 
 Route::prefix('employee')->group(function () {
+    Route::post('request/attendance', [AttendanceRequestController::class, 'store']);
+    Route::put('approve/attendance/{id}', [AttendanceRequestController::class, 'approve']);
+
     Route::post('request/day-off', [DayOffRequestController::class, 'store']);
     Route::put('approve/day-off/{id}', [DayOffRequestController::class, 'approve']);
 });

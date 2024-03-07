@@ -334,7 +334,7 @@
                                         @foreach ($getNotify['attendance_notify'] as $row)
                                             @if ($row->approved_line_child == auth()->user()->employee->id && $row->is_approved == 'Pending')
                                                 <li class="unread">
-                                                    <a href="{{ route('day-off-requests.get', $row->id) }}"
+                                                    <a href="{{ route('attendance-requests.get', $row->id) }}"
                                                         class="d-flex align-items-center">
                                                         <span class="status mr-2">
                                                             <span class="profile-image rounded-circle d-inline-block"
@@ -342,10 +342,11 @@
                                                         </span>
                                                         <span class="d-flex flex-column flex-1 ml-1">
                                                             <span class="name">{{ $row->employee->fullname }} <span
-                                                                    class="badge badge-primary fw-n position-absolute pos-top pos-right mt-1">{{ $row->attendance_code->code }}</span></span>
-                                                            <span class="msg-a fs-sm text-danger">{{ $row->start_date }}
-                                                                s.d.
-                                                                {{ $row->end_date }}</span>
+                                                                    class="badge badge-primary fw-n position-absolute pos-top pos-right mt-1">{{ $row->clockin != '' && $row->clockout != '' ? 'Absensi' : ($row->clockin != '' ? 'Clock-in' : ($row->clockout != '' ? 'Clock-out' : '')) }}
+                                                                </span></span>
+                                                            <span class="msg-a fs-sm text-danger">{{ tgl($row->date) }} -
+                                                                {{ $row->clockin == '' ? $row->clockout : ($row->clockin != '' && $row->clockout != '' ? $row->clockin . ' - ' . $row->clockout : $row->clockin) }}
+                                                            </span>
                                                             <span
                                                                 class="msg-b fs-xs">{{ Str::limit($row->description, $limit = 50, $end = '...') }}</span>
                                                             <span
@@ -356,7 +357,7 @@
                                             @endif
                                             @if ($row->approved_line_parent == auth()->user()->employee->id && $row->is_approved == 'Verifikasi')
                                                 <li class="unread">
-                                                    <a href="{{ route('day-off-requests.get', $row->id) }}"
+                                                    <a href="{{ route('attendance-requests.get', $row->id) }}"
                                                         class="d-flex align-items-center">
                                                         <span class="status mr-2">
                                                             <span class="profile-image rounded-circle d-inline-block"
@@ -364,10 +365,9 @@
                                                         </span>
                                                         <span class="d-flex flex-column flex-1 ml-1">
                                                             <span class="name">{{ $row->employee->fullname }} <span
-                                                                    class="badge badge-primary fw-n position-absolute pos-top pos-right mt-1">{{ $row->attendance_code->code }}</span></span>
-                                                            <span class="msg-a fs-sm text-danger">{{ $row->start_date }}
-                                                                s.d.
-                                                                {{ $row->end_date }}</span>
+                                                                    class="badge badge-primary fw-n position-absolute pos-top pos-right mt-1"></span></span>
+                                                            <span class="msg-a fs-sm text-danger">{{ tgl($row->date) }} -
+                                                                {{ $row->clockin ?? $row->clockout }}</span>
                                                             <span
                                                                 class="msg-b fs-xs">{{ Str::limit($row->description, $limit = 50, $end = '...') }}</span>
                                                             <span
