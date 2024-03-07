@@ -84,8 +84,14 @@ class AttendanceRequestController extends Controller
             $is_approved = "Disetujui";
 
             // Periksa apakah ada data clock_in dan clock_out yang dikirim
-            $updateData = ['clock_in' => $attendance_request->clockin];
-            if ($attendance_request->clockout) {
+            if ($attendance_request->clockin == null) {
+                $updateData = ['clock_out' => $attendance_request->clockout];
+                $updateData['early_clock_out'] = null;
+            } else if ($attendance_request->clockout == null) {
+                $updateData['clock_in'] = $attendance_request->clockin;
+                $updateData['late_clock_in'] = null;
+            } else if ($attendance_request->clockin != null && $attendance_request->clockout != null) {
+                $updateData['clock_in'] = $attendance_request->clockin;
                 $updateData['clock_out'] = $attendance_request->clockout;
                 $updateData['late_clock_in'] = null;
                 $updateData['early_clock_out'] = null;
