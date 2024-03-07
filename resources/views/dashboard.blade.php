@@ -1,5 +1,31 @@
 @extends('inc.layout')
 @section('title', 'Marketing Dashboard')
+@section('extended-css')
+    <style>
+        .icon-dashboard-report {
+            font-size: 2em;
+            text-align: center;
+        }
+
+        .text-dashboard-report {
+            font-size: 1em;
+            text-align: center;
+            color: #666666 !important;
+        }
+
+        .badge.pos-top.pos-right {
+            font-size: 0.9em;
+            top: 9px;
+            right: 12px;
+            border-radius: 50%;
+            height: 20px;
+            width: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+@endsection
 @section('content')
     <main id="js-page-content" role="main" class="page-content">
         <div class="row">
@@ -41,35 +67,55 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card-group text-center">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $jumlah_hadir }}</h5>
-                            <p class="card-text">Jumlah Kehadiran
-                            </p>
+        <div class="row d-flex">
+            <div class="col-md-3 pr-1" style="width: 25%; padding-left: 0px !important!">
+                <div class="card">
+                    <div class="card-body p-2">
+                        <span class="badge badge-icon pos-top pos-right">{{ $jumlah_hadir }}</span>
+                        <div class="icon-dashboard-report text-primary">
+                            <i class="fal fa-user-alt hadir"></i>
+                        </div>
+                        <div class="text-dashboard-report">
+                            Hadir
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $jumlah_izin }}</h5>
-                            <p class="card-text">Jumlah Izin
-                            </p>
+                </div>
+            </div>
+            <div class="col-md-3 px-1" style="width: 25%">
+                <div class="card">
+                    <div class="card-body p-2">
+                        <span class="badge badge-icon pos-top pos-right">{{ $jumlah_izin }}</span>
+                        <div class="icon-dashboard-report text-success">
+                            <i class="fal fa-file-alt"></i>
+                        </div>
+                        <div class="text-dashboard-report">
+                            Izin
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $jumlah_sakit }}</h5>
-                            <p class="card-text">Jumlah Sakit
-                            </p>
+                </div>
+            </div>
+            <div class="col-md-3 px-1" style="width: 25%">
+                <div class="card">
+                    <div class="card-body p-2">
+                        <span class="badge badge-icon pos-top pos-right">{{ $jumlah_sakit }}</span>
+                        <div class="icon-dashboard-report text-danger">
+                            <i class="fal fa-first-aid"></i>
+                        </div>
+                        <div class="text-dashboard-report">
+                            Sakit
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $jumlah_cuti }}</h5>
-                            <p class="card-text">Jumlah Cuti
-                            </p>
+                </div>
+            </div>
+            <div class="col-md-3 pl-1" style="width: 25%; padding-right: 0px !important!">
+                <div class="card">
+                    <div class="card-body p-2">
+                        <span class="badge badge-icon pos-top pos-right">{{ $jumlah_cuti }}</span>
+                        <div class="icon-dashboard-report text-warning">
+                            <i class="fal fa-clock"></i>
+                        </div>
+                        <div class="text-dashboard-report">
+                            Cuti
                         </div>
                     </div>
                 </div>

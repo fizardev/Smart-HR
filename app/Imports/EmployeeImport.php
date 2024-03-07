@@ -86,8 +86,13 @@ class EmployeeImport implements ToCollection, WithHeadingRow
                         'name' => $row['fullname'],
                         'email' => $row['email'],
                     ]);
-
-                    $user->assignRole('employee');
+                    if ($organization->name == "Unit SDM") {
+                        $user->assignRole('hr');
+                    } else if ($organization->name == "Direksi") {
+                        $user->assignRole('manager');
+                    } else {
+                        $user->assignRole('employee');
+                    }
                 } else {
                     continue;
                 }
